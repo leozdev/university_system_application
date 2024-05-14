@@ -1,84 +1,49 @@
-disciplina = { 
-    'APR1' : { 
-        'nome': 'Algoritmos',
-        'ementa': 'BES', 
-        'bibliografia': 'blabla',
-        'n_creditos': '10',
-        'carga_horarria': '122h'
-    }
-}
+import disciplinas
+import professores
+import prof_disc
+import relatorios
+import os
 
+# 1 - Lista todos
+# 2 - Listar um elemento específico do conjunto
+# 3 - Incluir (sem repetição)
+# 4 - Alterar 
+# 5 - Excluir (após confirmação dos dados) um elemento do conjunto. 
 
-def existe_disciplina(dic,sigla):
-    if sigla in dic.keys():
-        return True
-    else:
-        return False
-    
-    
-def insere_disciplina(dic):
+def menu():
+    os.system('cls')
+    print('1 - Submenu de Professores')
+    print('2 - Submenu de Disciplinas')
+    print('3 - Submenu de Professores-Disciplinas')
+    print('4 - Submenu Relatórios')
+    print('5 - Sair')
+    opt = int(input())
+    return opt
 
-    sigla = input("Digite a sigla da disciplina: ")
+def submenu_professores():
+    os.system('cls')
+    print('1 - Listar Todos Dados Cadastrados')
+    print('2 - Listar um Elemento Específico do Cadastro')
+    print('3 - Incluir Cadastro')
+    print('4 - Alterar um Dado do Cadastro')
+    print('5 - Excluir um Dado do Cadastro')
+    print('6 - Voltar')
+    opt = int(input())
+    return opt
 
-    
-    if existe_disciplina(dic,sigla):
-        print("Disciplina já cadastrada!")
-        input("Tecle <ENTER> para continuar...\n")
-        
-    else:
-        nome = input("Digite o nome da disciplina: ")
-        ementa = input("Digite a ementa da disciplina: ")
-        bibliografia = input("Digite a bibliografia da disciplina: ")
-        n_creditos = input("Digite o número de creditos da disciplina: ")
-        carga_horaria = input("Digite a carga horaria da disciplina: ")
+def submenu_disciplinas():
+    ...
 
-        dic[sigla] = {
-        'nome': nome,
-        'ementa': ementa, 
-        'bibliografia': bibliografia,
-        'n_creditos': n_creditos,
-        'carga_horarria': carga_horaria
-        }
+def submenu_prof_disc():
+    ...
 
-        print("Dados inseridos com sucesso!")
-
-
-def altera_disciplina(dic):
-    sigla = input("Digite a sigla da disciplina: ")
-    
-    if existe_disciplina(dic,sigla):
-        confirma = input("Tem certeza que deseja alterar? (S/N): ").upper()
-        
-        if confirma == 'S':
-            nome = input("Digite o nome da disciplina: ")
-            ementa = input("Digite a ementa da disciplina: ")
-            bibliografia = input("Digite a bibliografia da disciplina: ")
-            n_creditos = input("Digite o número de creditos da disciplina: ")
-            carga_horaria = input("Digite a carga horaria da disciplina: ")
-
-            dic[sigla] = {
-            'nome': nome,
-            'ementa': ementa, 
-            'bibliografia': bibliografia,
-            'n_creditos': n_creditos,
-            'carga_horarria': carga_horaria
-            }
-            
-            print("Dados alterados com sucesso!")
-            
-        else:
-            print("Alteração cancelada!")
-
-    else:
-        print("Disciplina não foi encontrada!")
-
-
-altera_disciplina(disciplina)
-print(disciplina)
-
+def submenu_relatorios():
+    ...
 
 def main():
-    ...
+    opt = 1
+    while opt != 5:
+        opt = menu()
 
 if __name__ == "__main__":
     main()
