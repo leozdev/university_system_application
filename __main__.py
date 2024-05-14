@@ -1,9 +1,10 @@
-import disciplinas
+# import disciplinas
 import professores
 import prof_disc
 import relatorios
 import os
 
+# SUBMENU's:
 # 1 - Lista todos
 # 2 - Listar um elemento específico do conjunto
 # 3 - Incluir (sem repetição)
@@ -20,17 +21,6 @@ def menu():
     opt = int(input())
     return opt
 
-def submenu_professores():
-    os.system('cls')
-    print('1 - Listar Todos Dados Cadastrados')
-    print('2 - Listar um Elemento Específico do Cadastro')
-    print('3 - Incluir Cadastro')
-    print('4 - Alterar um Dado do Cadastro')
-    print('5 - Excluir um Dado do Cadastro')
-    print('6 - Voltar')
-    opt = int(input())
-    return opt
-
 def submenu_disciplinas():
     ...
 
@@ -41,9 +31,33 @@ def submenu_relatorios():
     ...
 
 def main():
-    opt = 1
-    while opt != 5:
-        opt = menu()
+    dados_professores = {}
+
+    opt_menu = 1
+    while opt_menu != 5:
+        opt_menu = menu()
+
+        # Submenu Professores
+        if opt_menu == 1:
+            os.system('cls')
+            professores.submenu_professores(dados_professores)
+
+        # Submenu Disciplinas
+        elif opt_menu == 2:
+            submenu_disciplinas()
+
+        # Submenu Prof Disc
+        elif opt_menu == 3:
+            submenu_prof_disc()
+
+        # Submenu Relatórios
+        elif opt_menu == 4:
+            submenu_relatorios()
+        
+        elif opt_menu == 5:
+            print('Saindo...')
+        
+        input('Pressione <enter> para continuar...')
 
 if __name__ == "__main__":
     main()
