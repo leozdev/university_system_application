@@ -1,4 +1,4 @@
-# import disciplinas
+import disciplinas
 import professores
 import prof_disc
 import relatorios
@@ -21,15 +21,6 @@ def menu():
     opt = int(input())
     return opt
 
-def submenu_disciplinas():
-    ...
-
-def submenu_prof_disc():
-    ...
-
-def submenu_relatorios():
-    ...
-
 def main():
     dados_professores = {}
 
@@ -44,15 +35,16 @@ def main():
 
         # Submenu Disciplinas
         elif opt_menu == 2:
-            submenu_disciplinas()
+            disciplinas.submenu_disciplinas()
+            ...
 
         # Submenu Prof Disc
         elif opt_menu == 3:
-            submenu_prof_disc()
+            prof_disc.submenu_prof_disc()
 
         # Submenu Relatórios
         elif opt_menu == 4:
-            submenu_relatorios()
+            relatorios.submenu_relatorios()
         
         elif opt_menu == 5:
             print('Saindo...')

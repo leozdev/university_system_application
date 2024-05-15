@@ -71,6 +71,8 @@ def altera_disciplina(dic):
     else:
         print("Disciplina não foi encontrada!")
 
-
-altera_disciplina(disciplina)
-print(disciplina)
+def submenu_disciplinas():
+    ...
+    
+# altera_disciplina(disciplina)
+# print(disciplina)
