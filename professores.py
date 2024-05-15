@@ -10,7 +10,8 @@ def submenu_professores():
     while True:
         input('\nPressione [enter] para continuar...')
         os.system('cls')
-
+        print('Sistema da Universidade')
+        print('Desenvolvido por Leo Freitas & Vinicius Rafael\n')
         print('--- Menu de Gerenciamento de Professores ---')
         print('1 - Listar Todos os Cadastros')
         print('2 - Listar um Cadastro Específico')

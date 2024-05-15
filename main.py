@@ -21,7 +21,8 @@ def menu():
     """ 
     while True:
         os.system('cls')
-        
+        print('Sistema da Universidade')
+        print('Desenvolvido por Leo Freitas & Vinicius Rafael\n')
         print('--- Menu Principal ---')
         print('1 - Menu de Professores')
         print('2 - Menu de Disciplinas')
@@ -49,7 +50,7 @@ def main():
 
         # Submenu Professores
         if opt_menu == 1:
-            professores.executa(database = dados_professores)
+            professores.executa(database=dados_professores)
 
         # Submenu Disciplinas
         elif opt_menu == 2:
@@ -64,8 +65,5 @@ def main():
         elif opt_menu == 4:
             relatorios.submenu_relatorios()
         
-        elif opt_menu == 5:
-            print('Saindo...')
-                
 if __name__ == "__main__":
     main()
