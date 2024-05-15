@@ -1,53 +1,4 @@
-def listar_todos(dados, nome_da_chave):
-    for chave in dados.keys():
-        print('*'*20)
-        print(nome_da_chave.capitalize(), chave)
-        for subchave in dados[chave].keys():
-            valor = dados[chave][subchave]
-            if type(valor) == list:
-                print(subchave.capitalize(),':', ', '.join(map(str, dados[chave][subchave])))
-            else:
-                print(subchave.capitalize(),':', dados[chave][subchave])
-        print()
-    
-            
-def listar_elemento_especifico(dados, chave, conteudo):
-    if chave in dados.keys():
-        print(dados[chave][conteudo])
-        return True
-    return False
-
-def incluir(dados):
-    registro, nome, data_nasc, sexo, area, titulacao, graduacao, emails, telefones = cadastro()
-    if registro not in dados.keys():
-        dados[registro] = {
-        'nome':nome,
-        'data-nasc':data_nasc,
-        'sexo': sexo,
-        'area-de-pesquisa': area,
-        'titulacao': titulacao,
-        'graduacao': graduacao,
-        'emails': emails,
-        'telefones':telefones
-    }
-        return True
-    return False
-        
-def alterar(dados, chave, subchave, atualizacao):
-    if chave in dados.keys():
-        dados[chave][subchave] = atualizacao
-        return True
-    return False
-
-def excluir(dados, chave, subchave):
-    if chave in dados and subchave in dados[chave]:
-        del dados[chave][subchave]
-        return True
-    return False
-
-
-def cadastro():
-    registro = input('Registro funcional: ')
+def dados():
     nome = input('Nome completo: ')
     data_nasc = input('Data de Nascimento: (DD/MM/AAAA) ')
     sexo = input('Sexo: (F/M) ')
@@ -56,77 +7,105 @@ def cadastro():
     graduacao = input('Graduação: ')
     emails = input('E-mails: ').split()
     telefones = input('Telefones: (DD)99999-9999 ').split()
-    return registro, nome, data_nasc, sexo, area, titulacao, graduacao, emails, telefones
+    return nome, data_nasc, sexo, area, titulacao, graduacao, emails, telefones
 
-# Novas funcionalidades ... (TERMINAR)
-def submenu_professores(dados):
-    print('1 - Listar Todos Dados Cadastrados')
+def incluir(database, chave, nome, data_nasc, sexo, area, titulacao, graduacao, emails, telefones):
+    database[chave] = {
+    'nome':nome,
+    'data-nascimento':data_nasc,
+    'sexo': sexo,
+    'area-de-pesquisa': area,
+    'titulacao': titulacao,
+    'graduacao': graduacao,
+    'emails': emails,
+    'telefones':telefones
+    }
+
+def listar_atributos(database, chave):
+    for subchave in database[chave].keys():
+            valor = database[chave][subchave]
+
+            if type(valor) == list:
+                print(f'{subchave.capitalize()}:', ', '.join(map(str, valor)))
+            else:
+                print(f'{subchave.capitalize()}:', valor)
+
+def existe_chave(database, chave):
+    if chave in database.keys():
+        return True
+    
+# MELHORAR ESSA FUNCAO
+def listar_todos(database, nome_da_chave):
+    print('Todos os dados cadastrados:\n')
+    for chave in database.keys():
+        print('*'*20)
+        print(f'{nome_da_chave.capitalize()}:', chave)
+        listar_atributos(database, chave)
+        print()
+           
+def alterar(database, chave):
+    incluir(database, chave)
+        
+def excluir(database, chave):
+    del database[chave]
+
+def confirma_dados(database, chave):
+    listar_atributos(database, chave)
+    input_confirma = input('Confirma os dados')
+
+##############################################
+
+def submenu_professores():
+    print('1 - Listar Todos database Cadastrados')
     print('2 - Listar um Elemento Específico do Cadastro')
     print('3 - Incluir Cadastro')
     print('4 - Alterar um Dado do Cadastro')
     print('5 - Excluir um Dado do Cadastro')
     print('6 - Voltar')
+    opt = int(input(">> "))
+    return opt
 
-    opt = int(input())
+def executa(database):
+    
+    opt = submenu_professores()
 
-    return executa(dados, opt)
-
-def dados_disponiveis(dados, registro):
-    if registro in dados.keys():
-        print('Dados disponíveis:',', '.join(dados[registro].keys()).title())
-        return True
-    return False
-
-def executa(dados, opt):
-    print()
+    str_input_chave = 'Registro Funcional: '
+    str_nome_da_chave = 'registro-funcional'
 
     # Listar todos
     if opt == 1:
-        print('Todos os dados cadastrados:\n')
-        listar_todos(dados,'registro-funcional: ')
+        listar_todos(database, nome_da_chave = str_nome_da_chave)
 
     # Listar um elemento específico do conjunto
     elif opt == 2:
-        registro = input('Registro funcional: ')
-        if dados_disponiveis(dados, registro):
-            conteudo = input('Informe um dado que deseja listar: ').lower()
-            listar_elemento_especifico(dados, registro, conteudo)
-        else:
-            ...
+        listar_atributos(database, chave= input(str_input_chave))
 
     # Incluir (sem repetição)
     elif opt == 3:
-        incluir(dados)
+        input_chave = input(str_input_chave)
+        nome, data_nasc, sexo, area, titulacao, graduacao, emails, telefones = dados()
+
+        if not existe_chave(database, chave=input_chave):
+            incluir(database, input_chave, nome, data_nasc, sexo, area, titulacao, graduacao, emails, telefones)
+
+            # print("Dados inseridos com sucesso!")
+        else:
+            print('Dados já existem...')
 
     # Alterar 
     elif opt == 4:
-        registro = input('Registro funcional:')
-        if dados_disponiveis(dados, registro):
-            dado = input('Informe o dado que deseja alterar: ')
+        input_chave = input(str_input_chave)
+        nome, data_nasc, sexo, area, titulacao, graduacao, emails, telefones = dados()
 
-            if type(dados[registro][dado]) == list:
-                atualizacao = input('Atualização: ').split()
-            else:
-                atualizacao = input('Atualização: ')
+        if existe_chave(database, chave=input_chave):
+            alterar(database, chave=input_chave)
 
-            confirma = input('Confirma? [S]im [N]ão: ').upper()
-            if confirma == 'S':
-                alterar(dados, registro, dado, atualizacao)
-                print('Alteração concluida!')
-
-            elif confirma == 'N':
-                print('Alteração cancelada...')
-
-            else:
-                print('Opção inválida!')
         else:
-            ...
+            print("Registro não encontrado!")
 
-    # Excluir (após confirmação dos dados) um elemento do conjunto.
+    # Excluir (após confirmação dos DADOS) um elemento do conjunto.
     elif opt == 5:
-        chave = input()
-        subchave = input()
-        excluir(dados, chave, subchave)
+        input_chave = input(str_input_chave)
+        nome, data_nasc, sexo, area, titulacao, graduacao, emails, telefones = dados()
 
-    elif opt == 6:
-        return
+        excluir(database, chave=input_chave)

@@ -18,12 +18,12 @@ def menu():
     print('3 - Submenu de Professores-Disciplinas')
     print('4 - Submenu Relatórios')
     print('5 - Sair')
-    opt = int(input())
+    opt = int(input(">> "))
     return opt
 
 def main():
     dados_professores = {}
-
+    
     opt_menu = 1
     while opt_menu != 5:
         opt_menu = menu()
@@ -31,7 +31,7 @@ def main():
         # Submenu Professores
         if opt_menu == 1:
             os.system('cls')
-            professores.submenu_professores(dados_professores)
+            professores.executa(database = dados_professores)
 
         # Submenu Disciplinas
         elif opt_menu == 2:
