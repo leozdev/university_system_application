@@ -138,7 +138,7 @@ def listar_todos(database, nome_da_chave):
     """
     print('Todos os dados cadastrados:\n')
     for chave in database.keys():
-        print('*' * 20)
+        print('-' * 20)
         print(f'{nome_da_chave.capitalize()}:', chave)
         listar_atributos(database, chave)
         print()

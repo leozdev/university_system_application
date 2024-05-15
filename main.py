@@ -4,18 +4,26 @@ import prof_disc
 import relatorios
 import os
 
-# SUBMENU's:
-# 1 - Lista todos
-# 2 - Listar um elemento específico do conjunto
-# 3 - Incluir (sem repetição)
-# 4 - Alterar 
-# 5 - Excluir (após confirmação dos dados) um elemento do conjunto. 
+### Padrão de DOCSTRING: ###
+
+"""
+Resumo da funcionalidade 
+
+Argumentos:
+    nome_do_argumento (type): O que é?
+    ...
+
+Return:
+    type: O que?
+    ...
+"""
+###########################
 
 def menu():
     """
     Exibe um menu dos submenus
 
-    Returns:
+    Return:
         (int): A opção selecionada pelo usuário
 
     """ 
@@ -43,6 +51,8 @@ def menu():
 
 def main():
     dados_professores = {}
+    dados_disciplinas = {}
+    dados_prof_disc = {}
 
     opt_menu = 1
     while opt_menu != 5:
@@ -59,8 +69,8 @@ def main():
 
         # Submenu Prof Disc
         elif opt_menu == 3:
-            prof_disc.submenu_prof_disc()
-
+            prof_disc.executa(dados_prof_disc)
+            
         # Submenu Relatórios
         elif opt_menu == 4:
             relatorios.submenu_relatorios()
