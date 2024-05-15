@@ -12,25 +12,46 @@ import os
 # 5 - Excluir (após confirmação dos dados) um elemento do conjunto. 
 
 def menu():
-    os.system('cls')
-    print('1 - Submenu de Professores')
-    print('2 - Submenu de Disciplinas')
-    print('3 - Submenu de Professores-Disciplinas')
-    print('4 - Submenu Relatórios')
-    print('5 - Sair')
-    opt = int(input(">> "))
-    return opt
+    """
+    Exibe um menu dos submenus
+
+    Returns:
+        (int): A opção selecionada pelo usuário
+
+    """
+    show_input = False
+    while True:
+        if show_input:
+            input('\nPressione [enter] para continuar...')
+
+        os.system('cls')
+        print('--- Menu Principal ---')
+        print('1 - Menu de Professores')
+        print('2 - Menu de Disciplinas')
+        print('3 - Menu de Professores-Disciplinas')
+        print('4 - Menu Relatórios')
+        print('5 - Sair')
+        
+        show_input = True
+
+        try:
+            opt = int(input("Selecione uma opção: "))
+            if 1 <= opt <= 5:
+                return opt
+            else:
+                print("Opção inválida. Por favor, selecione uma opção de 1 a 5.")
+        except ValueError:
+            print("Entrada inválida. Por favor, insira um número.")
 
 def main():
     dados_professores = {}
-    
+
     opt_menu = 1
     while opt_menu != 5:
         opt_menu = menu()
 
         # Submenu Professores
         if opt_menu == 1:
-            os.system('cls')
             professores.executa(database = dados_professores)
 
         # Submenu Disciplinas
@@ -48,8 +69,6 @@ def main():
         
         elif opt_menu == 5:
             print('Saindo...')
-        
-        input('Pressione <enter> para continuar...')
-
+                
 if __name__ == "__main__":
     main()
