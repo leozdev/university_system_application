@@ -18,21 +18,16 @@ def menu():
     Returns:
         (int): A opção selecionada pelo usuário
 
-    """
-    show_input = False
+    """ 
     while True:
-        if show_input:
-            input('\nPressione [enter] para continuar...')
-
         os.system('cls')
+        
         print('--- Menu Principal ---')
         print('1 - Menu de Professores')
         print('2 - Menu de Disciplinas')
         print('3 - Menu de Professores-Disciplinas')
         print('4 - Menu Relatórios')
         print('5 - Sair')
-        
-        show_input = True
 
         try:
             opt = int(input("Selecione uma opção: "))
@@ -40,8 +35,10 @@ def menu():
                 return opt
             else:
                 print("Opção inválida. Por favor, selecione uma opção de 1 a 5.")
+                input('\nPressione [enter] para continuar...')
         except ValueError:
             print("Entrada inválida. Por favor, insira um número.")
+            input('\nPressione [enter] para continuar...')
 
 def main():
     dados_professores = {}
