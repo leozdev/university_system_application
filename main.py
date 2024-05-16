@@ -51,7 +51,15 @@ def menu():
 
 def main():
     dados_professores = {}
-    dados_disciplinas = {}
+    dados_disciplinas = { 
+        'APR1' : { 
+            'nome': 'Algoritmos',
+            'ementa': 'BES', 
+            'bibliografia': 'blabla',
+            'n_creditos': '10',
+            'carga_horaria': '122h'
+        }
+}
     dados_prof_disc = {}
 
     opt_menu = 1
@@ -69,8 +77,9 @@ def main():
 
         # Submenu Prof Disc
         elif opt_menu == 3:
-            prof_disc.executa(dados_prof_disc)
-            
+            prof_disc.incluir(database1=dados_prof_disc, database2=dados_professores, database3=dados_disciplinas)
+            print(dados_prof_disc)
+            input('\nPressione [enter] para continuar...')
         # Submenu Relatórios
         elif opt_menu == 4:
             relatorios.submenu_relatorios()
