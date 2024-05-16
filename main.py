@@ -50,16 +50,45 @@ def menu():
             input('\nPressione [enter] para continuar...')
 
 def main():
-    dados_professores = {}
-    dados_disciplinas = { 
-        'APR1' : { 
-            'nome': 'Algoritmos',
-            'ementa': 'BES', 
-            'bibliografia': 'blabla',
-            'n_creditos': '10',
-            'carga_horaria': '122h'
-        }
-}
+    # Coloquei esses dados para fazer o teste unitario + integração
+    dados_professores = {
+        '1000': {
+            'nome': 'Jorge Curtigi', 
+            'data-nascimento': '01/01/1900', 
+            'sexo': 'M', 
+            'area-de-pesquisa': 'Engenharia de Software', 
+            'titulacao': 'Doutor', 
+            'graduacao': 'Usp', 
+            'emails': ['curtigi@ifsp.edu.br', 'jorge@ifsp.edu.br'], 
+            'telefones': ['(16)9999-8888', '(11)97777-7777']}, 
+
+        '1001': {
+            'nome': 'Eloize Seno', 
+            'data-nascimento': '01/01/1900', 
+            'sexo': 'F', 
+            'area-de-pesquisa': 'Processamento de Linguagem Natural', 
+            'titulacao': 'Doutora', 
+            'graduacao': 'Usp', 
+            'emails': ['eloize.seno@ifsp.edu.r'], 
+            'telefones': ['119999-3333']
+            }}
+    
+    dados_disciplinas = {
+        'SCLPPSW': {
+            'nome': 'Processos de Produção de Software',
+            'ementa': 'A disciplina define e contextualiza historicamente a Engenharia de Software, oferecendo uma visão geral dos principais assuntos estudados e do perfil profissional esperado nessa área da Computação.',
+            'bibliografia': 'PFLEEGER, Shari L. Engenharia de software: teoria e prática. 2. ed. São Paulo: Prentice Hall, 2004.', 
+            'n_creditos': '66,7', 
+            'carga_horaria': '66,7h'}, 
+
+        'SCLAPR1': {
+            'nome': 'Algoritimos e Programação 1', 
+            'ementa': 'A disciplina aborda os conceitos básicos sobre computadores, com foco no desenvolvimento de algoritmos.', 
+            'bibliografia': 'ASCENCIO, Ana Fernanda Gomes; CAMPOS, Edilene Aparecida Veneruchi de. Fundamentos da programação de computadores. 3. ed. São Paulo: Pearson Prentice Hall, 2012.', 
+            'n_creditos': '100', 
+            'carga_horaria': '100h'
+            }}
+    
     dados_prof_disc = {}
 
     opt_menu = 1
@@ -72,17 +101,17 @@ def main():
 
         # Submenu Disciplinas
         elif opt_menu == 2:
-            disciplinas.submenu_disciplinas()
+            # disciplinas.submenu_disciplinas()
             ...
 
         # Submenu Prof Disc
         elif opt_menu == 3:
-            prof_disc.incluir(database1=dados_prof_disc, database2=dados_professores, database3=dados_disciplinas)
-            print(dados_prof_disc)
-            input('\nPressione [enter] para continuar...')
+            prof_disc.executa(dados_prof_disc, dados_professores, dados_disciplinas)
+
         # Submenu Relatórios
         elif opt_menu == 4:
-            relatorios.submenu_relatorios()
+            # relatorios.submenu_relatorios()
+            print(dados_prof_disc)
         
 if __name__ == "__main__":
     main()

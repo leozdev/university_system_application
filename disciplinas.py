@@ -133,4 +133,3 @@ def relatorio(dic, n):
 
 def submenu_disciplinas():
     ...
-    
