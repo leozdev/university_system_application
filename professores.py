@@ -8,17 +8,17 @@ def submenu_professores():
         int: A opção selecionada pelo usuário.
     """
     while True:
-        input('\nPressione [enter] para continuar...')
-        os.system('cls')
-        print('Sistema da Universidade')
-        print('Desenvolvido por Leo Freitas & Vinicius Rafael\n')
-        print('--- Menu de Gerenciamento de Professores ---')
-        print('1 - Listar Todos os Cadastros')
-        print('2 - Listar um Cadastro Específico')
-        print('3 - Incluir Cadastro')
-        print('4 - Alterar um Cadastro Existente')
-        print('5 - Excluir um Cadastro')
-        print('6 - Voltar')
+        input("\nPressione [enter] para continuar...")
+        os.system("cls")
+        print("Sistema da Universidade")
+        print("Desenvolvido por Leo Freitas & Vinicius Rafael\n")
+        print("--- Menu de Gerenciamento de Professores ---")
+        print("1 - Listar Todos os Cadastros")
+        print("2 - Listar um Cadastro Específico")
+        print("3 - Incluir Cadastro")
+        print("4 - Alterar um Cadastro Existente")
+        print("5 - Excluir um Cadastro")
+        print("6 - Voltar")
 
         try:
             opt = int(input("Selecione uma opção: "))
@@ -30,7 +30,7 @@ def submenu_professores():
             print("Entrada inválida. Por favor, insira um número.")
 
 def entrada_registro():
-    return input('Digite o Registro Funcional: ')
+    return input("Digite o Registro Funcional: ")
 
 def entrada_dados():
     """
@@ -39,24 +39,24 @@ def entrada_dados():
     Return:
         tuple: Uma tupla com os dados do novo cadastro.
     """
-    nome = input('Digite o Nome completo: ')
-    data_nasc = input('Digite a Data de Nascimento (DD/MM/AAAA): ')
-    sexo = input('Digite o Sexo: ')
-    area = input('Digite a Área de Pesquisa: ')
-    titulacao = input('Digite a Titulação: ')
-    graduacao = input('Digite a Graduação: ')
-    emails = input('Digite os E-mails (separados por vírgula): ').split(", ")
-    telefones = input('Digite os Telefones (separados por vírgula): ').split(", ")
+    nome = input("Digite o Nome completo: ")
+    data_nasc = input("Digite a Data de Nascimento (DD/MM/AAAA): ")
+    sexo = input("Digite o Sexo: ")
+    area = input("Digite a Área de Pesquisa: ")
+    titulacao = input("Digite a Titulação: ")
+    graduacao = input("Digite a Graduação: ")
+    emails = input("Digite os E-mails (separados por vírgula): ").split(", ")
+    telefones = input("Digite os Telefones (separados por vírgula): ").split(", ")
 
     return nome, data_nasc, sexo, area, titulacao, graduacao, emails, telefones
 
-def incluir(database, chave, nome, data_nasc, sexo, area, titulacao, graduacao, emails, telefones):
+def incluir(database, registro, nome, data_nasc, sexo, area, titulacao, graduacao, emails, telefones):
     """
     Inclui um novo cadastro no banco de dados.
 
     Argumentos:
         database (dict): O banco de dados.
-        chave (str): A chave para o novo cadastro.
+        registro (str): A chave para o novo cadastro.
         nome (str): Nome completo.
         data_nasc (str): Data de Nascimento (DD/MM/AAAA).
         sexo (str): Sexo (F/M).
@@ -66,46 +66,46 @@ def incluir(database, chave, nome, data_nasc, sexo, area, titulacao, graduacao, 
         emails (list): Lista de e-mails.
         telefones (list): Lista de telefones.
     """
-    database[chave] = {
-        'nome': nome,
-        'data-nascimento': data_nasc,
-        'sexo': sexo,
-        'area-de-pesquisa': area,
-        'titulacao': titulacao,
-        'graduacao': graduacao,
-        'emails': emails,
-        'telefones': telefones
+    database[registro] = {
+        "nome": nome,
+        "data-nascimento": data_nasc,
+        "sexo": sexo,
+        "area-de-pesquisa": area,
+        "titulacao": titulacao,
+        "graduacao": graduacao,
+        "emails": emails,
+        "telefones": telefones
     }
 
 def listar_todos(database):
     """
    
     """
-    print('Todos os dados cadastrados:\n')
+    print("Todos os dados cadastrados:\n")
 
-    for chave in database:
-        print('-' * 30)
-        print("Registro Funcional:", chave)
-        listar_atributos(database, chave)
+    for registro in database:
+        print("-" * 30)
+        print("Registro Funcional:", registro)
+        listar_atributos(database, registro)
         print()
 
-def listar_atributos(database, chave=None):
+def listar_atributos(database, registro=None):
     """
 
     """
-    if chave is None:
-        chave = entrada_registro()
+    if registro is None:
+        registro = entrada_registro()
 
-    if chave in database:
-        dados = database[chave]
-        print("Nome:", dados['nome'])
-        print("Data de Nascimento:", dados['data-nascimento'])
-        print("Sexo:", dados['sexo'])
-        print("Área de Pesquisa:", dados['area-de-pesquisa'])
-        print("Titulação:", dados['titulacao'])
-        print("Graduação:", dados['graduacao'])
-        print("E-mails:", ", ".join(dados['emails']))
-        print("Telefones:", ", ".join(dados['telefones']))
+    if registro in database:
+        dados = database[registro]
+        print("Nome:", dados["nome"])
+        print("Data de Nascimento:", dados["data-nascimento"])
+        print("Sexo:", dados["sexo"])
+        print("Área de Pesquisa:", dados["area-de-pesquisa"])
+        print("Titulação:", dados["titulacao"])
+        print("Graduação:", dados["graduacao"])
+        print("E-mails:", ", ".join(dados["emails"]))
+        print("Telefones:", ", ".join(dados["telefones"]))
 
     else:
         print("Registro não encontrado!")
@@ -117,16 +117,26 @@ def incluir_cadastro(database):
     Argumentos:
         database (dict): O banco de dados.
     """
-    chave = entrada_registro()
-    if chave not in database:
+    registro = entrada_registro()
+    if registro not in database:
         dados_do_professor = entrada_dados()
-        incluir(database, chave, *dados_do_professor)
+        incluir(database, registro, *dados_do_professor)
         print("Cadastrado com sucesso!")
     else:
-        print('Já existe um cadastro com esse registro!')
+        print("Já existe um cadastro com esse registro!")
 
 # Modularizar mais essas ultimas 2 funcoes, se possivel...
 
+
+def confirmar(acao):
+    while True:
+        input_confirma = input(f"Tem certeza que deseja {acao} o cadastro? (S/N): ").upper()
+        if input_confirma == "S":
+            return True
+        elif input_confirma == "N":
+            return False
+        else:
+            print("Opção inválida!")
 
 def alterar_cadastro(database):
     """
@@ -135,40 +145,36 @@ def alterar_cadastro(database):
     Argumentos:
         database (dict): O banco de dados.
     """
-    chave = entrada_registro()
-    if chave in database:
+    registro = entrada_registro()
+    if registro in database:
         dados_do_professor = entrada_dados()
-        input_confirma = input("Tem certeza que deseja alterar? (S/N): ").upper()
-        if input_confirma == 'S':
-            incluir(database, chave, *dados_do_professor)
+        
+        if confirmar('alterar'):
+            incluir(database, registro, *dados_do_professor)
             print("Cadastro alterado com sucesso!")
-        elif input_confirma == 'N':
-            print("Alteração cancelada!")
         else:
-            print('Opção inválida!')
+            print("Alteração cancelada!")
     else:
         print("Registro não encontrado!")
 
-def excluir_dado_cadastro(database):
+
+def excluir_cadastro(database):
     """
     Exclui um cadastro existente do banco de dados.
 
     Argumentos:
         database (dict): O banco de dados.
     """
-    chave = entrada_registro()
-    if chave in database:
+    registro = entrada_registro()
+    if registro in database:
 
-        input_confirma = input("Tem certeza que deseja excluir? (S/N): ").upper()
-        if input_confirma == 'S':
-            del database[chave]
+        if confirmar('excluir'):
+            del database[registro]
             print("Cadastro excluído com sucesso!")
 
-        elif input_confirma == 'N':
+        else:
             print("Exclusão cancelada!")
 
-        else:
-            print('Opção inválida!')
     else:
         print("Registro não encontrado!")
 
@@ -184,10 +190,10 @@ def executa(database):
         
         funcoes = {
             1:listar_todos,
-            2:listar_todos,
+            2:listar_atributos,
             3:incluir_cadastro,
             4:alterar_cadastro,
-            5:alterar_cadastro,
+            5:excluir_cadastro,
         }
 
         if opt in funcoes:
