@@ -1,13 +1,15 @@
-disciplina = { 
-    'APR1' : { 
-        'nome': 'Algoritmos',
-        'ementa': 'BES', 
-        'bibliografia': 'blabla',
-        'n_creditos': '10',
-        'carga_horaria': '122h'
-    }
-}
+# disciplina = { 
+#     'APR1' : { 
+#         'nome': 'Algoritmos',
+#         'ementa': 'BES', 
+#         'bibliografia': 'blabla',
+#         'n_creditos': '10',
+#         'carga_horaria': '122h'
+#     }
+# }
 
+import os
+from auxiliar import *
 
 def existe_disciplina(dic,sigla):
     if sigla in dic.keys():
@@ -131,5 +133,100 @@ def relatorio(dic, n):
     print("")
 
 
+def grava_disciplinas(dic):
+    arq = open("disciplinas.txt", "w")
+    
+    for sigla in dic:
+        info = dic[sigla]
+        # Monta linha para gravação:
+        linha = sigla + ";" + info['nome'] + ";" + info['ementa'] + ";" + info['bibliografia'] + ";" + info['n_creditos'] + ";" + info['carga_horaria'] + "\n"
+
+        # Grava no arquivo:
+        arq.write(linha)
+
+    # Fecha o arquivo:
+    arq.close()
+
+
+def recupera_disciplinas(dic):
+
+    # Verificando se o arquivo existe:
+    if ( existe_arquivo("disciplinas.txt") ):
+
+        # Existe! Abrindo arquivo para leitura:
+        arq = open("disciplinas.txt", "r")
+
+        # Percorrendo as linhas do arquivo:
+        for linha in arq:
+
+            # Tirando o \n do final:
+            linha = linha[:len(linha)-1]
+            
+            # Vamos quebrar por ;
+            lista = linha.split(";")
+        
+            sigla = lista[0]
+            nome = lista[1]
+            ementa = lista[2]
+            bibliografia = lista[3]
+            n_creditos = lista[4]
+            carga_horaria = lista[5]
+
+            # Colocando os dados no dicionario:
+            dic[sigla] = {
+            'nome': nome,
+            'ementa': ementa, 
+            'bibliografia': bibliografia,
+            'n_creditos': n_creditos,
+            'carga_horaria': carga_horaria
+            }
+
+
 def submenu_disciplinas():
-    ...
+    """
+    Exibe um submenu para o gerenciamento de cadastros de professores.
+
+    Return:
+        int: A opção selecionada pelo usuário.
+    """
+    while True:
+        input("\nPressione [enter] para continuar...")
+        os.system("cls")
+        print("Sistema da Universidade")
+        print("Desenvolvido por Leo Freitas & Vinicius Rafael\n")
+        print("--- Menu de Gerenciamento de Disciplinas ---")
+        print("1 - Listar Todas Disciplinas")
+        print("2 - Listar uma Disciplina Específica")
+        print("3 - Incluir Disciplina")
+        print("4 - Alterar Dados de uma Disciplina")
+        print("5 - Excluir uma Disciplina")
+        print("6 - Voltar")
+
+        try:
+            opt = int(input("Selecione uma opção: "))
+            if 1 <= opt <= 6:
+                return opt
+            else:
+                print("Opção inválida. Por favor, selecione uma opção de 1 a 6.")
+        except ValueError:
+            print("Entrada inválida. Por favor, insira um número.")
+
+
+def executa(dic):
+
+    while True:
+        opt = submenu_disciplinas()
+        
+        funcoes = {
+            1:mostra_td_disciplinas,
+            2:mostra_disciplina,
+            3:insere_disciplina,
+            4:altera_disciplina,
+            5:remove_disciplina,
+        }
+
+        if opt in funcoes:
+            funcoes[opt](dic)
+        elif opt == 6:
+            grava_disciplinas(dic)
+            return

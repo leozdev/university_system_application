@@ -73,21 +73,23 @@ def main():
             "telefones": ["119999-3333"]
             }}
     
-    dados_disciplinas = {
-        "SCLPPSW": {
-            "nome": "Processos de Produção de Software",
-            "ementa": "A disciplina define e contextualiza historicamente a Engenharia de Software, oferecendo uma visão geral dos principais assuntos estudados e do perfil profissional esperado nessa área da Computação.",
-            "bibliografia": "PFLEEGER, Shari L. Engenharia de software: teoria e prática. 2. ed. São Paulo: Prentice Hall, 2004.", 
-            "n_creditos": "66,7", 
-            "carga_horaria": "66,7h"}, 
+    # dados_disciplinas = {
+    #     "SCLPPSW": {
+    #         "nome": "Processos de Produção de Software",
+    #         "ementa": "A disciplina define e contextualiza historicamente a Engenharia de Software, oferecendo uma visão geral dos principais assuntos estudados e do perfil profissional esperado nessa área da Computação.",
+    #         "bibliografia": "PFLEEGER, Shari L. Engenharia de software: teoria e prática. 2. ed. São Paulo: Prentice Hall, 2004.", 
+    #         "n_creditos": "66,7", 
+    #         "carga_horaria": "66,7h"}, 
 
-        "SCLAPR1": {
-            "nome": "Algoritimos e Programação 1", 
-            "ementa": "A disciplina aborda os conceitos básicos sobre computadores, com foco no desenvolvimento de algoritmos.", 
-            "bibliografia": "ASCENCIO, Ana Fernanda Gomes; CAMPOS, Edilene Aparecida Veneruchi de. Fundamentos da programação de computadores. 3. ed. São Paulo: Pearson Prentice Hall, 2012.", 
-            "n_creditos": "100", 
-            "carga_horaria": "100h"
-            }}
+    #     "SCLAPR1": {
+    #         "nome": "Algoritimos e Programação 1", 
+    #         "ementa": "A disciplina aborda os conceitos básicos sobre computadores, com foco no desenvolvimento de algoritmos.", 
+    #         "bibliografia": "ASCENCIO, Ana Fernanda Gomes; CAMPOS, Edilene Aparecida Veneruchi de. Fundamentos da programação de computadores. 3. ed. São Paulo: Pearson Prentice Hall, 2012.", 
+    #         "n_creditos": "100", 
+    #         "carga_horaria": "100h"
+    #         }}
+    dados_disciplinas = {}
+    disciplinas.recupera_disciplinas(dados_disciplinas)
     
     dados_prof_disc = {}
 
@@ -101,6 +103,7 @@ def main():
 
         # Submenu Disciplinas
         elif opt_menu == 2:
+            disciplinas.executa(dic=dados_disciplinas)
             # disciplinas.submenu_disciplinas()
             ...
 
