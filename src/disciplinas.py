@@ -9,7 +9,7 @@
 # }
 
 import os
-from auxiliar import *
+from src.auxiliar import *
 
 def existe_disciplina(dic,sigla):
     if sigla in dic.keys():
