@@ -131,7 +131,7 @@ def relatorio(dic, n):
 
 
 def grava_disciplinas(dic):
-    arq = open("disciplinas.txt", "w", encoding="utf-8")
+    arq = open("dados\dados_disciplinas.txt", "w", encoding="utf-8")
     
     for sigla in dic:
         info = dic[sigla]
@@ -148,10 +148,10 @@ def grava_disciplinas(dic):
 def recupera_disciplinas(dic):
 
     # Verificando se o arquivo existe:
-    if ( existe_arquivo("disciplinas.txt") ):
+    if ( existe_arquivo("dados\dados_disciplinas.txt") ):
 
         # Existe! Abrindo arquivo para leitura:
-        arq = open("disciplinas.txt", "r", encoding="utf-8")
+        arq = open("dados\dados_disciplinas.txt", "r", encoding="utf-8")
 
         # Percorrendo as linhas do arquivo:
         for linha in arq:

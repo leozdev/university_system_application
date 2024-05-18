@@ -1,6 +1,6 @@
 import os
-from professores import listar_atributos
-from disciplinas import mostra_disciplina
+from src.professores import listar_atributos
+from src.disciplinas import mostra_disciplina
 
 # SUBMENU"s:
 # 1 - Lista todos

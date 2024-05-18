@@ -1,7 +1,7 @@
-import disciplinas
-import professores
-import prof_disc
-import relatorios
+import src.disciplinas as disciplinas
+import src.professores as professores
+import src.prof_disc as prof_disc
+import src.relatorios as relatorios
 import os
 
 ### Padrão de DOCSTRING: ###
@@ -51,7 +51,7 @@ def menu():
 
 def main():
     # Dados dos Professores
-    path_professores = "dados_professores.txt"
+    path_professores = "dados\dados_professores.txt"
     dados_professores = {}
     professores.carregar_dados(dados_professores, path_professores)
 
@@ -60,7 +60,7 @@ def main():
     disciplinas.recupera_disciplinas(dados_disciplinas)
     
     # Dados das aulas
-    path_prof_disc = "dados_prof_disc.txt"
+    path_prof_disc = "dados\dados_prof_disc.txt"
     dados_prof_disc = {}
     prof_disc.carregar_dados(dados_prof_disc, path_prof_disc)
 

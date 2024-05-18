@@ -1,5 +1,5 @@
 import os
-from auxiliar import existe_arquivo
+from src.auxiliar import existe_arquivo
 
 """
 database1 (dict): professores-disciplinas
