@@ -5,7 +5,7 @@ database1 (dict): professores-disciplinas
 database2 (dict): professores
 database3 (dict): disciplinas
 '''
-
+# Refatorar para o tipo Arquivos... 
 def submenu_prof_disc():
     while True:
         input("\nPressione [enter] para continuar...")
@@ -46,16 +46,6 @@ def entrada_atributos():
     nome_do_curso = input("Digite o Nome do Curso: ")
     return dias_da_semana, horarios_do_curso, nome_do_curso
 
-def entrada_dados():
-    ano = input("Digite o Ano: ")
-    semestre = input("Digite o Semestre: ")
-    dias_da_semana = input("Digite os Dias da Semana: (separados por vírgula) ").split(", ")
-    horarios_do_curso = input("Digite os Horários do curso: (separados por vírgula) ").split(", ")
-    nome_do_curso = input("Digite o Nome do Curso: ")
-
-    return ano, semestre, dias_da_semana, horarios_do_curso, nome_do_curso
-
-
 def incluir(database1, database2, database3):
     registro = entrada_registro()
 
@@ -63,7 +53,7 @@ def incluir(database1, database2, database3):
         sigla_disciplina = entrada_sigla_disciplina()
 
         if sigla_disciplina in database3:
-            ano, semestre, dias_da_semana, horarios_inicio, curso = entrada_dados()
+            ano, semestre, dias_da_semana, horarios_inicio, curso = *entrada_chaves(), *entrada_atributos()
 
             if registro not in database1:
                 database1[registro] = {}

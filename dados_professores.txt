@@ -1,0 +1,2 @@
+1000;Jorge Curtigi;01/01/1900;M;Engenharia de Software;Doutor;Usp;['curtigi@ifsp.edu.br', 'jorge@ifsp.edu.br'];['(16)9999-8888', '(11)97777-7777']
+1001;Eloize Seno;01/01/1900;F;Processamento de Linguagem Natural;Doutora;Usp;['eloize.seno@ifsp.edu.r'];['119999-3333']

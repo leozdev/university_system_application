@@ -1,4 +1,5 @@
 import os
+from auxiliar import existe_arquivo
 
 def submenu_professores():
     """
@@ -177,8 +178,33 @@ def excluir_cadastro(database):
 
     else:
         print("Registro não encontrado!")
+ 
+def grava_dados(database, path):
+    arq = open(path, "w", encoding="utf-8")
 
-def executa(database):
+    for registro in database:
+        dados = database[registro]
+        linha = registro + ";" + ";".join(str(dados[chave]) for chave in dados)
+        arq.write(linha + "\n")
+
+def carrega_dados(database, path):
+    if existe_arquivo(path):
+        arq = open(path, "r")
+        for linha in arq:
+            linha = linha.strip().split(";")
+            registro = linha[0]
+            nome = linha[1]
+            data_nasc = linha[2]
+            sexo = linha[3]
+            area = linha[4]
+            titulacao = linha[5]
+            graduacao = linha[6]
+            emails = linha[7]
+            telefones = linha[8]
+
+            incluir(database, registro, nome, data_nasc, sexo, area, titulacao, graduacao, emails, telefones)
+
+def executa(database, path):
     """
     Executa o menu de gerenciamento de professores.
 
@@ -199,4 +225,5 @@ def executa(database):
         if opt in funcoes:
             funcoes[opt](database)
         elif opt == 6:
+            grava_dados(database, path)
             return

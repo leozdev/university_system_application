@@ -134,7 +134,7 @@ def relatorio(dic, n):
 
 
 def grava_disciplinas(dic):
-    arq = open("disciplinas.txt", "w")
+    arq = open("disciplinas.txt", "w", encoding="utf-8")
     
     for sigla in dic:
         info = dic[sigla]
