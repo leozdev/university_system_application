@@ -45,8 +45,9 @@ def insere_disciplina(dic):
         print("Dados inseridos com sucesso!")
 
 
-def mostra_disciplina(dic):
-    sigla = input("Digite a sigla da disciplina que deseja consultar: ")
+def mostra_disciplina(dic, sigla=None):
+    if sigla is None:
+        sigla = input("Digite a sigla da disciplina que deseja consultar: ")
 
     if existe_disciplina(dic, sigla):
         dados = dic[sigla]
@@ -62,14 +63,10 @@ def mostra_disciplina(dic):
 def mostra_td_disciplinas(dic):
 
     print("Todas disciplinas\n")
-    print("SIGLA - NOME - EMENTA - BIBLIOGRAFIA - NUM DE CREDITOS - CARGA HORARIA\n")
-
-    for codigo, dados in dic.items(): 
-
-        linha = codigo + " - " + dados['nome'] + " - " + dados['ementa'] + " - " + dados['bibliografia'] + " - " + dados['n_creditos'] + " - " + dados['carga_horaria'] + "\n"
-        print(linha)
-
-    print("")
+    for sigla in dic: 
+        print("Sigla da Disciplina:", sigla)
+        mostra_disciplina(dic, sigla)
+        print()
 
 
 def altera_disciplina(dic):
@@ -154,7 +151,7 @@ def recupera_disciplinas(dic):
     if ( existe_arquivo("disciplinas.txt") ):
 
         # Existe! Abrindo arquivo para leitura:
-        arq = open("disciplinas.txt", "r")
+        arq = open("disciplinas.txt", "r", encoding="utf-8")
 
         # Percorrendo as linhas do arquivo:
         for linha in arq:

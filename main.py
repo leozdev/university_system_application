@@ -64,6 +64,11 @@ def main():
     dados_prof_disc = {}
     prof_disc.carregar_dados(dados_prof_disc, path_prof_disc)
 
+    # Dados relatórios
+    path_relatorios = "dados_relatorios.txt"
+    dados_relatorios = {}
+    # relatorios.carregar_dados(dados_relatorios, path_relatorios)
+
     opt_menu = 1
     while opt_menu != 5:
         opt_menu = menu()
@@ -82,9 +87,7 @@ def main():
 
         # Submenu Relatórios
         elif opt_menu == 4:
-            # relatorios.buscar_professores(database2=dados_professores, parametro='Doutorado')
-            # input("\nPressione [enter] para continuar...")
-            ...
-
+            relatorios.executa(database1=dados_prof_disc, database2=dados_professores, database3=dados_disciplinas)
+            
 if __name__ == "__main__":
     main()

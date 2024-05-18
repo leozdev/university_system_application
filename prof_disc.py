@@ -73,14 +73,17 @@ def incluir_cadastro(database1, database2, database3):
     if registro:
         sigla, ano, semestre = entrada_chaves(database3)
         if sigla and ano and semestre:
-            dias, horarios, curso = entrada_atributos()
-            if incluir(database1, registro, sigla, ano, semestre, dias, horarios, curso):
+            atributos = entrada_atributos()
+            if incluir(database1, registro, sigla, ano, semestre, *atributos):
                 print("Dados cadastrados com sucesso!")
             else:
                 print("Esses dados já estão cadastrados!")
 
 def listar_todos(database1):
+    print("Todos os dados cadastrados:\n")
     for registro in database1:
+        print("-" * 30)
+        print("Registro Funcional do Professor:", registro)
         listar_atributos(database1, registro)
 
 def listar_atributos(database1, registro=None):
@@ -88,16 +91,14 @@ def listar_atributos(database1, registro=None):
         registro = input("Digite o Registro Funcional: ")
 
     if registro in database1:
-        print("Registro:", registro)
         for conjunto_chaves, atributos in database1[registro].items():
             sigla_disciplina, ano, semestre = conjunto_chaves
-            print("Sigla da disciplina:", sigla_disciplina)
+            print("\nSigla da disciplina:", sigla_disciplina)
             print("Ano:", ano)
             print("Semestre:", semestre)
             print("Dias da Semana:", ", ".join(atributos["dias_da_semana"]))
             print("Horários de início:", ", ".join(atributos["horarios_inicio"]))
             print("Curso:", atributos["curso"])
-            print()
     else:
         print("Registro não encontrado.")
 
@@ -153,10 +154,7 @@ def gravar_dados(database1, path):
     for registro in database1:
         for conjunto_chaves, atributos in database1[registro].items():
             sigla_disciplina, ano, semestre = conjunto_chaves
-            linha = (f"{registro};{sigla_disciplina};{ano};{semestre};"
-                         f"{','.join(atributos['dias_da_semana'])};"
-                         f"{','.join(atributos['horarios_inicio'])};"
-                         f"{atributos['curso']}")
+            linha = (f"{registro};{sigla_disciplina};{ano};{semestre};{','.join(atributos['dias_da_semana'])};{','.join(atributos['horarios_inicio'])};{atributos['curso']}")
             arq.write(linha + "\n")
     arq.close()
 

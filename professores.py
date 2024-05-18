@@ -84,7 +84,6 @@ def listar_todos(database):
         print("-" * 30)
         print("Registro Funcional:", registro)
         listar_atributos(database, registro)
-        print()
 
 def listar_atributos(database, registro=None):
     if registro is None:
@@ -92,6 +91,7 @@ def listar_atributos(database, registro=None):
 
     if registro in database:
         dados = database[registro]
+        print()
         print("Nome:", dados['nome'])
         print("Data de Nascimento:", dados['data-nascimento'])
         print("Sexo:", dados['sexo'])
@@ -112,7 +112,6 @@ def incluir_cadastro(database):
         print("Cadastrado com sucesso!")
     else:
         print("Já existe um cadastro com esse registro!")
-
 
 def confirmar(acao):
     while True:
@@ -137,7 +136,6 @@ def alterar_cadastro(database):
     else:
         print("Registro não encontrado!")
 
-
 def excluir_cadastro(database):
     registro = entrada_registro()
     
@@ -157,6 +155,8 @@ def gravar_dados(database, path):
         dados = database[registro]
         linha = (f"{registro};{dados['nome']};{dados['data-nascimento']};{dados['sexo']};{dados['area-de-pesquisa']};{dados['titulacao']};{dados['graduacao']};{','.join(dados['emails'])};{','.join(dados['telefones'])}")
         arq.write(linha + "\n")
+    
+    arq.close()
 
 def carregar_dados(database, path):
     if existe_arquivo(path):
@@ -175,7 +175,9 @@ def carregar_dados(database, path):
             telefones = linha[8].split(',')
 
             incluir(database, registro, nome, data_nasc, sexo, area, titulacao, graduacao, emails, telefones)
-
+        
+        arq.close()
+        
 def executa(database, path):
     """
     Executa o menu de gerenciamento de professores.
