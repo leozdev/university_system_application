@@ -23,7 +23,7 @@ Jorge Curtigi
 01/01/1900
 M
 Engenharia de Software
-Doutor
+Doutorado
 Usp
 curtigi@ifsp.edu.br, jorge@ifsp.edu.br
 (16) 99999-8888, (11) 97777-7777
@@ -33,9 +33,9 @@ Eloize Seno
 01/01/1900
 F
 Processamento de Linguagem Natural
-Doutora
+Doutorado
 Usp
-eloize.seno@ifsp.edu.r
+eloize.seno@ifsp.edu.br
 11 99999-3333
 
 {'1000': {'nome': 'Jorge Curtigi', 'data-nascimento': '01/01/1900', 'sexo': 'M', 'area-de-pesquisa': 'Engenharia de Software', 'titulacao': 'Doutor', 'graduacao': 'Usp', 'emails': ['curtigi@ifsp.edu.br', 'jorge@ifsp.edu.br'], 'telefones': ['(16)9999-8888', '(11)97777-7777']}, '1001': {'nome': 'Eloize Seno', 'data-nascimento': '01/01/1900', 'sexo': 'F', 'area-de-pesquisa': 'Processamento de Linguagem Natural', 'titulacao': 'Doutora', 'graduacao': 'Usp', 'emails': ['eloize.seno@ifsp.edu.r'], 'telefones': ['119999-3333']}}

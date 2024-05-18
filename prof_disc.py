@@ -6,10 +6,12 @@ database1 (dict): professores-disciplinas
 database2 (dict): professores
 database3 (dict): disciplinas
 """
+
+# BRECANDO SO NO FINAL -> ARRUMAR
 def submenu_prof_disc():
     while True:
         input("\nPressione [enter] para continuar...")
-        os.system("cls" if os.name == "nt" else "clear")
+        os.system("cls")
         print("Sistema da Universidade")
         print("Desenvolvido por Leo Freitas & Vinicius Rafael\n")
         print("--- Menu de Gerenciamento de Professores-Disciplinas ---")
@@ -48,8 +50,8 @@ def entrada_chaves(database3):
         return None, None, None
 
 def entrada_atributos():
-    dias_da_semana = input("Digite os Dias da Semana: (separados por vírgula) ").split(", ")
-    horarios_do_curso = input("Digite os Horários do curso: (separados por vírgula) ").split(", ")
+    dias_da_semana = input("Digite os Dias da Semana (separados por vírgula): ").split(", ")
+    horarios_do_curso = input("Digite os Horários do curso (separados por vírgula): ").split(", ")
     nome_do_curso = input("Digite o Nome do Curso: ")
     return dias_da_semana, horarios_do_curso, nome_do_curso
 

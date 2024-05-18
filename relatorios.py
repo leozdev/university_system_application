@@ -1,4 +1,5 @@
 import os
+from professores import listar_atributos
 
 # SUBMENU's:
 # 1 - Lista todos
@@ -6,6 +7,12 @@ import os
 # 3 - Incluir (sem repetição)
 # 4 - Alterar 
 # 5 - Excluir (após confirmação dos dados) um elemento do conjunto. 
+
+"""
+database1 (dict): professores-disciplinas
+database2 (dict): professores
+database3 (dict): disciplinas
+"""
 
 def submenu_relatorios():
     """
@@ -33,3 +40,12 @@ def submenu_relatorios():
                 print("Opção inválida. Por favor, selecione uma opção de 1 a 6.")
         except ValueError:
             print("Entrada inválida. Por favor, insira um número.")
+
+def buscar_professores(database2, parametro):
+    for registro in database2:
+        if database2[registro]['titulacao'] == parametro:
+            print("-" * 30)
+            print("Registro Funcional:", registro)
+            listar_atributos(database2, registro)
+            print()
+    

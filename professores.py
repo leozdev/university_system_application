@@ -92,14 +92,14 @@ def listar_atributos(database, registro=None):
 
     if registro in database:
         dados = database[registro]
-        print("Nome:", dados["nome"])
-        print("Data de Nascimento:", dados["data-nascimento"])
-        print("Sexo:", dados["sexo"])
-        print("Área de Pesquisa:", dados["area-de-pesquisa"])
-        print("Titulação:", dados["titulacao"])
-        print("Graduação:", dados["graduacao"])
-        print("E-mails:", ", ".join(dados["emails"]))
-        print("Telefones:", ", ".join(dados["telefones"]))
+        print("Nome:", dados['nome'])
+        print("Data de Nascimento:", dados['data-nascimento'])
+        print("Sexo:", dados['sexo'])
+        print("Área de Pesquisa:", dados['area-de-pesquisa'])
+        print("Titulação:", dados['titulacao'])
+        print("Graduação:", dados['graduacao'])
+        print("E-mails:", ", ".join(dados['emails']))
+        print("Telefones:", ", ".join(dados['telefones']))
 
     else:
         print("Registro não encontrado!")
@@ -155,7 +155,7 @@ def gravar_dados(database, path):
 
     for registro in database:
         dados = database[registro]
-        linha = registro + ";" + ";".join(str(dados[chave]) for chave in dados)
+        linha = (f"{registro};{dados['nome']};{dados['data-nascimento']};{dados['sexo']};{dados['area-de-pesquisa']};{dados['titulacao']};{dados['graduacao']};{','.join(dados['emails'])};{','.join(dados['telefones'])}")
         arq.write(linha + "\n")
 
 def carregar_dados(database, path):
@@ -171,8 +171,8 @@ def carregar_dados(database, path):
             area = linha[4]
             titulacao = linha[5]
             graduacao = linha[6]
-            emails = linha[7]
-            telefones = linha[8]
+            emails = linha[7].split(',')
+            telefones = linha[8].split(',')
 
             incluir(database, registro, nome, data_nasc, sexo, area, titulacao, graduacao, emails, telefones)
 
