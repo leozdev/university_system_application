@@ -84,6 +84,7 @@ def main():
         elif opt_menu == 4:
             # relatorios.buscar_professores(database2=dados_professores, parametro='Doutorado')
             # input("\nPressione [enter] para continuar...")
+            ...
 
 if __name__ == "__main__":
     main()
