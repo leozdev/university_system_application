@@ -1,15 +1,15 @@
 import os
+from auxiliar import existe_arquivo
 
-'''
+"""
 database1 (dict): professores-disciplinas
 database2 (dict): professores
 database3 (dict): disciplinas
-'''
-# Refatorar para o tipo Arquivos... 
+"""
 def submenu_prof_disc():
     while True:
         input("\nPressione [enter] para continuar...")
-        os.system("cls")
+        os.system("cls" if os.name == "nt" else "clear")
         print("Sistema da Universidade")
         print("Desenvolvido por Leo Freitas & Vinicius Rafael\n")
         print("--- Menu de Gerenciamento de Professores-Disciplinas ---")
@@ -29,16 +29,23 @@ def submenu_prof_disc():
         except ValueError:
             print("Entrada inválida. Por favor, insira um número.")
 
-def entrada_registro():
-    return input("Digite o Registro Funcional: ")
+def entrada_registro(database2):
+    registro = input("Digite o Registro Funcional: ")
+    if registro in database2:
+        return registro
+    else:
+        print("O registro não foi encontrado no banco de dados.")
+        return None
 
-def entrada_sigla_disciplina():
-    return input("Digite a Sigla da Disciplina: ")
-
-def entrada_chaves():
-    ano = input("Digite o Ano: ")
-    semestre = input("Digite o Semestre: ")
-    return ano, semestre
+def entrada_chaves(database3):
+    sigla = input("Digite a Sigla da Disciplina: ")
+    if sigla in database3:
+        ano = input("Digite o Ano: ")
+        semestre = input("Digite o Semestre: ")
+        return sigla, ano, semestre
+    else:
+        print("A disciplina não foi encontrada no banco de dados.")
+        return None, None, None
 
 def entrada_atributos():
     dias_da_semana = input("Digite os Dias da Semana: (separados por vírgula) ").split(", ")
@@ -46,81 +53,69 @@ def entrada_atributos():
     nome_do_curso = input("Digite o Nome do Curso: ")
     return dias_da_semana, horarios_do_curso, nome_do_curso
 
-def incluir(database1, database2, database3):
-    registro = entrada_registro()
+def incluir(database1, registro, sigla_disciplina, ano, semestre, dias_da_semana, horarios_inicio, curso):  
+    if registro not in database1:
+        database1[registro] = {}
 
-    if registro in database2:
-        sigla_disciplina = entrada_sigla_disciplina()
+    if (sigla_disciplina, ano, semestre) not in database1[registro]:
+        database1[registro][(sigla_disciplina, ano, semestre)] = {
+            "dias_da_semana": dias_da_semana,
+            "horarios_inicio": horarios_inicio,
+            "curso": curso
+        }
+        return True
+    return False
 
-        if sigla_disciplina in database3:
-            ano, semestre, dias_da_semana, horarios_inicio, curso = *entrada_chaves(), *entrada_atributos()
-
-            if registro not in database1:
-                database1[registro] = {}
-            
-            if (sigla_disciplina, ano, semestre) in database1[registro]:
+def incluir_cadastro(database1, database2, database3):
+    registro = entrada_registro(database2)
+    if registro:
+        sigla, ano, semestre = entrada_chaves(database3)
+        if sigla and ano and semestre:
+            dias, horarios, curso = entrada_atributos()
+            if incluir(database1, registro, sigla, ano, semestre, dias, horarios, curso):
+                print("Dados cadastrados com sucesso!")
+            else:
                 print("Esses dados já estão cadastrados!")
-                return
-            
-            database1[registro][(sigla_disciplina, ano, semestre)] = {
-                "dias_da_semana": dias_da_semana,
-                "horarios_inicio": horarios_inicio,
-                "curso": curso
-                }
-            
-            print("Cadastro adicionado com sucesso.")
-        else:
-            print("Não foi possível encontrar essa disciplina no banco de dados.")
-    else:
-        print("Não foi possível encontrar esse registro no banco de dados.")
 
 def listar_todos(database1):
     for registro in database1:
         listar_atributos(database1, registro)
 
 def listar_atributos(database1, registro=None):
-
     if registro is None:
-        registro = entrada_registro()
+        registro = input("Digite o Registro Funcional: ")
 
     if registro in database1:
         print("Registro:", registro)
-
-        # conjunto_chaves 'tuple': Um conjunto de chaves
         for conjunto_chaves, atributos in database1[registro].items():
             sigla_disciplina, ano, semestre = conjunto_chaves
-        
             print("Sigla da disciplina:", sigla_disciplina)
             print("Ano:", ano)
             print("Semestre:", semestre)
             print("Dias da Semana:", ", ".join(atributos["dias_da_semana"]))
-            print("Horários de início", ", ".join(atributos["horarios_inicio"]))
+            print("Horários de início:", ", ".join(atributos["horarios_inicio"]))
             print("Curso:", atributos["curso"])
             print()
-
     else:
-        print(f"O registro não foi encontrado no banco de dados.")
-  
-# Melhorar essa função
-def cruzar_dados(database1):
-    registro = entrada_registro()
+        print("Registro não encontrado.")
 
+def existe_dados(database1):
+    registro = input("Digite o Registro Funcional: ")
     if registro in database1:
-        conjunto_chaves = (input("Digite a Sigla da Disciplina: "), input("Digite o Ano: "), input("Digite o Semestre: "))
-
-        if conjunto_chaves in database1[registro]:
-            return registro, conjunto_chaves
-        
+        sigla = input("Digite a Sigla da Disciplina: ")
+        ano = input("Digite o Ano: ")
+        semestre = input("Digite o Semestre: ")
+        if (sigla, ano, semestre) in database1[registro]:
+            return registro, (sigla, ano, semestre)
         else:
-            print("Dados não encontrado.")
-
+            print("Dados não encontrados.")
     else:
         print("Registro não encontrado no banco de dados.")
     return None, None
 
-def confirmar():
+def confirmar(acao):
     while True:
-        input_confirma = input("Tem certeza que deseja excluir? (S/N): ").upper()
+        input_confirma = input(f"Tem certeza que deseja {acao} o cadastro? (S/N): ").upper()
         if input_confirma == "S":
             return True
         elif input_confirma == "N":
@@ -129,51 +124,71 @@ def confirmar():
             print("Opção inválida!")
 
 def excluir_cadastro(database1):
-    registro, conjunto_chaves = cruzar_dados(database1)
-
+    registro, conjunto_chaves = existe_dados(database1)
     if registro and conjunto_chaves:
-        if confirmar():
-
+        if confirmar('excluir'):
             if len(database1[registro]) > 1:
                 del database1[registro][conjunto_chaves]
             else:
                 del database1[registro]
-
             print("Cadastro excluído com sucesso.")
         else:
             print("Exclusão cancelada!")
 
-
 def alterar_cadastro(database1):
-    registro, conjunto_chaves = cruzar_dados(database1)
-
+    registro, conjunto_chaves = existe_dados(database1)
     if registro and conjunto_chaves:
-        # Melhorar frase
         print("\nAtualize os dados:\n")
-        dias, horarios, nome_curso = entrada_atributos()
-
-        database1[registro][conjunto_chaves]["dias_da_semana"] = horarios
-        database1[registro][conjunto_chaves]["horarios_inicio"] = dias
-        database1[registro][conjunto_chaves]["curso"] = nome_curso
-
+        dias, horarios, curso = entrada_atributos()
+        database1[registro][conjunto_chaves]["dias_da_semana"] = dias
+        database1[registro][conjunto_chaves]["horarios_inicio"] = horarios
+        database1[registro][conjunto_chaves]["curso"] = curso
         print("Cadastro alterado com sucesso.")
 
-def executa(database1, database2, database3):
+def gravar_dados(database1, path):
+    arq =  open(path, "w", encoding="utf-8")
+
+    for registro in database1:
+        for conjunto_chaves, atributos in database1[registro].items():
+            sigla_disciplina, ano, semestre = conjunto_chaves
+            linha = (f"{registro};{sigla_disciplina};{ano};{semestre};"
+                         f"{','.join(atributos['dias_da_semana'])};"
+                         f"{','.join(atributos['horarios_inicio'])};"
+                         f"{atributos['curso']}")
+            arq.write(linha + "\n")
+    arq.close()
+
+def carregar_dados(database1, path):
+    if existe_arquivo(path):
+        arq = open(path, "r", encoding="utf-8")
+
+        for linha in arq:
+            linha = linha.strip().split(";")
+            registro = linha[0]
+            sigla_disciplina = linha[1]
+            ano = linha[2]
+            semestre = linha[3]
+            dias_da_semana = linha[4].split(',')
+            horarios_inicio = linha[5].split(',')
+            curso = linha[6]
+            incluir(database1, registro, sigla_disciplina, ano, semestre, dias_da_semana, horarios_inicio, curso)
+
+        arq.close()
+
+def executa(database1, database2, database3, path):
+    carregar_dados(database1, path)
     while True:
         opt = submenu_prof_disc()
-        
         funcoes = {
-            1:listar_todos,
-            2:listar_atributos,
-            4:alterar_cadastro,
-            5:excluir_cadastro
+            1: listar_todos,
+            2: listar_atributos,
+            4: alterar_cadastro,
+            5: excluir_cadastro
         }
-        
         if opt in funcoes:
             funcoes[opt](database1)
-        
         elif opt == 3:
-            incluir(database1, database2, database3)
-        
+            incluir_cadastro(database1, database2, database3)
         elif opt == 6:
+            gravar_dados(database1, path)
             return

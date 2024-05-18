@@ -79,11 +79,7 @@ def incluir(database, registro, nome, data_nasc, sexo, area, titulacao, graduaca
     }
 
 def listar_todos(database):
-    """
-   
-    """
     print("Todos os dados cadastrados:\n")
-
     for registro in database:
         print("-" * 30)
         print("Registro Funcional:", registro)
@@ -91,9 +87,6 @@ def listar_todos(database):
         print()
 
 def listar_atributos(database, registro=None):
-    """
-
-    """
     if registro is None:
         registro = entrada_registro()
 
@@ -112,12 +105,6 @@ def listar_atributos(database, registro=None):
         print("Registro não encontrado!")
 
 def incluir_cadastro(database):
-    """
-    Solicita ao usuário os dados para incluir um novo cadastro no banco de dados.
-
-    Argumentos:
-        database (dict): O banco de dados.
-    """
     registro = entrada_registro()
     if registro not in database:
         dados_do_professor = entrada_dados()
@@ -125,8 +112,6 @@ def incluir_cadastro(database):
         print("Cadastrado com sucesso!")
     else:
         print("Já existe um cadastro com esse registro!")
-
-# Modularizar mais essas ultimas 2 funcoes, se possivel...
 
 
 def confirmar(acao):
@@ -140,12 +125,6 @@ def confirmar(acao):
             print("Opção inválida!")
 
 def alterar_cadastro(database):
-    """
-    Altera os dados de um cadastro existente no banco de dados.
-
-    Argumentos:
-        database (dict): O banco de dados.
-    """
     registro = entrada_registro()
     if registro in database:
         dados_do_professor = entrada_dados()
@@ -160,26 +139,18 @@ def alterar_cadastro(database):
 
 
 def excluir_cadastro(database):
-    """
-    Exclui um cadastro existente do banco de dados.
-
-    Argumentos:
-        database (dict): O banco de dados.
-    """
     registro = entrada_registro()
+    
     if registro in database:
-
         if confirmar('excluir'):
             del database[registro]
             print("Cadastro excluído com sucesso!")
-
         else:
             print("Exclusão cancelada!")
-
     else:
         print("Registro não encontrado!")
  
-def grava_dados(database, path):
+def gravar_dados(database, path):
     arq = open(path, "w", encoding="utf-8")
 
     for registro in database:
@@ -187,9 +158,10 @@ def grava_dados(database, path):
         linha = registro + ";" + ";".join(str(dados[chave]) for chave in dados)
         arq.write(linha + "\n")
 
-def carrega_dados(database, path):
+def carregar_dados(database, path):
     if existe_arquivo(path):
         arq = open(path, "r")
+
         for linha in arq:
             linha = linha.strip().split(";")
             registro = linha[0]
@@ -225,5 +197,5 @@ def executa(database, path):
         if opt in funcoes:
             funcoes[opt](database)
         elif opt == 6:
-            grava_dados(database, path)
+            gravar_dados(database, path)
             return

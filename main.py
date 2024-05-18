@@ -53,14 +53,16 @@ def main():
     # Dados dos Professores
     path_professores = "dados_professores.txt"
     dados_professores = {}
-    professores.carrega_dados(dados_professores, path_professores)
+    professores.carregar_dados(dados_professores, path_professores)
 
     # Dados das disciplinas
     dados_disciplinas = {}
     disciplinas.recupera_disciplinas(dados_disciplinas)
     
     # Dados das aulas
+    path_prof_disc = "dados_prof_disc.txt"
     dados_prof_disc = {}
+    prof_disc.carregar_dados(dados_prof_disc, path_prof_disc)
 
     opt_menu = 1
     while opt_menu != 5:
@@ -76,7 +78,7 @@ def main():
 
         # Submenu Prof Disc
         elif opt_menu == 3:
-            prof_disc.executa(dados_prof_disc, dados_professores, dados_disciplinas)
+            prof_disc.executa(database1=dados_prof_disc, database2=dados_professores, database3=dados_disciplinas, path=path_prof_disc)
 
         # Submenu Relatórios
         elif opt_menu == 4:

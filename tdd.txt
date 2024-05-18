@@ -54,16 +54,16 @@ Bacharelado de Engenharia de Software
 SCLAPR1
 2024
 1
-Segunda-Feira Quinta-Feira
-8h-11h30 8h-9h30
+Segunda-Feira, Quinta-Feira
+8h-11h30, 8h-9h30
 Bacharelado de Engenharia de Software
 
 1001
 SCLAPR1
 2024
 2
-Segunda-Feira Quinta-Feira
-8h-11h30 8h-9h30
+Segunda-Feira, Quinta-Feira
+8h-11h30, 8h-9h30
 Bacharelado de Engenharia de Software
 
 {'registro': {('sigla', 'ano', 'semestre'): {'dias_da_semana': [''], 'horarios_inicio': [''], 'curso': ''}}}
