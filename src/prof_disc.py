@@ -59,6 +59,7 @@ def incluir(database1, registro, sigla_disciplina, ano, semestre, dias_da_semana
     if registro not in database1:
         database1[registro] = {}
 
+    # Conjunto chaves = (sigla_disciplina, ano, semestre) -> Tupla (tuple)
     if (sigla_disciplina, ano, semestre) not in database1[registro]:
         database1[registro][(sigla_disciplina, ano, semestre)] = {
             "dias_da_semana": dias_da_semana,
@@ -138,6 +139,7 @@ def excluir_cadastro(database1):
         else:
             print("Exclusão cancelada!")
 
+# Falta confirmar alteraração
 def alterar_cadastro(database1):
     registro, conjunto_chaves = existe_dados(database1)
     if registro and conjunto_chaves:
@@ -154,8 +156,8 @@ def gravar_dados(database1, path):
     for registro in database1:
         for conjunto_chaves, atributos in database1[registro].items():
             sigla_disciplina, ano, semestre = conjunto_chaves
-            linha = (f"{registro};{sigla_disciplina};{ano};{semestre};{','.join(atributos['dias_da_semana'])};{','.join(atributos['horarios_inicio'])};{atributos['curso']}")
-            arq.write(linha + "\n")
+            linha = (f"{registro};{sigla_disciplina};{ano};{semestre};{','.join(atributos['dias_da_semana'])};{','.join(atributos['horarios_inicio'])};{atributos['curso']}\n")
+            arq.write(linha)
     arq.close()
 
 def carregar_dados(database1, path):
@@ -174,7 +176,7 @@ def carregar_dados(database1, path):
             incluir(database1, registro, sigla_disciplina, ano, semestre, dias_da_semana, horarios_inicio, curso)
 
         arq.close()
-
+    
 def executa(database1, database2, database3, path):
     carregar_dados(database1, path)
     while True:

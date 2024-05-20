@@ -56,8 +56,9 @@ def main():
     professores.carregar_dados(dados_professores, path_professores)
 
     # Dados das disciplinas
+    path_disciplinas = "dados\dados_disciplinas.txt"
     dados_disciplinas = {}
-    disciplinas.recupera_disciplinas(dados_disciplinas)
+    disciplinas.recupera_disciplinas(dados_disciplinas, path_disciplinas)
     
     # Dados das aulas
     path_prof_disc = "dados\dados_prof_disc.txt"
@@ -79,7 +80,7 @@ def main():
 
         # Submenu Disciplinas
         elif opt_menu == 2:
-            disciplinas.executa(dic=dados_disciplinas)
+            disciplinas.executa(dic=dados_disciplinas, path=path_disciplinas)
 
         # Submenu Prof Disc
         elif opt_menu == 3:

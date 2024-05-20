@@ -78,6 +78,15 @@ def incluir(database, registro, nome, data_nasc, sexo, area, titulacao, graduaca
         "telefones": telefones
     }
 
+def incluir_cadastro(database):
+    registro = entrada_registro()
+    if registro not in database:
+        dados_do_professor = entrada_dados()
+        incluir(database, registro,  *dados_do_professor)
+        print("Cadastrado com sucesso!")
+    else:
+        print("Já existe um cadastro com esse registro!")
+
 def listar_todos(database):
     print("Todos os dados cadastrados:\n")
     for registro in database:
@@ -91,8 +100,7 @@ def listar_atributos(database, registro=None):
 
     if registro in database:
         dados = database[registro]
-        print()
-        print("Nome:", dados['nome'])
+        print("\nNome:", dados['nome'])
         print("Data de Nascimento:", dados['data-nascimento'])
         print("Sexo:", dados['sexo'])
         print("Área de Pesquisa:", dados['area-de-pesquisa'])
@@ -103,15 +111,6 @@ def listar_atributos(database, registro=None):
 
     else:
         print("Registro não encontrado!")
-
-def incluir_cadastro(database):
-    registro = entrada_registro()
-    if registro not in database:
-        dados_do_professor = entrada_dados()
-        incluir(database, registro, *dados_do_professor)
-        print("Cadastrado com sucesso!")
-    else:
-        print("Já existe um cadastro com esse registro!")
 
 def confirmar(acao):
     while True:
@@ -153,8 +152,9 @@ def gravar_dados(database, path):
 
     for registro in database:
         dados = database[registro]
-        linha = (f"{registro};{dados['nome']};{dados['data-nascimento']};{dados['sexo']};{dados['area-de-pesquisa']};{dados['titulacao']};{dados['graduacao']};{','.join(dados['emails'])};{','.join(dados['telefones'])}")
-        arq.write(linha + "\n")
+        linha = (f"{registro};{dados['nome']};{dados['data-nascimento']};{dados['sexo']};{dados['area-de-pesquisa']};{dados['titulacao']};{dados['graduacao']};{','.join(dados['emails'])};{','.join(dados['telefones'])}\n")
+        
+        arq.write(linha)
     
     arq.close()
 

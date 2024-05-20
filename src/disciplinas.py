@@ -59,7 +59,6 @@ def mostra_disciplina(dic, sigla=None):
     else:
         print("Disciplina não encontrada!")
 
-
 def mostra_td_disciplinas(dic):
 
     print("Todas disciplinas\n")
@@ -130,8 +129,8 @@ def relatorio(dic, n):
     print("")
 
 
-def grava_disciplinas(dic):
-    arq = open("dados\dados_disciplinas.txt", "w", encoding="utf-8")
+def grava_disciplinas(dic, path):
+    arq = open(path, "w", encoding="utf-8")
     
     for sigla in dic:
         info = dic[sigla]
@@ -145,13 +144,13 @@ def grava_disciplinas(dic):
     arq.close()
 
 
-def recupera_disciplinas(dic):
+def recupera_disciplinas(dic, path):
 
     # Verificando se o arquivo existe:
-    if ( existe_arquivo("dados\dados_disciplinas.txt") ):
+    if ( existe_arquivo(path) ):
 
         # Existe! Abrindo arquivo para leitura:
-        arq = open("dados\dados_disciplinas.txt", "r", encoding="utf-8")
+        arq = open(path, "r", encoding="utf-8")
 
         # Percorrendo as linhas do arquivo:
         for linha in arq:
@@ -209,7 +208,7 @@ def submenu_disciplinas():
             print("Entrada inválida. Por favor, insira um número.")
 
 
-def executa(dic):
+def executa(dic, path):
 
     while True:
         opt = submenu_disciplinas()
@@ -225,5 +224,5 @@ def executa(dic):
         if opt in funcoes:
             funcoes[opt](dic)
         elif opt == 6:
-            grava_disciplinas(dic)
+            grava_disciplinas(dic, path)
             return
