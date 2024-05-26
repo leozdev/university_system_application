@@ -56,6 +56,7 @@ def buscar_professores_titulacao(database2):
     if not existe:
         print("Não existe nenhum cadastro com essa titulação!") 
 
+
 def buscar_disciplina_creditos(database3):
     min_creditos = float(input("Informe a quantidade de créditos da disciplina a ser listada: "))
     print("Disciplinas com mais de", min_creditos, "créditos:\n")
@@ -68,8 +69,26 @@ def buscar_disciplina_creditos(database3):
     if not existe:
         print("Não existe nenhuma disciplina com essa quantidade mínima de créditos!") 
 
-def buscar_disciplina_dias():
-    ...
+
+def buscar_disciplina_dias(database1, database2, database3):
+    print("Disciplinas ministradas às terças e quintas-feiras:\n")
+    existe = False
+    for registro_prof, prof_disc in database1.items():
+        for (sigla_disciplina, _, _), atributos in prof_disc.items():
+            if "Terça-feira" in atributos["dias_da_semana"] and "Quinta-feira" in atributos["dias_da_semana"]:
+                existe = True
+                print("-" * 30)
+                print("Registro Funcional do Professor:", registro_prof)
+                print("Nome do Professor:", database2[registro_prof]["nome"])
+                print("Sigla da Disciplina:", sigla_disciplina)
+                print("Nome da Disciplina:", database3[sigla_disciplina]["nome"])
+                print("Dias da Semana:", ", ".join(atributos["dias_da_semana"]))
+                print("Horários de início:", ", ".join(atributos["horarios_inicio"]))
+                print("Curso:", atributos["curso"])
+    if not existe:
+        print("Não existem disciplinas ministradas às terças e quintas-feiras!")
+
+
 def executa(database1, database2, database3):
 
     while True:
@@ -83,5 +102,7 @@ def executa(database1, database2, database3):
             buscar_professores_titulacao(database2)
         elif opt == 2: 
             buscar_disciplina_creditos(database3)
+        elif opt ==3: 
+            buscar_disciplina_dias(database1, database2, database3)
         elif opt == 4:
             return

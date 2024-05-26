@@ -1,13 +1,3 @@
-# disciplina = { 
-#     'APR1' : { 
-#         'nome': 'Algoritmos',
-#         'ementa': 'BES', 
-#         'bibliografia': 'blabla',
-#         'n_creditos': '10',
-#         'carga_horaria': '122h'
-#     }
-# }
-
 import os
 from src.auxiliar import *
 
@@ -58,6 +48,7 @@ def mostra_disciplina(dic, sigla=None):
         print("Carga Horária:", dados['carga_horaria'])
     else:
         print("Disciplina não encontrada!")
+
 
 def mostra_td_disciplinas(dic):
 
