@@ -141,7 +141,6 @@ def carregar_dados(db_disciplinas, path):
             'carga_horaria': carga_horaria
             }
 
-# Transformar biblioteca para condicionais
 def executa(db_disciplinas, path):
 
     while True:
@@ -157,7 +156,7 @@ def executa(db_disciplinas, path):
             if inserir_disciplina(db_disciplinas):
                 print("Disciplina cadastrada com sucesso!")
             else:
-                print("Disciplina já cadastrada!")
+                print("Erro: Já existe um cadastrado dessa sigla da disciplina no banco de dados!")
 
         # Pensar em alguma solução melhor que essa (Se tiver como...)
         elif opt == 4:
@@ -165,18 +164,18 @@ def executa(db_disciplinas, path):
             if retorno == 1:
                 print("Dados da disciplina alterado com sucesso!")
             elif retorno == -1:
-                print("Alteração cancelada!")
+                print("Você cancelou essa alteração!")
             else:
-                print("Sigla da disciplina não encontrada!")
+                print("Erro: Sigla da disciplina não consta no banco de dados de disciplinas!")
 
         elif opt == 5:
             retorno = remover_disciplina(db_disciplinas)
             if retorno == 1:
                 print("Disciplina removida com sucesso!")
             elif retorno == -1:
-                print("Remoção cancelada!")
+                print("Você cancelou essa remoção!")
             else:
-                print("Sigla da disciplina não encontrada!")
+                print("Erro: Sigla da disciplina não consta no banco de dados de disciplinas!")
                 
         elif opt == 6:
             gravar_dados(db_disciplinas, path)

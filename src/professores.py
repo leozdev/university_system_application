@@ -27,6 +27,7 @@ def submenu_professores():
 def entrada_registro():
     return input("Digite o Registro Funcional: ")
 
+# Futuramente incluir uma função que checa se não tem campos em brancos!
 def incluir_dados(db_professores, registro):
     nome = input("Digite o Nome completo: ").title()
     data_nasc = input("Digite a Data de Nascimento (DD/MM/AAAA): ")
@@ -146,7 +147,7 @@ def executa(db_professores, path):
             if inserir_professor(db_professores):
                 print("Professor cadastrado com sucesso!")
             else:
-                print("Professor já cadastrado!")
+                print("Erro: Já existe um cadastrado com esse registro funcional no banco de dados!")
         
         # Pensar em alguma solução melhor que essa (Se tiver como...)
         elif opt == 4:
@@ -154,18 +155,18 @@ def executa(db_professores, path):
             if retorno == 1:
                 print("Dados do professor alterado com sucesso!")
             elif retorno == -1:
-                print("Alteração cancelada!")
+                print("Você cancelou essa alteração!")
             else:
-                print("Registro funcional não encontrado!")
+                print("Erro: Registro funcional não consta no banco de dados de professores!")
 
         elif opt == 5:
             retorno = remover_professor(db_professores)
             if retorno == 1:
                 print("Professor removido com sucesso!")
             elif retorno == -1:
-                print("Remoção cancelada!")
+                print("Você cancelou essa remoção!")
             else:
-                 print("Registro funcional não encontrado!")
+                print("Erro: Registro funcional não consta no banco de dados de professores!")
 
         elif opt == 6:
             gravar_dados(db_professores, path)

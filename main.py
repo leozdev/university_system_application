@@ -20,13 +20,6 @@ Return:
 ###########################
 
 def menu():
-    """
-    Exibe um menu dos submenus
-
-    Return:
-        (int): A opção selecionada pelo usuário
-
-    """ 
     while True:
         os.system("cls")
         print("Sistema da Universidade")
@@ -54,11 +47,11 @@ def main():
     path_professores = "dados\dados_professores.txt"
     dados_professores = {}
 
-    # Dados das disciplinas
+    # Dados das Disciplinas
     path_disciplinas = "dados\dados_disciplinas.txt"
     dados_disciplinas = {}
     
-    # Dados das aulas
+    # Dados das Aulas
     path_prof_disc = "dados\dados_prof_disc.txt"
     dados_prof_disc = {}
 
