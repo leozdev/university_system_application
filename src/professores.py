@@ -159,9 +159,9 @@ def executa(db_professores, path):
         
         elif opt == 3:
             if incluir_cadastro(db_professores):
-                print("Cadastrado com sucesso!")
+                print("Professor cadastrado com sucesso!")
             else:
-                print("Registro não encontrado!")
+                print("Professor já cadastrado!")
 
         elif opt == 4:
             if alterar_cadastro(db_professores):

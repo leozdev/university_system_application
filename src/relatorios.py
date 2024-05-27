@@ -6,12 +6,6 @@ import src.prof_disc as prof_disc
 # !!!REFATORAR ESSE CÓDIGO!!!
 
 def submenu_relatorios():
-    """
-    Exibe um submenu para o gerenciamento dos relatórios.
-
-    Return:
-        int: A opção selecionada pelo usuário.
-    """
     while True:
         input("\nPressione [enter] para continuar...")
         os.system("cls")
@@ -35,8 +29,8 @@ def submenu_relatorios():
 def buscar_professores_titulacao(db_professores):
     path = "relatorios\\relatorio_professores_titulacao.txt"
     det_titulacao = input("Informe a titulação a ser listada (Mestrado ou Doutorado): ").lower()
-
     existe = False
+
     for registro in db_professores:
         if db_professores[registro]['titulacao'].lower() == det_titulacao:
             existe = True
@@ -59,8 +53,8 @@ def buscar_professores_titulacao(db_professores):
 def buscar_disciplina_creditos(db_disciplinas):
     path = "relatorios\\relatorio_disciplina_creditos.txt"
     min_creditos = float(input("Informe a quantidade de créditos da disciplina a ser listada: "))
-    
     existe = False
+
     for sigla in db_disciplinas:
         if float(db_disciplinas[sigla]['n_creditos']) > min_creditos:
             existe = True
@@ -74,15 +68,13 @@ def buscar_disciplina_creditos(db_disciplinas):
                      f"Carga Horária: {atributos['carga_horaria']}\n")
             gravar_dados(path, dados)
             return True
-        
     if not existe:
         return False
 
 def buscar_disciplina_dias(db_prof_disc, db_professores, db_disciplinas):
     path = "relatorios\\relatorio_disciplinas_dias.txt"
-
-    print("Disciplinas ministradas às terças e quintas-feiras:\n")
     existe = False
+
     for registro in db_prof_disc:
         for conjunto_chaves, atributos in db_prof_disc[registro].items():
             sigla, ano, semestre = conjunto_chaves
@@ -101,7 +93,6 @@ def buscar_disciplina_dias(db_prof_disc, db_professores, db_disciplinas):
                         f"Curso: {atributos['curso']}\n")
                 gravar_dados(path, dados)
                 return True
-            
     if not existe:
         return False
 
