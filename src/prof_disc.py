@@ -54,13 +54,14 @@ def inserir_prof_disc(db_prof_disc, db_professores, db_disciplinas):
         return -1 # Registro não existente no db_professores
     
     db_prof_disc[registro] = {}
+
     sigla, ano, semestre = entrada_chaves(db_disciplinas)
     if not (sigla and ano and semestre):
         return -2 # Sigla não existente no db_disciplinas
     
     if (sigla, ano, semestre) not in db_prof_disc[registro]:
-        if incluir_dados(db_prof_disc, registro, sigla, ano, semestre):
-            return 1 # Cadastrado com sucesso no db_prof_disc
+        incluir_dados(db_prof_disc, registro, sigla, ano, semestre)
+        return 1 # Cadastrado com sucesso no db_prof_disc
     return 0 # Cadastro já existe no prof_disc
    
 def listar_todas_aulas(db_prof_disc):
