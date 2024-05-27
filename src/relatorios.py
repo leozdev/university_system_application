@@ -27,6 +27,12 @@ def buscar_professores_titulacao(db_professores, path_relatorio_titulacoes):
     existe = False
 
     arq = open(path_relatorio_titulacoes, "w", encoding="utf-8")
+    cabecalho = (f"======= Relatório Titulação Professores =======\n"
+                 f"\tX Titulação: {det_titulacao}\n"
+                 f"============================================================\n"
+                 f"Professores:\n")
+    arq.write(cabecalho)
+
     for registro in db_professores:
         if db_professores[registro]['titulacao'].lower() == det_titulacao:
             existe = True
@@ -43,6 +49,13 @@ def buscar_professores_titulacao(db_professores, path_relatorio_titulacoes):
                         f"E-mails: {', '.join(atributos['emails'])}\n"
                         f"Telefones: {', '.join(atributos['telefones'])}\n")
             arq.write(dados)
+
+    data_hora_formatada = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+    rodape = (f"\n============================================================\n"
+              f"Relatório gerado em: {data_hora_formatada}\n"
+              f"============================================================\n")
+    arq.write(rodape)
+
     arq.close()
     return existe
 
@@ -84,6 +97,12 @@ def buscar_disciplina_dias(db_prof_disc, db_professores, db_disciplinas, path_re
     existe = False
     
     arq = open(path_relatorio_dias, "w", encoding="utf-8")
+    cabecalho = (f"======= Relatório Dias da Disciplina =======\n"
+                 f"\tX Disciplinas que serão ministradas às terças-feiras e às quintas-feiras\n"
+                 f"============================================================\n"
+                 f"Informações:\n")
+    arq.write(cabecalho)
+
     for registro in db_prof_disc:
         for conjunto_chaves, atributos in db_prof_disc[registro].items():
             sigla, ano, semestre = conjunto_chaves
@@ -101,6 +120,13 @@ def buscar_disciplina_dias(db_prof_disc, db_professores, db_disciplinas, path_re
                             f"Horários de Início: {', '.join(atributos['horarios_inicio'])}\n"
                             f"Curso: {atributos['curso']}\n")
                 arq.write(dados)
+
+    data_hora_formatada = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+    rodape = (f"\n============================================================\n"
+              f"Relatório gerado em: {data_hora_formatada}\n"
+              f"============================================================\n")
+    arq.write(rodape)
+
     arq.close()
     return existe
 
