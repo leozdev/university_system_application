@@ -68,23 +68,24 @@ def main():
 
         # Submenu Professores
         if opt_menu == 1:
-            professores.executa(db_professores=dados_professores, path=path_professores)
             # Carrega todos os dados existe no arquivo de banco de dados de professores
             professores.carregar_dados(dados_professores, path_professores)
+            professores.executa(db_professores=dados_professores, path=path_professores)
 
         # Submenu Disciplinas
         elif opt_menu == 2:
-            disciplinas.executa(db_disciplinas=dados_disciplinas, path=path_disciplinas)
             # Carrega todos os dados existe no arquivo de banco de dados de disciplinas
-            disciplinas.carregar_disciplinas(dados_disciplinas, path_disciplinas)
+            disciplinas.carregar_dados(dados_disciplinas, path_disciplinas)
+            disciplinas.executa(db_disciplinas=dados_disciplinas, path=path_disciplinas)
 
         # Submenu Prof Disc
         elif opt_menu == 3:
-            prof_disc.executa(db_prof_disc=dados_prof_disc, db_professores=dados_professores, db_disciplinas=dados_disciplinas, path=path_prof_disc)
             # Carrega todos os dados existentes nos arquivos de banco de dados
             professores.carregar_dados(dados_professores, path_professores)
-            disciplinas.carregar_disciplinas(dados_disciplinas, path_disciplinas)
+            disciplinas.carregar_dados(dados_disciplinas, path_disciplinas)
             prof_disc.carregar_dados(dados_prof_disc, path_prof_disc)
+
+            prof_disc.executa(db_prof_disc=dados_prof_disc, db_professores=dados_professores, db_disciplinas=dados_disciplinas, path=path_prof_disc)
 
         # Submenu Relatórios
         elif opt_menu == 4:

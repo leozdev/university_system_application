@@ -3,6 +3,7 @@ import os
 def existe_arquivo(nome):
     if os.path.exists(nome):
         return True
+    return False
     
 def confirmar(acao):
     while True:
@@ -10,7 +11,6 @@ def confirmar(acao):
         if input_confirma == "S":
             return True
         elif input_confirma == "N":
-            # print(f"Ação de {acao} cancelada com sucesso!")
             return False
         else:
             print("Opção inválida!")

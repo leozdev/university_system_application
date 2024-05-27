@@ -3,8 +3,8 @@ Registro Funcional: 1000
 Nome: Jorge Curtigi
 Data de Nascimento: 01/01/1900
 Sexo: M
-Área de Pesquisa: Engenharia de Software
+Área de Pesquisa: Engenharia De Software
 Titulação: Doutorado
 Graduação: Usp
-E-mails: curtigi@ifsp.edu.br, jorge@ifsp.edu.br
+E-mails: Curtigi@Ifsp.Edu.Br, Jorge@Ifsp.Edu.Br
 Telefones: (16) 99999-8888, (11) 97777-7777

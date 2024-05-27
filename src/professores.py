@@ -2,7 +2,6 @@ import os
 from src.auxiliar import existe_arquivo, confirmar
 
 def submenu_professores():
-
     while True:
         input("\nPressione [enter] para continuar...")
         os.system("cls")
@@ -28,20 +27,15 @@ def submenu_professores():
 def entrada_registro():
     return input("Digite o Registro Funcional: ")
 
-def entrada_dados():
-
-    nome = input("Digite o Nome completo: ")
+def incluir_dados(db_professores, registro):
+    nome = input("Digite o Nome completo: ").title()
     data_nasc = input("Digite a Data de Nascimento (DD/MM/AAAA): ")
-    sexo = input("Digite o Sexo: ")
-    area = input("Digite a Área de Pesquisa: ")
-    titulacao = input("Digite a Titulação: ")
-    graduacao = input("Digite a Graduação: ")
-    emails = input("Digite os E-mails (separados por vírgula): ").split(", ")
-    telefones = input("Digite os Telefones (separados por vírgula): ").split(", ")
-
-    return nome, data_nasc, sexo, area, titulacao, graduacao, emails, telefones
-
-def incluir(db_professores, registro, nome, data_nasc, sexo, area, titulacao, graduacao, emails, telefones):
+    sexo = input("Digite o Sexo (F/M): ").title()
+    area = input("Digite a Área de Pesquisa: ").title()
+    titulacao = input("Digite a Titulação: ").title()
+    graduacao = input("Digite a Graduação: ").title()
+    emails = input("Digite os E-mails (separados por vírgula-espaço): ").title().split(", ")
+    telefones = input("Digite os Telefones (separados por vírgula-espaço): ").split(", ")
 
     db_professores[registro] = {
         "nome": nome,
@@ -54,23 +48,21 @@ def incluir(db_professores, registro, nome, data_nasc, sexo, area, titulacao, gr
         "telefones": telefones
     }
 
-def incluir_cadastro(db_professores):
+def inserir_professor(db_professores):
     registro = entrada_registro()
     if registro not in db_professores:
-        dados_do_professor = entrada_dados()
-        incluir(db_professores, registro,  *dados_do_professor)
+        incluir_dados(db_professores, registro)
         return True
-    else:
-        return False
+    return False
 
-def listar_todos(db_professores):
-    print("Todos os dados cadastrados:\n")
+def listar_todos_professores(db_professores):
+    print("Todos os professores cadastrados:\n")
     for registro in db_professores:
         print("-" * 30)
         print("Registro Funcional:", registro)
-        listar_atributos(db_professores, registro)
+        listar_atributos_professor(db_professores, registro)
 
-def listar_atributos(db_professores, registro=None):
+def listar_atributos_professor(db_professores, registro=None):
     if registro is None:
         registro = entrada_registro()
 
@@ -84,96 +76,96 @@ def listar_atributos(db_professores, registro=None):
         print("Graduação:", dados['graduacao'])
         print("E-mails:", ", ".join(dados['emails']))
         print("Telefones:", ", ".join(dados['telefones']))
-
     else:
         print("Registro não encontrado!")
 
-# Arrumar a funcao confirmar
-def alterar_cadastro(db_professores):
+def alterar_dados_professor(db_professores):
     registro = entrada_registro()
     if registro in db_professores:
-        dados_do_professor = entrada_dados()
-        
         if confirmar('alterar'):
-            incluir(db_professores, registro, *dados_do_professor)
-            return True
+            incluir_dados(db_professores, registro)
+            return 1 # Alterado
+        else:
+            return -1 # Alteração Cancelada
     else:
-        return False
+        return 0 # Registro não encontrado
 
-def excluir_cadastro(db_professores):
+def remover_professor(db_professores):
     registro = entrada_registro()
-    
     if registro in db_professores:
-        if confirmar('excluir'):
+        if confirmar('remover'):
             del db_professores[registro]
-            return True
+            return 1 # Excluído
+        else:
+            return -1 # Exclusão Cancelada
     else:
-        return False
- 
+        return 0 # Registro não encontrado
+
 def gravar_dados(db_professores, path):
     arq = open(path, "w", encoding="utf-8")
-
-    for registro in db_professores:
-        dados = db_professores[registro]
+    for registro, dados in db_professores.items():
         linha = (f"{registro};{dados['nome']};"
-                 f"{dados['data-nascimento']};"
-                 f"{dados['sexo']};"
-                 f"{dados['area-de-pesquisa']};"
-                 f"{dados['titulacao']};" 
-                 f"{dados['graduacao']};" 
-                 f"{','.join(dados['emails'])};" 
-                 f"{','.join(dados['telefones'])}\n")
-        
+                 f"{dados['data-nascimento']};{dados['sexo']};"
+                 f"{dados['area-de-pesquisa']};{dados['titulacao']};"
+                 f"{dados['graduacao']};{','.join(dados['emails'])};"
+                 f"{','.join(dados['telefones'])}\n"
+                 )
         arq.write(linha)
     arq.close()
 
 def carregar_dados(db_professores, path):
     if existe_arquivo(path):
-        arq = open(path, "r")
+        arq = open(path, "r", encoding="utf-8")
 
         for linha in arq:
-            linha = linha.strip().split(";")
-            registro = linha[0]
-            nome = linha[1]
-            data_nasc = linha[2]
-            sexo = linha[3]
-            area = linha[4]
-            titulacao = linha[5]
-            graduacao = linha[6]
-            emails = linha[7].split(',')
-            telefones = linha[8].split(',')
+            registro, nome, data_nasc, sexo, area, titulacao, graduacao, emails, telefones = linha.strip().split(";")
 
-            incluir(db_professores, registro, nome, data_nasc, sexo, area, titulacao, graduacao, emails, telefones)
-        
+            db_professores[registro] = {
+                "nome": nome,
+                "data-nascimento": data_nasc,
+                "sexo": sexo,
+                "area-de-pesquisa": area,
+                "titulacao": titulacao,
+                "graduacao": graduacao,
+                "emails": emails.split(','),
+                "telefones": telefones.split(',')
+            }
         arq.close()
-        
+
 def executa(db_professores, path):
     while True:
         opt = submenu_professores()
 
         if opt == 1:
-            listar_todos(db_professores)
+            listar_todos_professores(db_professores)
 
         elif opt == 2:
-            listar_atributos(db_professores)
-        
+            listar_atributos_professor(db_professores)
+
         elif opt == 3:
-            if incluir_cadastro(db_professores):
+            if inserir_professor(db_professores):
                 print("Professor cadastrado com sucesso!")
             else:
                 print("Professor já cadastrado!")
-
+        
+        # Pensar em alguma solução melhor que essa (Se tiver como...)
         elif opt == 4:
-            if alterar_cadastro(db_professores):
-                print("Cadastro alterado com sucesso!")
+            retorno = alterar_dados_professor(db_professores)
+            if retorno == 1:
+                print("Dados do professor alterado com sucesso!")
+            elif retorno == -1:
+                print("Alteração cancelada!")
             else:
-                print("Registro não encontrado!")
+                print("Registro funcional não encontrado!")
 
         elif opt == 5:
-            if excluir_cadastro(db_professores):
-                print("Cadastro excluído com sucesso!")
+            retorno = remover_professor(db_professores)
+            if retorno == 1:
+                print("Professor removido com sucesso!")
+            elif retorno == -1:
+                print("Remoção cancelada!")
             else:
-                print("Registro não encontrado!")
+                 print("Registro funcional não encontrado!")
 
         elif opt == 6:
             gravar_dados(db_professores, path)
