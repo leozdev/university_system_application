@@ -51,6 +51,7 @@ def buscar_disciplina_creditos(db_disciplinas, path_relatorio_creditos):
     existe = False
     
     arq = open(path_relatorio_creditos, "w", encoding="utf-8")
+    
     cabecalho = (f"======= Relatório Disciplinas com mais de X créditos =======\n"
                  f"\tX Créditos: {min_creditos}\n"
                  f"============================================================\n"

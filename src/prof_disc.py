@@ -37,14 +37,10 @@ def entrada_chaves(db_disciplinas):
     print("A disciplina não foi encontrada no banco de dados.")
     return None, None, None # Retorna uma tupla de valores nulos se a sigla não existir no db_disciplinas
 
-def incluir_dados(db_prof_disc, registro, sigla_disciplina, ano, semestre, novo_cadastro=True): # Parametro novo_cadastro permite eu add uma nova chave ou simplesmente alterar os atributos daquela chave
+def incluir_dados(db_prof_disc, registro, sigla_disciplina, ano, semestre):
     dias_da_semana = input("Digite os Dias da Semana (separados por vírgula): ").split(", ")
     horarios_inicio = input("Digite os Horários do curso (separados por vírgula): ").split(", ")
     nome_do_curso = input("Digite o Nome do Curso: ")
-
-    if novo_cadastro:
-        if registro not in db_prof_disc:
-            db_prof_disc[registro] = {}
 
     db_prof_disc[registro][(sigla_disciplina, ano, semestre)] = {
     "dias_da_semana": dias_da_semana,
@@ -57,12 +53,13 @@ def inserir_prof_disc(db_prof_disc, db_professores, db_disciplinas):
     if not registro:
         return -1 # Registro não existente no db_professores
     
+    db_prof_disc[registro] = {}
     sigla, ano, semestre = entrada_chaves(db_disciplinas)
     if not (sigla and ano and semestre):
         return -2 # Sigla não existente no db_disciplinas
     
     if (sigla, ano, semestre) not in db_prof_disc[registro]:
-        if incluir_dados(db_prof_disc, registro, sigla, ano, semestre, novo_cadastro=True):
+        if incluir_dados(db_prof_disc, registro, sigla, ano, semestre):
             return 1 # Cadastrado com sucesso no db_prof_disc
     return 0 # Cadastro já existe no prof_disc
    
@@ -116,7 +113,7 @@ def alterar_cadastro(db_prof_disc):
         print("\nAtualize os dados:\n")
 
         if confirmar('alterar'):
-            incluir_dados(db_prof_disc, registro, *conjunto_chaves, novo_cadastro=False)
+            incluir_dados(db_prof_disc, registro, *conjunto_chaves)
             return 1 # Alterado com sucesso!
         else:
             return -1 # Alteração cancelada com sucesso!
