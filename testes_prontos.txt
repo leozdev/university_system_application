@@ -63,4 +63,3 @@ SCLAPR1
 Segunda-Feira, Quinta-Feira
 8h-11h30, 8h-9h30
 Bacharelado de Engenharia de Software
-
