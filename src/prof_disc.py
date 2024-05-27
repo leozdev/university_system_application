@@ -195,8 +195,8 @@ def carregar_dados(db_prof_disc, path):
                 db_prof_disc[registro] = {}
 
             db_prof_disc[registro][(sigla_disciplina, ano, semestre)] = {
-            "dias_da_semana": dias_da_semana,
-            "horarios_inicio": horarios_inicio,
+            "dias_da_semana": dias_da_semana.split(','),
+            "horarios_inicio": horarios_inicio.split(','),
             "curso": nome_do_curso
             }
 
