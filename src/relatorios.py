@@ -59,16 +59,21 @@ def buscar_disciplina_creditos(db_disciplinas):
         print("Não existe nenhuma disciplina com essa quantidade mínima de créditos!") 
 
 def buscar_disciplina_dias(db_prof_disc, db_professores, db_disciplinas):
-
+    print("Disciplinas ministradas às terças e quintas-feiras:\n")
+    existe = False
     for registro in db_prof_disc:
         for conjunto_chaves, atributos in db_prof_disc[registro].items():
             sigla, ano, semestre = conjunto_chaves
 
             if "Terça" in atributos["dias_da_semana"] and "Quinta" in atributos["dias_da_semana"]:
+                existe = True
                 print(f"\nRegistro Funcional: {registro}\n"
                       f"Nome do Professor: {db_professores[registro]['nome']}\n"
                       f"Nome da Disciplina: {db_disciplinas[sigla]['nome']}")
                 prof_disc.listar_atributos_especifico(db_prof_disc, registro, sigla, ano, semestre)
+                
+    if not existe:
+        print("Não existem disciplinas ministradas às terças e quintas-feiras!")
 
 def gravar_dados():
     ...
