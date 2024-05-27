@@ -108,7 +108,7 @@ def buscar_disciplina_dias(db_prof_disc, db_professores, db_disciplinas, path_re
         for conjunto_chaves, atributos in db_prof_disc[registro].items():
             sigla, ano, semestre = conjunto_chaves
 
-            if "Terça" in atributos["dias_da_semana"] and "Quinta" in atributos["dias_da_semana"]:
+            if "Terça-Feira" in atributos["dias_da_semana"] and "Quinta-Feira" in atributos["dias_da_semana"]:
                 existe = True
                 dados = (f"{'-' * 30}\n"
                             f"Registro Funcional: {registro}\n"
