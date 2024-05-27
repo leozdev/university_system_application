@@ -1,19 +1,9 @@
 import os
-from src.professores import listar_atributos
-from src.disciplinas import mostra_disciplina
+import src.professores as professores
+import src.disciplinas as disciplinas
+import src.prof_disc as prof_disc
 
-# SUBMENU"s:
-# 1 - Lista todos
-# 2 - Listar um elemento específico do conjunto
-# 3 - Incluir (sem repetição)
-# 4 - Alterar 
-# 5 - Excluir (após confirmação dos dados) um elemento do conjunto. 
-
-"""
-database1 (dict): professores-disciplinas
-database2 (dict): professores
-database3 (dict): disciplinas
-"""
+# !!!REFATORAR ESSE CÓDIGO!!!
 
 def submenu_relatorios():
     """
@@ -44,44 +34,59 @@ def submenu_relatorios():
 
 # Melhorar mais... textos, inputs, chamadas, parametros, impressao, função (modularizar)
 
-def buscar_professores_titulacao(database2):
+def buscar_professores_titulacao(db_professores):
     det_titulacao = input("Informe a titulação a ser listada (Mestrado ou Doutorado): ").lower()
     existe = False
-    for registro in database2:
-        if database2[registro]['titulacao'].lower() == det_titulacao:
+    for registro in db_professores:
+        if db_professores[registro]['titulacao'].lower() == det_titulacao:
             existe = True
             print("-" * 30)
             print("Registro Funcional:", registro)
-            listar_atributos(database2, registro)
+            professores.listar_atributos(db_professores, registro)
     if not existe:
         print("Não existe nenhum cadastro com essa titulação!") 
 
-def buscar_disciplina_creditos(database3):
+def buscar_disciplina_creditos(db_disciplinas):
     min_creditos = float(input("Informe a quantidade de créditos da disciplina a ser listada: "))
     print("Disciplinas com mais de", min_creditos, "créditos:\n")
     existe = False
-    for sigla in database3:
-        if float(database3[sigla]['n_creditos']) > min_creditos:
+    for sigla in db_disciplinas:
+        if float(db_disciplinas[sigla]['n_creditos']) > min_creditos:
             existe = True
-            mostra_disciplina(database3, sigla)
+            disciplinas.mostra_disciplina(db_disciplinas, sigla)
             print()
     if not existe:
         print("Não existe nenhuma disciplina com essa quantidade mínima de créditos!") 
 
-def buscar_disciplina_dias():
+def buscar_disciplina_dias(db_prof_disc, db_professores, db_disciplinas):
+
+    for registro in db_prof_disc:
+        for conjunto_chaves, atributos in db_prof_disc[registro].items():
+            sigla, ano, semestre = conjunto_chaves
+
+            if "Terça" in atributos["dias_da_semana"] and "Quinta" in atributos["dias_da_semana"]:
+                print(f"\nRegistro Funcional: {registro}\n"
+                      f"Nome do Professor: {db_professores[registro]['nome']}\n"
+                      f"Nome da Disciplina: {db_disciplinas[sigla]['nome']}")
+                prof_disc.listar_atributos_especifico(db_prof_disc, registro, sigla, ano, semestre)
+
+def gravar_dados():
     ...
-def executa(database1, database2, database3):
+
+def carregar_dados():
+    ...
+
+def executa(db_prof_disc, db_professores, db_disciplinas):
 
     while True:
         opt = submenu_relatorios()
-        
-        # funcoes = {
-        #     1:buscar_professores
-        # }
 
         if opt == 1:
-            buscar_professores_titulacao(database2)
+            buscar_professores_titulacao(db_professores)
         elif opt == 2: 
-            buscar_disciplina_creditos(database3)
+            buscar_disciplina_creditos(db_disciplinas)
+        elif opt == 3:
+            buscar_disciplina_dias(db_prof_disc, db_professores, db_disciplinas)
         elif opt == 4:
+            # gravar_dados()
             return

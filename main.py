@@ -66,8 +66,8 @@ def main():
     prof_disc.carregar_dados(dados_prof_disc, path_prof_disc)
 
     # Dados relatórios
-    path_relatorios = "dados_relatorios.txt"
-    dados_relatorios = {}
+    # path_relatorios = "dados_relatorios.txt"
+    # dados_relatorios = {}
     # relatorios.carregar_dados(dados_relatorios, path_relatorios)
 
     opt_menu = 1
@@ -76,19 +76,19 @@ def main():
 
         # Submenu Professores
         if opt_menu == 1:
-            professores.executa(database=dados_professores, path=path_professores)
+            professores.executa(db_professores=dados_professores, path=path_professores)
 
         # Submenu Disciplinas
         elif opt_menu == 2:
-            disciplinas.executa(dic=dados_disciplinas, path=path_disciplinas)
+            disciplinas.executa(db_disciplinas=dados_disciplinas, path=path_disciplinas)
 
         # Submenu Prof Disc
         elif opt_menu == 3:
-            prof_disc.executa(database1=dados_prof_disc, database2=dados_professores, database3=dados_disciplinas, path=path_prof_disc)
+            prof_disc.executa(db_prof_disc=dados_prof_disc, db_professores=dados_professores, db_disciplinas=dados_disciplinas, path=path_prof_disc)
 
         # Submenu Relatórios
         elif opt_menu == 4:
-            relatorios.executa(database1=dados_prof_disc, database2=dados_professores, database3=dados_disciplinas)
+            relatorios.executa(db_prof_disc=dados_prof_disc, db_professores=dados_professores, db_disciplinas=dados_disciplinas)
             
 if __name__ == "__main__":
     main()

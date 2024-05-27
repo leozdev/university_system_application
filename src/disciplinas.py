@@ -1,29 +1,18 @@
-# disciplina = { 
-#     'APR1' : { 
-#         'nome': 'Algoritmos',
-#         'ementa': 'BES', 
-#         'bibliografia': 'blabla',
-#         'n_creditos': '10',
-#         'carga_horaria': '122h'
-#     }
-# }
-
 import os
 from src.auxiliar import *
 
-def existe_disciplina(dic,sigla):
-    if sigla in dic.keys():
+def existe_disciplina(db_disciplinas,sigla):
+    if sigla in db_disciplinas.keys():
         return True
     else:
         return False
     
-    
-def insere_disciplina(dic):
+def insere_disciplina(db_disciplinas):
 
     sigla = input("Digite a sigla da disciplina: ")
 
     
-    if existe_disciplina(dic,sigla):
+    if existe_disciplina(db_disciplinas,sigla):
         print("Disciplina já cadastrada!")
         input("Tecle <ENTER> para continuar...\n")
         
@@ -34,7 +23,7 @@ def insere_disciplina(dic):
         n_creditos = input("Digite o número de creditos da disciplina: ")
         carga_horaria = input("Digite a carga horaria da disciplina: ")
 
-        dic[sigla] = {
+        db_disciplinas[sigla] = {
         'nome': nome,
         'ementa': ementa, 
         'bibliografia': bibliografia,
@@ -44,13 +33,12 @@ def insere_disciplina(dic):
 
         print("Dados inseridos com sucesso!")
 
-
-def mostra_disciplina(dic, sigla=None):
+def mostra_disciplina(db_disciplinas, sigla=None):
     if sigla is None:
         sigla = input("Digite a sigla da disciplina que deseja consultar: ")
 
-    if existe_disciplina(dic, sigla):
-        dados = dic[sigla]
+    if existe_disciplina(db_disciplinas, sigla):
+        dados = db_disciplinas[sigla]
         print("Nome:", dados['nome'])
         print("Ementa:", dados['ementa'])
         print("Bibliografia:", dados['bibliografia'])
@@ -59,19 +47,18 @@ def mostra_disciplina(dic, sigla=None):
     else:
         print("Disciplina não encontrada!")
 
-def mostra_td_disciplinas(dic):
+def mostra_td_disciplinas(db_disciplinas):
 
     print("Todas disciplinas\n")
-    for sigla in dic: 
+    for sigla in db_disciplinas: 
         print("Sigla da Disciplina:", sigla)
-        mostra_disciplina(dic, sigla)
+        mostra_disciplina(db_disciplinas, sigla)
         print()
 
-
-def altera_disciplina(dic):
+def altera_disciplina(db_disciplinas):
     sigla = input("Digite a sigla da disciplina que deseja alterar: ")
     
-    if existe_disciplina(dic,sigla):
+    if existe_disciplina(db_disciplinas,sigla):
         confirma = input("Tem certeza que deseja alterar? (S/N): ").upper()
         
         if confirma == 'S':
@@ -81,7 +68,7 @@ def altera_disciplina(dic):
             n_creditos = input("Digite o número de creditos da disciplina: ")
             carga_horaria = input("Digite a carga horaria da disciplina: ")
 
-            dic[sigla] = {
+            db_disciplinas[sigla] = {
             'nome': nome,
             'ementa': ementa, 
             'bibliografia': bibliografia,
@@ -97,15 +84,14 @@ def altera_disciplina(dic):
     else:
         print("Disciplina não foi encontrada!")
 
-
-def remove_disciplina(dic):
+def remove_disciplina(db_disciplinas):
     sigla = input("Digite a sigla da disciplina que deseja remover: ")
 
-    if existe_disciplina(dic,sigla):
+    if existe_disciplina(db_disciplinas,sigla):
         confirma = input("Tem certeza que deseja apagar? (S/N): ").upper()
         
         if confirma == 'S':
-            del dic[sigla]
+            del db_disciplinas[sigla]
             print("Dados apagados com sucesso!")
             
         else:
@@ -115,12 +101,11 @@ def remove_disciplina(dic):
 
         print("Disciplina não cadastrada!")
 
-
-def relatorio(dic, n):
+def relatorio(db_disciplinas, n):
     print("Disciplinas com mais de", n, "créditos:\n")
     print("SIGLA - NOME - EMENTA - BIBLIOGRAFIA - NUM DE CREDITOS - CARGA HORARIA\n")
     
-    for codigo, dados in dic.items():
+    for codigo, dados in db_disciplinas.items():
         num_creditos = int(dados['n_creditos'])
         if num_creditos > n:
             linha = codigo + " - " + dados['nome'] + " - " + dados['ementa'] + " - " + dados['bibliografia'] + " - " + dados['n_creditos'] + " - " + dados['carga_horaria'] + "\n"
@@ -128,12 +113,11 @@ def relatorio(dic, n):
     
     print("")
 
-
-def grava_disciplinas(dic, path):
+def grava_disciplinas(db_disciplinas, path):
     arq = open(path, "w", encoding="utf-8")
     
-    for sigla in dic:
-        info = dic[sigla]
+    for sigla in db_disciplinas:
+        info = db_disciplinas[sigla]
         # Monta linha para gravação:
         linha = sigla + ";" + info['nome'] + ";" + info['ementa'] + ";" + info['bibliografia'] + ";" + info['n_creditos'] + ";" + info['carga_horaria'] + "\n"
 
@@ -143,8 +127,7 @@ def grava_disciplinas(dic, path):
     # Fecha o arquivo:
     arq.close()
 
-
-def recupera_disciplinas(dic, path):
+def recupera_disciplinas(db_disciplinas, path):
 
     # Verificando se o arquivo existe:
     if ( existe_arquivo(path) ):
@@ -168,15 +151,13 @@ def recupera_disciplinas(dic, path):
             n_creditos = lista[4]
             carga_horaria = lista[5]
 
-            # Colocando os dados no dicionario:
-            dic[sigla] = {
+            db_disciplinas[sigla] = {
             'nome': nome,
             'ementa': ementa, 
             'bibliografia': bibliografia,
             'n_creditos': n_creditos,
             'carga_horaria': carga_horaria
             }
-
 
 def submenu_disciplinas():
     """
@@ -207,8 +188,7 @@ def submenu_disciplinas():
         except ValueError:
             print("Entrada inválida. Por favor, insira um número.")
 
-
-def executa(dic, path):
+def executa(db_disciplinas, path):
 
     while True:
         opt = submenu_disciplinas()
@@ -222,7 +202,7 @@ def executa(dic, path):
         }
 
         if opt in funcoes:
-            funcoes[opt](dic)
+            funcoes[opt](db_disciplinas)
         elif opt == 6:
-            grava_disciplinas(dic, path)
+            grava_disciplinas(db_disciplinas, path)
             return

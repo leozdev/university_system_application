@@ -1,5 +1,5 @@
 import os
-from src.auxiliar import existe_arquivo
+from src.auxiliar import existe_arquivo, confirmar
 
 def submenu_professores():
     """
@@ -51,12 +51,12 @@ def entrada_dados():
 
     return nome, data_nasc, sexo, area, titulacao, graduacao, emails, telefones
 
-def incluir(database, registro, nome, data_nasc, sexo, area, titulacao, graduacao, emails, telefones):
+def incluir(db_professores, registro, nome, data_nasc, sexo, area, titulacao, graduacao, emails, telefones):
     """
     Inclui um novo cadastro no banco de dados.
 
     Argumentos:
-        database (dict): O banco de dados.
+        db_professores (dict): O banco de dados.
         registro (str): A chave para o novo cadastro.
         nome (str): Nome completo.
         data_nasc (str): Data de Nascimento (DD/MM/AAAA).
@@ -67,7 +67,7 @@ def incluir(database, registro, nome, data_nasc, sexo, area, titulacao, graduaca
         emails (list): Lista de e-mails.
         telefones (list): Lista de telefones.
     """
-    database[registro] = {
+    db_professores[registro] = {
         "nome": nome,
         "data-nascimento": data_nasc,
         "sexo": sexo,
@@ -78,28 +78,28 @@ def incluir(database, registro, nome, data_nasc, sexo, area, titulacao, graduaca
         "telefones": telefones
     }
 
-def incluir_cadastro(database):
+def incluir_cadastro(db_professores):
     registro = entrada_registro()
-    if registro not in database:
+    if registro not in db_professores:
         dados_do_professor = entrada_dados()
-        incluir(database, registro,  *dados_do_professor)
+        incluir(db_professores, registro,  *dados_do_professor)
         print("Cadastrado com sucesso!")
     else:
         print("Já existe um cadastro com esse registro!")
 
-def listar_todos(database):
+def listar_todos(db_professores):
     print("Todos os dados cadastrados:\n")
-    for registro in database:
+    for registro in db_professores:
         print("-" * 30)
         print("Registro Funcional:", registro)
-        listar_atributos(database, registro)
+        listar_atributos(db_professores, registro)
 
-def listar_atributos(database, registro=None):
+def listar_atributos(db_professores, registro=None):
     if registro is None:
         registro = entrada_registro()
 
-    if registro in database:
-        dados = database[registro]
+    if registro in db_professores:
+        dados = db_professores[registro]
         print("\nNome:", dados['nome'])
         print("Data de Nascimento:", dados['data-nascimento'])
         print("Sexo:", dados['sexo'])
@@ -112,53 +112,43 @@ def listar_atributos(database, registro=None):
     else:
         print("Registro não encontrado!")
 
-def confirmar(acao):
-    while True:
-        input_confirma = input(f"Tem certeza que deseja {acao} o cadastro? (S/N): ").upper()
-        if input_confirma == "S":
-            return True
-        elif input_confirma == "N":
-            return False
-        else:
-            print("Opção inválida!")
-
-def alterar_cadastro(database):
+def alterar_cadastro(db_professores):
     registro = entrada_registro()
-    if registro in database:
+    if registro in db_professores:
         dados_do_professor = entrada_dados()
         
         if confirmar('alterar'):
-            incluir(database, registro, *dados_do_professor)
+            incluir(db_professores, registro, *dados_do_professor)
             print("Cadastro alterado com sucesso!")
         else:
             print("Alteração cancelada!")
     else:
         print("Registro não encontrado!")
 
-def excluir_cadastro(database):
+def excluir_cadastro(db_professores):
     registro = entrada_registro()
     
-    if registro in database:
+    if registro in db_professores:
         if confirmar('excluir'):
-            del database[registro]
+            del db_professores[registro]
             print("Cadastro excluído com sucesso!")
         else:
             print("Exclusão cancelada!")
     else:
         print("Registro não encontrado!")
  
-def gravar_dados(database, path):
+def gravar_dados(db_professores, path):
     arq = open(path, "w", encoding="utf-8")
 
-    for registro in database:
-        dados = database[registro]
+    for registro in db_professores:
+        dados = db_professores[registro]
         linha = (f"{registro};{dados['nome']};{dados['data-nascimento']};{dados['sexo']};{dados['area-de-pesquisa']};{dados['titulacao']};{dados['graduacao']};{','.join(dados['emails'])};{','.join(dados['telefones'])}\n")
         
         arq.write(linha)
     
     arq.close()
 
-def carregar_dados(database, path):
+def carregar_dados(db_professores, path):
     if existe_arquivo(path):
         arq = open(path, "r")
 
@@ -174,16 +164,16 @@ def carregar_dados(database, path):
             emails = linha[7].split(',')
             telefones = linha[8].split(',')
 
-            incluir(database, registro, nome, data_nasc, sexo, area, titulacao, graduacao, emails, telefones)
+            incluir(db_professores, registro, nome, data_nasc, sexo, area, titulacao, graduacao, emails, telefones)
         
         arq.close()
         
-def executa(database, path):
+def executa(db_professores, path):
     """
     Executa o menu de gerenciamento de professores.
 
     Argumentos:
-        database (dict): O banco de dados de professores.
+        db_professores (dict): O banco de dados de professores.
     """
     while True:
         opt = submenu_professores()
@@ -197,7 +187,7 @@ def executa(database, path):
         }
 
         if opt in funcoes:
-            funcoes[opt](database)
+            funcoes[opt](db_professores)
         elif opt == 6:
-            gravar_dados(database, path)
+            gravar_dados(db_professores, path)
             return
