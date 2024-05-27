@@ -143,32 +143,32 @@ def executa(db_professores, path):
 
         elif opt == 2:
             if not listar_atributos_professor(db_professores):
-                print("Erro: Esse registro funcional não consta no banco de dados de professores!")
+                print("Erro: Esse registro funcional não consta no banco de dados de professores.")
 
         elif opt == 3:
             if inserir_professor(db_professores):
-                print("Professor cadastrado com sucesso!")
+                print("Professor cadastrado com sucesso.")
             else:
-                print("Erro: Já existe um cadastrado com esse registro funcional no banco de dados!")
+                print("Erro: Já existe um cadastrado com esse registro funcional no banco de dados.")
         
         # Pensar em alguma solução melhor que essa (Se tiver como...)
         elif opt == 4:
             retorno = alterar_dados_professor(db_professores)
             if retorno == 1:
-                print("Dados do professor alterado com sucesso!")
+                print("Dados do professor alterado com sucesso.")
             elif retorno == -1:
                 print("Alteração cancelada!")
             else:
-                print("Erro: Esse registro funcional não consta no banco de dados de professores!")
+                print("Erro: Esse registro funcional não consta no banco de dados de professores.")
 
         elif opt == 5:
             retorno = remover_professor(db_professores)
             if retorno == 1:
-                print("Professor removido com sucesso!")
+                print("Professor removido com sucesso.")
             elif retorno == -1:
                 print("Remoção cancelada!")
             else:
-                print("Erro: Esse registro funcional não consta no banco de dados de professores!")
+                print("Erro: Esse registro funcional não consta no banco de dados de professores.")
 
         elif opt == 6:
             gravar_dados(db_professores, path)

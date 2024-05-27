@@ -102,9 +102,9 @@ def existe_dados(db_prof_disc, db_professores, db_disciplinas, mostrar_mensagens
             elif mostrar_mensagens:
                 print("Dados não encontrados.")
         elif mostrar_mensagens:
-            print("Sigla da disciplina não encontrado no banco de dados.")
+            print("Erro: Essa sigla da disciplina não consta no banco de dados de disciplinas.")
     elif mostrar_mensagens:
-        print("Registro não encontrado no banco de dados.")
+        print("Erro: Esse registro funcional não consta no banco de dados de professores.")
     
     return None, None
 
@@ -219,18 +219,18 @@ def executa(db_prof_disc, db_professores, db_disciplinas, path):
         elif opt == 3:
             retorno = inserir_prof_disc(db_prof_disc, db_professores, db_disciplinas)
             if retorno == 1:
-                print("Aula cadastrada com sucesso!")
+                print("Aula cadastrada com sucesso.")
             elif retorno == -1:
-                print("Erro: Esse registro funcional não consta no banco de dados de professores!")
+                print("Erro: Esse registro funcional não consta no banco de dados de professores.")
             elif retorno == -2:
-                print("Erro: Essa sigla da disciplina não consta no banco de dados de disciplinas!")
+                print("Erro: Essa sigla da disciplina não consta no banco de dados de disciplinas.")
             else:
-                print("Erro: Já existe um cadastrado dessa aula no banco de dados!")
+                print("Erro: Já existe um cadastrado dessa aula no banco de dados.")
 
         elif opt == 4:
             retorno = alterar_cadastro(db_prof_disc)
             if retorno == 1:
-                print("Dados da aula alterado com sucesso!")
+                print("Dados da aula alterado com sucesso.")
             elif retorno == -1:
                 print("Alteração cancelada!")
             else:
@@ -239,7 +239,7 @@ def executa(db_prof_disc, db_professores, db_disciplinas, path):
         elif opt == 5:
             retorno = remover_prof_disc(db_prof_disc)
             if retorno == 1:
-                print("Aula removida com sucesso!")
+                print("Aula removida com sucesso.")
             elif retorno == -1:
                 print("Remoção cancelada!")
             else:

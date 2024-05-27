@@ -151,32 +151,32 @@ def executa(db_disciplinas, path):
 
         elif opt == 2:
             if not listar_atributos_disciplina(db_disciplinas):
-                print("Erro: Essa sigla da disciplina não consta no banco de dados de disciplinas!")
+                print("Erro: Essa sigla da disciplina não consta no banco de dados de disciplinas.")
 
         elif opt == 3:
             if inserir_disciplina(db_disciplinas):
-                print("Disciplina cadastrada com sucesso!")
+                print("Disciplina cadastrada com sucesso.")
             else:
-                print("Erro: Já existe um cadastrado dessa sigla da disciplina no banco de dados!")
+                print("Erro: Já existe um cadastrado dessa sigla da disciplina no banco de dados.")
 
         # Pensar em alguma solução melhor que essa (Se tiver como...)
         elif opt == 4:
             retorno = alterar_dados_disciplina(db_disciplinas)
             if retorno == 1:
-                print("Dados da disciplina alterado com sucesso!")
+                print("Dados da disciplina alterado com sucesso.")
             elif retorno == -1:
                 print("Alteração cancelada!")
             else:
-                print("Erro: Essa sigla da disciplina não consta no banco de dados de disciplinas!")
+                print("Erro: Essa sigla da disciplina não consta no banco de dados de disciplinas.")
 
         elif opt == 5:
             retorno = remover_disciplina(db_disciplinas)
             if retorno == 1:
-                print("Disciplina removida com sucesso!")
+                print("Disciplina removida com sucesso.")
             elif retorno == -1:
                 print("Remoção cancelada!")
             else:
-                print("Erro: Essa sigla da disciplina não consta no banco de dados de disciplinas!")
+                print("Erro: Essa sigla da disciplina não consta no banco de dados de disciplinas.")
                 
         elif opt == 6:
             gravar_dados(db_disciplinas, path)

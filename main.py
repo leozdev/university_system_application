@@ -55,6 +55,11 @@ def main():
     path_prof_disc = "dados\dados_prof_disc.txt"
     dados_prof_disc = {}
 
+    # Caminhos dos relatórios:
+    path_relatorio_titulacoes = "relatorios\\relatorio_professores_titulacao.txt"
+    path_relatorio_creditos = "relatorios\\relatorio_disciplina_creditos.txt"
+    path_relatorio_dias = "relatorios\\relatorio_disciplinas_dias.txt"
+
     opt_menu = 1
     while opt_menu != 5:
         opt_menu = menu()
@@ -63,13 +68,15 @@ def main():
         if opt_menu == 1:
             # Carrega todos os dados existe no arquivo de banco de dados de professores
             professores.carregar_dados(dados_professores, path_professores)
-            professores.executa(db_professores=dados_professores, path=path_professores)
+            # Executa
+            professores.executa(dados_professores, path_professores)
 
         # Submenu Disciplinas
         elif opt_menu == 2:
             # Carrega todos os dados existe no arquivo de banco de dados de disciplinas
             disciplinas.carregar_dados(dados_disciplinas, path_disciplinas)
-            disciplinas.executa(db_disciplinas=dados_disciplinas, path=path_disciplinas)
+            # Executa 
+            disciplinas.executa(dados_disciplinas, path_disciplinas)
 
         # Submenu Prof Disc
         elif opt_menu == 3:
@@ -77,12 +84,13 @@ def main():
             professores.carregar_dados(dados_professores, path_professores)
             disciplinas.carregar_dados(dados_disciplinas, path_disciplinas)
             prof_disc.carregar_dados(dados_prof_disc, path_prof_disc)
-
-            prof_disc.executa(db_prof_disc=dados_prof_disc, db_professores=dados_professores, db_disciplinas=dados_disciplinas, path=path_prof_disc)
+            # Executa
+            prof_disc.executa(dados_prof_disc, dados_professores, dados_disciplinas, path_prof_disc)
 
         # Submenu Relatórios
         elif opt_menu == 4:
-            relatorios.executa(db_prof_disc=dados_prof_disc, db_professores=dados_professores, db_disciplinas=dados_disciplinas)
+            # Executa
+            relatorios.executa(dados_prof_disc, dados_professores, dados_disciplinas, path_relatorio_titulacoes, path_relatorio_creditos, path_relatorio_dias)
             
 if __name__ == "__main__":
     main()
