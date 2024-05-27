@@ -77,8 +77,9 @@ def listar_atributos_professor(db_professores, registro=None):
         print("Graduação:", dados['graduacao'])
         print("E-mails:", ", ".join(dados['emails']))
         print("Telefones:", ", ".join(dados['telefones']))
+        return True # Tudo ocorreu bem
     else:
-        print("Registro não encontrado!")
+        return False # Registro não encontrado
 
 def alterar_dados_professor(db_professores):
     registro = entrada_registro()
@@ -141,7 +142,8 @@ def executa(db_professores, path):
             listar_todos_professores(db_professores)
 
         elif opt == 2:
-            listar_atributos_professor(db_professores)
+            if not listar_atributos_professor(db_professores):
+                print("Erro: Esse registro funcional não consta no banco de dados de professores!")
 
         elif opt == 3:
             if inserir_professor(db_professores):
@@ -155,18 +157,18 @@ def executa(db_professores, path):
             if retorno == 1:
                 print("Dados do professor alterado com sucesso!")
             elif retorno == -1:
-                print("Você cancelou essa alteração!")
+                print("Alteração cancelada!")
             else:
-                print("Erro: Registro funcional não consta no banco de dados de professores!")
+                print("Erro: Esse registro funcional não consta no banco de dados de professores!")
 
         elif opt == 5:
             retorno = remover_professor(db_professores)
             if retorno == 1:
                 print("Professor removido com sucesso!")
             elif retorno == -1:
-                print("Você cancelou essa remoção!")
+                print("Remoção cancelada!")
             else:
-                print("Erro: Registro funcional não consta no banco de dados de professores!")
+                print("Erro: Esse registro funcional não consta no banco de dados de professores!")
 
         elif opt == 6:
             gravar_dados(db_professores, path)

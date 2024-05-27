@@ -87,9 +87,9 @@ def listar_atributos_aula(db_prof_disc, registro=None):
             print(f"Dias da Semana: {', '.join(atributos['dias_da_semana'])}")
             print(f"Horários de início: {', '.join(atributos['horarios_inicio'])}")
             print(f"Curso: {atributos['curso']}")
-        return 1 # Tudo ocorreu bem
+        return True # Tudo ocorreu bem
     else:
-        return 0 # Registro não encontrado no db_prof_disc
+        return False # Registro não encontrado no db_prof_disc
 
 def existe_dados(db_prof_disc, db_professores, db_disciplinas, mostrar_mensagens=True):
     registro = entrada_registro(db_professores)
@@ -205,7 +205,6 @@ def carregar_dados(db_prof_disc, path):
         arq.close()
 
 def executa(db_prof_disc, db_professores, db_disciplinas, path):
-    carregar_dados(db_prof_disc, path)
     while True:
         opt = submenu_prof_disc()
 
@@ -213,17 +212,18 @@ def executa(db_prof_disc, db_professores, db_disciplinas, path):
             listar_todas_aulas(db_prof_disc)
 
         elif opt == 2:
-            listar_atributos_aula(db_prof_disc)
-            
+            if not listar_atributos_aula(db_prof_disc):
+                print("Erro: Essa aula não está registrada no banco de dados!")
+
         # Pensar em alguma solução melhor que essa (Se tiver como...)
         elif opt == 3:
             retorno = inserir_prof_disc(db_prof_disc, db_professores, db_disciplinas)
             if retorno == 1:
                 print("Aula cadastrada com sucesso!")
             elif retorno == -1:
-                print("Erro: Registro funcional não consta no banco de dados de professores!")
+                print("Erro: Esse registro funcional não consta no banco de dados de professores!")
             elif retorno == -2:
-                print("Erro: Sigla da disciplina não consta no banco de dados de disciplinas!")
+                print("Erro: Essa sigla da disciplina não consta no banco de dados de disciplinas!")
             else:
                 print("Erro: Já existe um cadastrado dessa aula no banco de dados!")
 
@@ -232,7 +232,7 @@ def executa(db_prof_disc, db_professores, db_disciplinas, path):
             if retorno == 1:
                 print("Dados da aula alterado com sucesso!")
             elif retorno == -1:
-                print("Você cancelou essa alteração!")
+                print("Alteração cancelada!")
             else:
                 print("Erro:")
 
@@ -241,7 +241,7 @@ def executa(db_prof_disc, db_professores, db_disciplinas, path):
             if retorno == 1:
                 print("Aula removida com sucesso!")
             elif retorno == -1:
-                print("Você cancelou essa remoção!")
+                print("Remoção cancelada!")
             else:
                 print("Erro:")
                 

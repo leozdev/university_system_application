@@ -90,8 +90,9 @@ def listar_atributos_disciplina(db_disciplinas, sigla=None):
         print("Bibliografia:", atributos['bibliografia'])
         print("Número de Créditos:", atributos['n_creditos'])
         print("Carga Horária:", atributos['carga_horaria'])
+        return True # Tudo ocorreu bem!
     else:
-        print("Disciplina não encontrada!")
+        return False # Sigla da Disciplina não encontrada!
 
 def alterar_dados_disciplina(db_disciplinas):
     sigla = input("Digite a sigla da disciplina que deseja alterar: ")
@@ -142,7 +143,6 @@ def carregar_dados(db_disciplinas, path):
             }
 
 def executa(db_disciplinas, path):
-
     while True:
         opt = submenu_disciplinas()
         
@@ -150,7 +150,8 @@ def executa(db_disciplinas, path):
             listar_todas_disciplinas(db_disciplinas)
 
         elif opt == 2:
-            listar_atributos_disciplina(db_disciplinas)
+            if not listar_atributos_disciplina(db_disciplinas):
+                print("Erro: Essa sigla da disciplina não consta no banco de dados de disciplinas!")
 
         elif opt == 3:
             if inserir_disciplina(db_disciplinas):
@@ -164,18 +165,18 @@ def executa(db_disciplinas, path):
             if retorno == 1:
                 print("Dados da disciplina alterado com sucesso!")
             elif retorno == -1:
-                print("Você cancelou essa alteração!")
+                print("Alteração cancelada!")
             else:
-                print("Erro: Sigla da disciplina não consta no banco de dados de disciplinas!")
+                print("Erro: Essa sigla da disciplina não consta no banco de dados de disciplinas!")
 
         elif opt == 5:
             retorno = remover_disciplina(db_disciplinas)
             if retorno == 1:
                 print("Disciplina removida com sucesso!")
             elif retorno == -1:
-                print("Você cancelou essa remoção!")
+                print("Remoção cancelada!")
             else:
-                print("Erro: Sigla da disciplina não consta no banco de dados de disciplinas!")
+                print("Erro: Essa sigla da disciplina não consta no banco de dados de disciplinas!")
                 
         elif opt == 6:
             gravar_dados(db_disciplinas, path)
