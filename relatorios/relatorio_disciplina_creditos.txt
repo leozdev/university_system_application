@@ -1,0 +1,7 @@
+------------------------------
+Sigla da Disciplina: SCLAPR1
+Nome da Disiciplina: Algoritimos e Programação 1
+Ementa: A disciplina aborda os conceitos básicos sobre computadores, com foco no desenvolvimento de algoritmos.
+Bibliografia: ASCENCIO, Ana Fernanda Gomes, CAMPOS, Edilene Aparecida Veneruchi de. Fundamentos da programação de computadores. 3. ed. São Paulo: Pearson Prentice Hall, 2012.
+Número de Créditos: 100
+Carga Horária: 100h

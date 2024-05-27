@@ -1,2 +1,1 @@
-1000;Jorge Curtigi;01/01/1900;M;Engenharia de Software;Doutorado;Usp;curtigi@ifsp.edu.br,jorge@ifsp.edu.br;(16) 99999-8888,(11) 97777-7777
 1001;Eloize Seno;01/01/1900;F;Processamento de Linguagem Natural;Doutorado;Usp;eloize.seno@ifsp.edu.br;11 99999-3333

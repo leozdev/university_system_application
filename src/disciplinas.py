@@ -8,10 +8,7 @@ def existe_disciplina(db_disciplinas,sigla):
         return False
     
 def insere_disciplina(db_disciplinas):
-
     sigla = input("Digite a sigla da disciplina: ")
-
-    
     if existe_disciplina(db_disciplinas,sigla):
         print("Disciplina já cadastrada!")
         input("Tecle <ENTER> para continuar...\n")
@@ -80,7 +77,6 @@ def altera_disciplina(db_disciplinas):
             
         else:
             print("Alteração cancelada!")
-
     else:
         print("Disciplina não foi encontrada!")
 
@@ -98,7 +94,6 @@ def remove_disciplina(db_disciplinas):
             print("Exclusão cancelada!")
 
     else:
-
         print("Disciplina não cadastrada!")
 
 def relatorio(db_disciplinas, n):
@@ -110,29 +105,23 @@ def relatorio(db_disciplinas, n):
         if num_creditos > n:
             linha = codigo + " - " + dados['nome'] + " - " + dados['ementa'] + " - " + dados['bibliografia'] + " - " + dados['n_creditos'] + " - " + dados['carga_horaria'] + "\n"
             print(linha)
-    
-    print("")
+    print()
 
 def grava_disciplinas(db_disciplinas, path):
     arq = open(path, "w", encoding="utf-8")
     
     for sigla in db_disciplinas:
         info = db_disciplinas[sigla]
-        # Monta linha para gravação:
         linha = sigla + ";" + info['nome'] + ";" + info['ementa'] + ";" + info['bibliografia'] + ";" + info['n_creditos'] + ";" + info['carga_horaria'] + "\n"
 
-        # Grava no arquivo:
         arq.write(linha)
 
-    # Fecha o arquivo:
     arq.close()
 
-def recupera_disciplinas(db_disciplinas, path):
+def carregar_disciplinas(db_disciplinas, path):
 
-    # Verificando se o arquivo existe:
-    if ( existe_arquivo(path) ):
+    if (existe_arquivo(path)):
 
-        # Existe! Abrindo arquivo para leitura:
         arq = open(path, "r", encoding="utf-8")
 
         # Percorrendo as linhas do arquivo:

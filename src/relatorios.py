@@ -32,33 +32,55 @@ def submenu_relatorios():
         except ValueError:
             print("Entrada inválida. Por favor, insira um número.")
 
-# Melhorar mais... textos, inputs, chamadas, parametros, impressao, função (modularizar)
-
 def buscar_professores_titulacao(db_professores):
+    path = "relatorios\\relatorio_professores_titulacao.txt"
     det_titulacao = input("Informe a titulação a ser listada (Mestrado ou Doutorado): ").lower()
+
     existe = False
     for registro in db_professores:
         if db_professores[registro]['titulacao'].lower() == det_titulacao:
             existe = True
-            print("-" * 30)
-            print("Registro Funcional:", registro)
-            professores.listar_atributos(db_professores, registro)
+            atributos = db_professores[registro]
+            dados = (f"{'-' * 30}\n"
+                     f"Registro Funcional: {registro}\n"
+                     f"Nome: {atributos['nome']}\n"
+                     f"Data de Nascimento: {atributos['data-nascimento']}\n"
+                     f"Sexo: {atributos['sexo']}\n"
+                     f"Área de Pesquisa: {atributos['area-de-pesquisa']}\n"
+                     f"Titulação: {atributos['titulacao']}\n"
+                     f"Graduação: {atributos['graduacao']}\n"
+                     f"E-mails: {', '.join(atributos['emails'])}\n"
+                     f"Telefones: {', '.join(atributos['telefones'])}")
+            gravar_dados(path, dados)
+            return True
     if not existe:
-        print("Não existe nenhum cadastro com essa titulação!") 
+        return False
 
 def buscar_disciplina_creditos(db_disciplinas):
+    path = "relatorios\\relatorio_disciplina_creditos.txt"
     min_creditos = float(input("Informe a quantidade de créditos da disciplina a ser listada: "))
-    print("Disciplinas com mais de", min_creditos, "créditos:\n")
+    
     existe = False
     for sigla in db_disciplinas:
         if float(db_disciplinas[sigla]['n_creditos']) > min_creditos:
             existe = True
-            disciplinas.mostra_disciplina(db_disciplinas, sigla)
-            print()
+            atributos = db_disciplinas[sigla]
+            dados = (f"{'-' * 30}\n"
+                     f"Sigla da Disciplina: {sigla}\n"
+                     f"Nome da Disiciplina: {atributos['nome']}\n"
+                     f"Ementa: {atributos['ementa']}\n"
+                     f"Bibliografia: {atributos['bibliografia']}\n"
+                     f"Número de Créditos: {atributos['n_creditos']}\n"
+                     f"Carga Horária: {atributos['carga_horaria']}\n")
+            gravar_dados(path, dados)
+            return True
+        
     if not existe:
-        print("Não existe nenhuma disciplina com essa quantidade mínima de créditos!") 
+        return False
 
 def buscar_disciplina_dias(db_prof_disc, db_professores, db_disciplinas):
+    path = "relatorios\\relatorio_disciplinas_dias.txt"
+
     print("Disciplinas ministradas às terças e quintas-feiras:\n")
     existe = False
     for registro in db_prof_disc:
@@ -67,37 +89,26 @@ def buscar_disciplina_dias(db_prof_disc, db_professores, db_disciplinas):
 
             if "Terça" in atributos["dias_da_semana"] and "Quinta" in atributos["dias_da_semana"]:
                 existe = True
-                print(f"\nRegistro Funcional: {registro}\n"
-                      f"Nome do Professor: {db_professores[registro]['nome']}\n"
-                      f"Nome da Disciplina: {db_disciplinas[sigla]['nome']}")
-                prof_disc.listar_atributos_especifico(db_prof_disc, registro, sigla, ano, semestre)
-                
+                dados = (f"{'-' * 30}\n"
+                        f"Registro Funcional: {registro}\n"
+                        f"Nome do Professor: {db_professores[registro]['nome']}\n"
+                        f"Nome da Disciplina: {db_disciplinas[sigla]['nome']}\n"
+                        f"Sigla da Disciplina: {sigla}\n"
+                        f"Ano: {ano}\n"
+                        f"Semestre: {semestre}\n"
+                        f"Dias da Semana: {', '.join(atributos['dias_da_semana'])}\n"
+                        f"Horários de Início: {', '.join(atributos['horarios_inicio'])}\n"
+                        f"Curso: {atributos['curso']}\n")
+                gravar_dados(path, dados)
+                return True
+            
     if not existe:
-        print("Não existem disciplinas ministradas às terças e quintas-feiras!")
+        return False
 
-# def buscar_disciplina_dias(database1, database2, database3):
-#     print("Disciplinas ministradas às terças e quintas-feiras:\n")
-#     existe = False
-#     for registro_prof, prof_disc in database1.items():
-#         for (sigla_disciplina, _, _), atributos in prof_disc.items():
-#             if "Terça-feira" in atributos["dias_da_semana"] and "Quinta-feira" in atributos["dias_da_semana"]:
-#                 existe = True
-#                 print("-" * 30)
-#                 print("Registro Funcional do Professor:", registro_prof)
-#                 print("Nome do Professor:", database2[registro_prof]["nome"])
-#                 print("Sigla da Disciplina:", sigla_disciplina)
-#                 print("Nome da Disciplina:", database3[sigla_disciplina]["nome"])
-#                 print("Dias da Semana:", ", ".join(atributos["dias_da_semana"]))
-#                 print("Horários de início:", ", ".join(atributos["horarios_inicio"]))
-#                 print("Curso:", atributos["curso"])
-#     if not existe:
-#         print("Não existem disciplinas ministradas às terças e quintas-feiras!")
-
-def gravar_dados():
-    ...
-
-def carregar_dados():
-    ...
+def gravar_dados(path, dados):
+    arq = open(path, "w", encoding="utf-8")
+    arq.write(dados)
+    arq.close
 
 def executa(db_prof_disc, db_professores, db_disciplinas):
 
@@ -105,11 +116,22 @@ def executa(db_prof_disc, db_professores, db_disciplinas):
         opt = submenu_relatorios()
 
         if opt == 1:
-            buscar_professores_titulacao(db_professores)
+            if buscar_professores_titulacao(db_professores):
+                print("Relatório gerado com sucesso!")
+            else:
+                print("Não existe nenhum cadastro com essa titulação!") 
+
         elif opt == 2: 
-            buscar_disciplina_creditos(db_disciplinas)
+            if buscar_disciplina_creditos(db_disciplinas):
+                print("Relatório gerado com sucesso!")
+            else:
+                print("Não existe nenhuma disciplina com essa quantidade mínima de créditos!") 
+
         elif opt == 3:
-            buscar_disciplina_dias(db_prof_disc, db_professores, db_disciplinas)
+            if buscar_disciplina_dias(db_prof_disc, db_professores, db_disciplinas):
+                print("Relatório gerado com sucesso!")
+            else:
+                print("Não existem disciplinas ministradas às terças e quintas-feiras!")
+
         elif opt == 4:
-            # gravar_dados()
             return

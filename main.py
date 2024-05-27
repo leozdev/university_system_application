@@ -53,22 +53,14 @@ def main():
     # Dados dos Professores
     path_professores = "dados\dados_professores.txt"
     dados_professores = {}
-    professores.carregar_dados(dados_professores, path_professores)
 
     # Dados das disciplinas
     path_disciplinas = "dados\dados_disciplinas.txt"
     dados_disciplinas = {}
-    disciplinas.recupera_disciplinas(dados_disciplinas, path_disciplinas)
     
     # Dados das aulas
     path_prof_disc = "dados\dados_prof_disc.txt"
     dados_prof_disc = {}
-    prof_disc.carregar_dados(dados_prof_disc, path_prof_disc)
-
-    # Dados relatórios
-    # path_relatorios = "dados_relatorios.txt"
-    # dados_relatorios = {}
-    # relatorios.carregar_dados(dados_relatorios, path_relatorios)
 
     opt_menu = 1
     while opt_menu != 5:
@@ -77,14 +69,22 @@ def main():
         # Submenu Professores
         if opt_menu == 1:
             professores.executa(db_professores=dados_professores, path=path_professores)
+            # Carrega todos os dados existe no arquivo de banco de dados de professores
+            professores.carregar_dados(dados_professores, path_professores)
 
         # Submenu Disciplinas
         elif opt_menu == 2:
             disciplinas.executa(db_disciplinas=dados_disciplinas, path=path_disciplinas)
+            # Carrega todos os dados existe no arquivo de banco de dados de disciplinas
+            disciplinas.carregar_disciplinas(dados_disciplinas, path_disciplinas)
 
         # Submenu Prof Disc
         elif opt_menu == 3:
             prof_disc.executa(db_prof_disc=dados_prof_disc, db_professores=dados_professores, db_disciplinas=dados_disciplinas, path=path_prof_disc)
+            # Carrega todos os dados existentes nos arquivos de banco de dados
+            professores.carregar_dados(dados_professores, path_professores)
+            disciplinas.carregar_disciplinas(dados_disciplinas, path_disciplinas)
+            prof_disc.carregar_dados(dados_prof_disc, path_prof_disc)
 
         # Submenu Relatórios
         elif opt_menu == 4:

@@ -1,0 +1,10 @@
+------------------------------
+Registro Funcional: 1001
+Nome do Professor: Eloize Seno
+Nome da Disciplina: Algoritimos e Programação 1
+Sigla da Disciplina: SCLAPR1
+Ano: 2024
+Semestre: 1
+Dias da Semana: Terça, Quinta
+Horários de Início: 8h-9h
+Curso: BES
