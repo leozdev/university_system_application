@@ -27,9 +27,9 @@ def buscar_professores_titulacao(db_professores, path_relatorio_titulacoes):
     existe = False
 
     arq = open(path_relatorio_titulacoes, "w", encoding="utf-8")
-    cabecalho = (f"======= Relatório Titulação Professores =======\n"
-                 f"\tX Titulação: {det_titulacao}\n"
-                 f"============================================================\n"
+    cabecalho = (f"================== Relatório Titulação Professores ==================\n"
+                 f"\tTitulação: {det_titulacao}\n"
+                 f"=====================================================================\n"
                  f"Professores:\n")
     arq.write(cabecalho)
 
@@ -65,9 +65,9 @@ def buscar_disciplina_creditos(db_disciplinas, path_relatorio_creditos):
     
     arq = open(path_relatorio_creditos, "w", encoding="utf-8")
     
-    cabecalho = (f"======= Relatório Disciplinas com mais de X créditos =======\n"
-                 f"\tX Créditos: {min_creditos}\n"
-                 f"============================================================\n"
+    cabecalho = (f"================== Relatório Disciplinas com mais de X créditos ==================\n"
+                 f"\tCréditos: {min_creditos}\n"
+                 f"==================================================================================\n"
                  f"Disciplinas:\n")
     arq.write(cabecalho)
 
@@ -98,9 +98,9 @@ def buscar_disciplina_dias(db_prof_disc, db_professores, db_disciplinas, path_re
     existe = False
     
     arq = open(path_relatorio_dias, "w", encoding="utf-8")
-    cabecalho = (f"======= Relatório Dias da Disciplina =======\n"
-                 f"\tX Disciplinas que serão ministradas às terças-feiras e às quintas-feiras\n"
-                 f"============================================================\n"
+    cabecalho = (f"================== Relatório Dias da Disciplina ==================\n"
+                 f"\tDisciplinas que serão ministradas às terças-feiras e às quintas-feiras\n"
+                 f"==================================================================\n"
                  f"Informações:\n")
     arq.write(cabecalho)
 
