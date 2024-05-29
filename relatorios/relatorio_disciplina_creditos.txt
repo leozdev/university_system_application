@@ -1,24 +1,24 @@
-======= Relatório Disciplinas com mais de X créditos =======
-	X Créditos: 1.0
+======================== Relatório  ========================
+Disciplinas com mais de 1.0 créditos
 ============================================================
 Disciplinas:
 
-Sigla da Disciplina: SCLPPSW
-Nome da Disciplina: Processos De Produção De Software
-Ementa: A disciplina define e contextualiza historicamente a engenharia de software, oferecendo uma visão geral dos principais assuntos estudados e do perfil profissional esperado nessa área da computação.
-Bibliografia: Pfleeger, shari l. engenharia de software: teoria e prática. 2. ed. são paulo: prentice hall, 2004.
-Número de Créditos: 66.7
-Carga Horária: 66.7h
-____________________________________
+	Sigla da Disciplina: SCLPPSW
+	Nome da Disciplina: Processos De Produção De Software
+	Ementa: A disciplina define e contextualiza historicamente a engenharia de software, oferecendo uma visão geral dos principais assuntos estudados e do perfil profissional esperado nessa área da computação.
+	Bibliografia: Pfleeger, shari l. engenharia de software: teoria e prática. 2. ed. são paulo: prentice hall, 2004.
+	Número de Créditos: 66.7
+	Carga Horária: 66.7h
+	______________________________
 
-Sigla da Disciplina: SCLAPR1
-Nome da Disciplina: Algoritimos E Programação 1
-Ementa: A disciplina aborda os conceitos básicos sobre computadores, com foco no desenvolvimento de algoritmos.
-Bibliografia: Ascencio, ana fernanda gomes, campos, edilene aparecida veneruchi de. fundamentos da programação de computadores. 3. ed. são paulo: pearson prentice hall, 2012.
-Número de Créditos: 100
-Carga Horária: 100h
-____________________________________
+	Sigla da Disciplina: SCLAPR1
+	Nome da Disciplina: Algoritimos E Programação 1
+	Ementa: A disciplina aborda os conceitos básicos sobre computadores, com foco no desenvolvimento de algoritmos.
+	Bibliografia: Ascencio, ana fernanda gomes, campos, edilene aparecida veneruchi de. fundamentos da programação de computadores. 3. ed. são paulo: pearson prentice hall, 2012.
+	Número de Créditos: 100
+	Carga Horária: 100h
+	______________________________
 
 ============================================================
-Relatório gerado em: 27/05/2024 20:48:54
+Relatório gerado em: 29/05/2024 16:18:16
 ============================================================

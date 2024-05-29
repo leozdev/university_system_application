@@ -1,28 +1,30 @@
-======= Relatório Titulação Professores =======
-	X Titulação: doutorado
+======================== Relatório  ========================
+Professores com a titulação 'Doutorado'
 ============================================================
 Professores:
-------------------------------
-Registro Funcional: 1000
-Nome: Jorge Curtigi
-Data de Nascimento: 01/01/1900
-Sexo: M
-Área de Pesquisa: Engenharia De Software
-Titulação: Doutorado
-Graduação: Usp
-E-mails: Curtigi@Ifsp.Edu.Br, Jorge@Ifsp.Edu.Br
-Telefones: (16) 99999-8888, (11) 97777-7777
-------------------------------
-Registro Funcional: 1001
-Nome: Eloize Seno
-Data de Nascimento: 01/01/1900
-Sexo: F
-Área de Pesquisa: Processamento De Linguagem Natural
-Titulação: Doutorado
-Graduação: Usp
-E-mails: Eloize.Seno@Ifsp.Edu.Br
-Telefones: 11 99999-3333
+
+	Registro Funcional: 1000
+	Nome: Jorge Curtigi
+	Data de Nascimento: 01/01/1900
+	Sexo: M
+	Área de Pesquisa: Engenharia De Software
+	Titulação: Doutorado
+	Graduação: Usp
+	E-mails: Curtigi@Ifsp.Edu.Br, Jorge@Ifsp.Edu.Br
+	Telefones: (16) 99999-8888, (11) 97777-7777
+	______________________________
+
+	Registro Funcional: 1001
+	Nome: Eloize Seno
+	Data de Nascimento: 01/01/1900
+	Sexo: F
+	Área de Pesquisa: Processamento De Linguagem Natural
+	Titulação: Doutorado
+	Graduação: Usp
+	E-mails: Eloize.Seno@Ifsp.Edu.Br
+	Telefones: 11 99999-3333
+	______________________________
 
 ============================================================
-Relatório gerado em: 27/05/2024 20:47:39
+Relatório gerado em: 29/05/2024 16:17:36
 ============================================================

@@ -35,7 +35,7 @@ def incluir_dados(db_professores, registro):
     area = input("Digite a Área de Pesquisa: ").title()
     titulacao = input("Digite a Titulação: ").title()
     graduacao = input("Digite a Graduação: ").title()
-    emails = input("Digite os E-mails (separados por vírgula-espaço): ").title().split(", ")
+    emails = input("Digite os E-mails (separados por vírgula-espaço): ").capitalize().split(", ")
     telefones = input("Digite os Telefones (separados por vírgula-espaço): ").split(", ")
 
     db_professores[registro] = {
