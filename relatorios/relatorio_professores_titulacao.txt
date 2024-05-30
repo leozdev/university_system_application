@@ -10,7 +10,7 @@ Professores:
 	Área de Pesquisa: Engenharia De Software
 	Titulação: Doutorado
 	Graduação: Usp
-	E-mails: Curtigi@Ifsp.Edu.Br, Jorge@Ifsp.Edu.Br
+	E-mails: curtigi@ifsp.edu.br, jorge@ifsp.edu.br
 	Telefones: (16) 99999-8888, (11) 97777-7777
 	______________________________
 
@@ -21,10 +21,10 @@ Professores:
 	Área de Pesquisa: Processamento De Linguagem Natural
 	Titulação: Doutorado
 	Graduação: Usp
-	E-mails: Eloize.Seno@Ifsp.Edu.Br
-	Telefones: 11 99999-3333
+	E-mails: eloize.seno@ifsp.edu.br
+	Telefones: (11) 99999-3333
 	______________________________
 
 ============================================================
-Relatório gerado em: 29/05/2024 16:17:36
+Relatório gerado em: 30/05/2024 13:06:38
 ============================================================

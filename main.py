@@ -20,6 +20,9 @@ Return:
 ###########################
 
 def menu():
+    """
+    DOCSTRING
+    """
     while True:
         os.system("cls")
         print("Sistema da Universidade")
@@ -43,6 +46,10 @@ def menu():
             input("\nPressione [enter] para continuar...")
 
 def main():
+    """
+    DOCSTRING
+    """
+
     # Dados dos Professores
     path_professores = "dados\dados_professores.txt"
     dados_professores = {}
@@ -96,5 +103,7 @@ def main():
             # Executa
             relatorios.executa(dados_prof_disc, dados_professores, dados_disciplinas, path_relatorio_titulacoes, path_relatorio_creditos, path_relatorio_dias)
             
+    print("Encerrando programa...")
+
 if __name__ == "__main__":
     main()

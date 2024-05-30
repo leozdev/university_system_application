@@ -1,6 +1,7 @@
 import os
 from datetime import datetime
 
+# Template do Relatório
 def escrever_cabecalho_relatorio(arq, titulo, subtitulo):
     cabecalho = (f"======================== Relatório  ========================\n"
                  f"{titulo}\n"
@@ -14,11 +15,14 @@ def escrever_rodape_relatorio(arq):
               f"Relatório gerado em: {data_hora_formatada}\n"
               f"============================================================\n")
     arq.write(rodape)
+#===========================================================================================
 
 def buscar_professores_titulacao(db_professores, det_titulacao, path_relatorio_titulacoes):
-    arq = open(path_relatorio_titulacoes, "w", encoding="utf-8")
+    """
+    DOCSTRING
+    """
     existe = False
-  
+    arq = open(path_relatorio_titulacoes, "w", encoding="utf-8")
     escrever_cabecalho_relatorio(arq, titulo=f"Professores com a titulação '{det_titulacao}'", subtitulo="Professores:")
 
     for registro in db_professores:
@@ -39,15 +43,15 @@ def buscar_professores_titulacao(db_professores, det_titulacao, path_relatorio_t
             arq.write(dados)
 
     escrever_rodape_relatorio(arq)
-
     arq.close()
-    return existe
+    return existe # True or False
 
 def buscar_disciplina_creditos(db_disciplinas, min_creditos, path_relatorio_creditos):
+    """
+    DOCSTRING
+    """
     existe = False
-    
     arq = open(path_relatorio_creditos, "w", encoding="utf-8")
-
     escrever_cabecalho_relatorio(arq, titulo=f"Disciplinas com mais de {min_creditos} créditos", subtitulo="Disciplinas:")
 
     for sigla in db_disciplinas:
@@ -65,15 +69,15 @@ def buscar_disciplina_creditos(db_disciplinas, min_creditos, path_relatorio_cred
             arq.write(dados)
 
     escrever_rodape_relatorio(arq)
-
     arq.close()
-    return existe
+    return existe # True or False
 
 def buscar_disciplina_dias(db_prof_disc, db_professores, db_disciplinas, path_relatorio_dias):
+    """
+    DOCSTRING
+    """
     existe = False
-    
     arq = open(path_relatorio_dias, "w", encoding="utf-8")
-
     escrever_cabecalho_relatorio(arq, titulo=f"Disciplinas que serão ministradas às terças-feiras e às quintas-feiras", subtitulo="Informações:")
 
     for registro in db_prof_disc:
@@ -95,11 +99,13 @@ def buscar_disciplina_dias(db_prof_disc, db_professores, db_disciplinas, path_re
                 arq.write(dados)
 
     escrever_rodape_relatorio(arq)
-
     arq.close()
-    return existe
+    return existe # True or False
 
 def submenu_relatorios():
+    """
+    DOCSTRING
+    """
     while True:
         input("\nPressione [enter] para continuar...")
         os.system("cls")
@@ -121,28 +127,29 @@ def submenu_relatorios():
             print("Entrada inválida. Por favor, insira um número.")
 
 def executa(db_prof_disc, db_professores, db_disciplinas, path_relatorio_titulacoes, path_relatorio_creditos, path_relatorio_dias):
-    while True:
-        opt = submenu_relatorios()
+    """
+    DOCSTRING
+    """
+    opt_submenu = 1
+    while opt_submenu != 4:
+        opt_submenu = submenu_relatorios()
 
-        if opt == 1:
+        if opt_submenu == 1:
             det_titulacao = input("Informe a titulação a ser listada (Mestrado ou Doutorado): ").title()
             if buscar_professores_titulacao(db_professores, det_titulacao, path_relatorio_titulacoes):
                 print("Relatório gerado com sucesso!")
             else:
                 print("Não existe nenhum professor com essa titulação!") 
 
-        elif opt == 2: 
+        elif opt_submenu == 2: 
             min_creditos = float(input("Informe a quantidade de créditos da disciplina a ser listada: "))
             if buscar_disciplina_creditos(db_disciplinas, min_creditos, path_relatorio_creditos):
                 print("Relatório gerado com sucesso!")
             else:
                 print("Não existe nenhuma disciplina com essa quantidade mínima de créditos!") 
 
-        elif opt == 3:
+        elif opt_submenu == 3:
             if buscar_disciplina_dias(db_prof_disc, db_professores, db_disciplinas, path_relatorio_dias):
                 print("Relatório gerado com sucesso!")
             else:
                 print("Não existem disciplinas ministradas às terças e quintas-feiras!")
-
-        elif opt == 4:
-            return
