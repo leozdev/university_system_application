@@ -20,6 +20,9 @@ Return:
 ###########################
 
 def menu():
+    """
+    DOCSTRING
+    """
     while True:
         os.system("cls")
         print("Sistema da Universidade")
@@ -43,6 +46,10 @@ def menu():
             input("\nPressione [enter] para continuar...")
 
 def main():
+    """
+    DOCSTRING
+    """
+
     # Dados dos Professores
     path_professores = "dados\dados_professores.txt"
     dados_professores = {}
@@ -89,8 +96,14 @@ def main():
 
         # Submenu Relatórios
         elif opt_menu == 4:
+            # Carrega todos os dados existentes nos arquivos de banco de dados
+            professores.carregar_dados(dados_professores, path_professores)
+            disciplinas.carregar_dados(dados_disciplinas, path_disciplinas)
+            prof_disc.carregar_dados(dados_prof_disc, path_prof_disc)
             # Executa
             relatorios.executa(dados_prof_disc, dados_professores, dados_disciplinas, path_relatorio_titulacoes, path_relatorio_creditos, path_relatorio_dias)
             
+    print("Encerrando programa...")
+
 if __name__ == "__main__":
     main()
