@@ -183,6 +183,6 @@ def executa(db_disciplinas, path):
             else:
                 print("Erro: Essa sigla da disciplina não consta no banco de dados de disciplinas.")
         
-        # Retornando ao menu principal 
+        # Salva os dados após cada operação e encerra o submenu 
         gravar_dados(db_disciplinas, path)
             

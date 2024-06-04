@@ -3,6 +3,14 @@ from datetime import datetime
 
 # Template do Relatório
 def escrever_cabecalho_relatorio(arq, titulo, subtitulo):
+    """
+    Escreve o cabeçalho do relatório no arquivo especificado.
+
+    Parametros:
+        arq (file): O arquivo onde o cabeçalho será escrito.
+        titulo (str): O título do relatório.
+        subtitulo (str): O subtítulo do relatório.
+    """
     cabecalho = (f"======================== Relatório  ========================\n"
                  f"{titulo}\n"
                  f"============================================================\n"
@@ -10,21 +18,36 @@ def escrever_cabecalho_relatorio(arq, titulo, subtitulo):
     arq.write(cabecalho)
 
 def escrever_rodape_relatorio(arq):
+    """
+    Escreve o rodapé do relatório no arquivo especificado.
+
+    Parametros:
+        arq (file): O arquivo onde o rodapé será escrito.
+    """
     data_hora_formatada = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
     rodape = (f"\n============================================================\n"
               f"Relatório gerado em: {data_hora_formatada}\n"
               f"============================================================\n")
     arq.write(rodape)
+
 #===========================================================================================
 
 def buscar_professores_titulacao(db_professores, det_titulacao, path_relatorio_titulacoes):
     """
-    DOCSTRING
+    Gera um relatório de professores com a titulação especificada.
+
+    Parametros:
+        db_professores (dict): O banco de dados de professores.
+        det_titulacao (str): A titulação dos professores a serem listados (ex: Mestrado, Doutorado).
+        path_relatorio_titulacoes (str): O caminho do arquivo onde o relatório será salvo.
+    
+    Return:
+        bool: True se existir pelo menos um professor com a titulação especificada, False caso contrário.
     """
-    existe = False
     arq = open(path_relatorio_titulacoes, "w", encoding="utf-8")
     escrever_cabecalho_relatorio(arq, titulo=f"Professores com a titulação '{det_titulacao}'", subtitulo="Professores:")
 
+    existe = False
     for registro in db_professores:
         if db_professores[registro]['titulacao'] == det_titulacao:
             existe = True
@@ -48,12 +71,20 @@ def buscar_professores_titulacao(db_professores, det_titulacao, path_relatorio_t
 
 def buscar_disciplina_creditos(db_disciplinas, min_creditos, path_relatorio_creditos):
     """
-    DOCSTRING
+    Gera um relatório de disciplinas com mais de uma quantidade mínima de créditos.
+
+    Parametros:
+        db_disciplinas (dict): O banco de dados de disciplinas.
+        min_creditos (float): A quantidade mínima de créditos das disciplinas a serem listadas.
+        path_relatorio_creditos (str): O caminho do arquivo onde o relatório será salvo.
+    
+    Return:
+        bool: True se existir pelo menos uma disciplina com a quantidade mínima de créditos especificada, False caso contrário.
     """
-    existe = False
     arq = open(path_relatorio_creditos, "w", encoding="utf-8")
     escrever_cabecalho_relatorio(arq, titulo=f"Disciplinas com mais de {min_creditos} créditos", subtitulo="Disciplinas:")
 
+    existe = False
     for sigla in db_disciplinas:
         if float(db_disciplinas[sigla]['n_creditos']) > min_creditos:
             existe = True
@@ -74,12 +105,21 @@ def buscar_disciplina_creditos(db_disciplinas, min_creditos, path_relatorio_cred
 
 def buscar_disciplina_dias(db_prof_disc, db_professores, db_disciplinas, path_relatorio_dias):
     """
-    DOCSTRING
+    Gera um relatório de disciplinas ministradas às terças e quintas-feiras.
+
+    Parametros:
+        db_prof_disc (dict): O banco de dados de professores e disciplinas.
+        db_professores (dict): O banco de dados de professores.
+        db_disciplinas (dict): O banco de dados de disciplinas.
+        path_relatorio_dias (str): O caminho do arquivo onde o relatório será salvo.
+    
+    Return:
+        bool: True se existir pelo menos uma disciplina ministrada às terças e quintas-feiras, False caso contrário.
     """
-    existe = False
     arq = open(path_relatorio_dias, "w", encoding="utf-8")
     escrever_cabecalho_relatorio(arq, titulo=f"Disciplinas que serão ministradas às terças-feiras e às quintas-feiras", subtitulo="Informações:")
-
+    
+    existe = False
     for registro in db_prof_disc:
         for conjunto_chaves, atributos in db_prof_disc[registro].items():
             sigla, ano, semestre = conjunto_chaves
@@ -104,7 +144,12 @@ def buscar_disciplina_dias(db_prof_disc, db_professores, db_disciplinas, path_re
 
 def submenu_relatorios():
     """
-    DOCSTRING
+    Exibe o submenu de relatórios e solicita a seleção do usuário.
+
+    O submenu permite ao usuário escolher entre diferentes opções de relatórios a serem gerados, ou voltar ao menu principal.
+
+    Return:
+        int: A opção selecionada pelo usuário (1 a 4).
     """
     while True:
         input("\nPressione [enter] para continuar...")
@@ -128,7 +173,15 @@ def submenu_relatorios():
 
 def executa(db_prof_disc, db_professores, db_disciplinas, path_relatorio_titulacoes, path_relatorio_creditos, path_relatorio_dias):
     """
-    DOCSTRING
+    Executa o submenu de relatórios e gera o relatório correspondente com base na opção selecionada pelo usuário.
+
+    Parametros:
+        db_prof_disc (dict): O banco de dados de professores e disciplinas.
+        db_professores (dict): O banco de dados de professores.
+        db_disciplinas (dict): O banco de dados de disciplinas.
+        path_relatorio_titulacoes (str): O caminho do arquivo para o relatório de titulações.
+        path_relatorio_creditos (str): O caminho do arquivo para o relatório de créditos.
+        path_relatorio_dias (str): O caminho do arquivo para o relatório de dias da semana.
     """
     opt_submenu = 1
     while opt_submenu != 4:

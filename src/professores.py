@@ -1,10 +1,14 @@
 import os
 from src.auxiliar import existe_arquivo, confirmar
 
-# Futuramente incluir uma função que checa se não tem campos em brancos!
 def entrar_dados():
     """
-    DOCSTRING
+    Solicita ao usuário que insira os dados de um professor.
+
+    Os dados incluem nome, data de nascimento, sexo, área de pesquisa, titulação, graduação, e-mails e telefones.
+
+    Return:
+        list: Uma lista contendo os dados do professor [nome, data_nasc, sexo, area, titulacao, graduacao, emails, telefones].
     """
     nome = input("Digite o Nome completo: ").title()
     data_nasc = input("Digite a Data de Nascimento (DD/MM/AAAA): ")
@@ -19,7 +23,12 @@ def entrar_dados():
 
 def incluir_dados(db_professores, registro, dados):  
     """
-    DOCSTRING
+    Inclui os dados de um professor no banco de dados.
+
+    Parametros:
+        db_professores (dict): O banco de dados de professores.
+        registro (str): O registro funcional do professor.
+        dados (list): A lista de dados do professor.
     """  
     nome, data_nasc, sexo, area, titulacao, graduacao, emails, telefones = dados
 
@@ -36,8 +45,15 @@ def incluir_dados(db_professores, registro, dados):
     
 def inserir_professor(db_professores, registro):
     """
-    DOCSTRING
-    """ 
+    Insere um novo professor no banco de dados.
+
+    Parametros:
+        db_professores (dict): O banco de dados de professores.
+        registro (str): O registro funcional do professor.
+    
+    Return:
+        bool: True se o professor foi inserido com sucesso, False se o registro já existe.
+    """
     if registro not in db_professores:
         dados = entrar_dados()
         incluir_dados(db_professores, registro, dados)
@@ -46,8 +62,11 @@ def inserir_professor(db_professores, registro):
 
 def listar_todos_professores(db_professores):
     """
-    DOCSTRING
-    """ 
+    Lista todos os professores cadastrados no banco de dados.
+
+    Parametros:
+        db_professores (dict): O banco de dados de professores.
+    """
     for registro in db_professores:
         print("-" * 30)
         print("Registro Funcional:", registro)
@@ -55,8 +74,15 @@ def listar_todos_professores(db_professores):
 
 def listar_atributos_professor(db_professores, registro):
     """
-    DOCSTRING
-    """ 
+    Lista os atributos de um professor específico.
+
+    Parametros:
+        db_professores (dict): O banco de dados de professores.
+        registro (str): O registro funcional do professor.
+    
+    Return:
+        bool: True se o registro foi encontrado, False caso contrário.
+    """
     if registro in db_professores:
         atributos = db_professores[registro]
         print("\nNome:", atributos['nome'])
@@ -72,8 +98,15 @@ def listar_atributos_professor(db_professores, registro):
 
 def alterar_dados_professor(db_professores, registro):
     """
-    DOCSTRING
-    """ 
+    Altera os dados de um professor existente no banco de dados.
+
+    Parametros:
+        db_professores (dict): O banco de dados de professores.
+        registro (str): O registro funcional do professor.
+    
+    Return:
+        int: 1 se os dados foram alterados com sucesso, -1 se a alteração foi cancelada, 0 se o registro não foi encontrado.
+    """
     if registro in db_professores:
         if confirmar('alterar'):
             incluir_dados(db_professores, registro)
@@ -83,8 +116,15 @@ def alterar_dados_professor(db_professores, registro):
 
 def remover_professor(db_professores, registro):
     """
-    DOCSTRING
-    """ 
+    Remove um professor do banco de dados.
+
+    Parametros:
+        db_professores (dict): O banco de dados de professores.
+        registro (str): O registro funcional do professor.
+    
+    Return:
+        int: 1 se o professor foi removido com sucesso, -1 se a remoção foi cancelada, 0 se o registro não foi encontrado.
+    """
     if registro in db_professores:
         if confirmar('remover'):
             del db_professores[registro]
@@ -94,8 +134,12 @@ def remover_professor(db_professores, registro):
 
 def gravar_dados(db_professores, path):
     """
-    DOCSTRING
-    """ 
+    Grava os dados dos professores em um arquivo.
+
+    Parametros:
+        db_professores (dict): O banco de dados de professores.
+        path (str): O caminho do arquivo onde os dados serão salvos.
+    """
     arq = open(path, "w", encoding="utf-8")
     for registro, atributos in db_professores.items():
         linha = (f"{registro};"
@@ -112,8 +156,12 @@ def gravar_dados(db_professores, path):
 
 def carregar_dados(db_professores, path):
     """
-    DOCSTRING
-    """ 
+    Carrega os dados dos professores a partir de um arquivo.
+
+    Parametros:
+        db_professores (dict): O banco de dados de professores.
+        path (str): O caminho do arquivo de onde os dados serão carregados.
+    """
     if existe_arquivo(path):
         arq = open(path, "r", encoding="utf-8")
 
@@ -126,8 +174,11 @@ def carregar_dados(db_professores, path):
 
 def submenu_professores():
     """
-    DOCSTRING
-    """ 
+    Exibe o submenu de gerenciamento de professores e solicita ao usuário que selecione uma opção.
+
+    Return:
+        int: A opção selecionada pelo usuário.
+    """
     while True:
         input("\nPressione [enter] para continuar...")
         os.system("cls")
@@ -152,7 +203,11 @@ def submenu_professores():
 
 def executa(db_professores, path):
     """
-    DOCSTRING
+    Executa o sistema de gerenciamento de professores, exibindo o submenu e processando as opções selecionadas.
+
+    Parametros:
+        db_professores (dict): O banco de dados de professores.
+        path (str): O caminho do arquivo onde os dados dos professores serão salvos.
     """ 
     opt_submenu = 1
     while opt_submenu != 6:
@@ -194,5 +249,5 @@ def executa(db_professores, path):
             else:
                 print("Erro: Esse registro funcional não consta no banco de dados de professores.")
         
-        # Retornando ao menu principal 
+        # Salva os dados após cada operação e encerra o submenu 
         gravar_dados(db_professores, path)

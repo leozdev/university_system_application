@@ -4,24 +4,15 @@ import src.prof_disc as prof_disc
 import src.relatorios as relatorios
 import os
 
-### Padrão de DOCSTRING: ###
-
-"""
-Resumo da funcionalidade 
-
-Argumentos:
-    nome_do_argumento (type): O que é?
-    ...
-
-Return:
-    type: O que?
-    ...
-"""
-###########################
-
 def menu():
     """
-    DOCSTRING
+    Exibe o menu principal e solicita a seleção do usuário.
+
+    O menu apresenta opções para navegar por submenus de Professores, Disciplinas, Professores-Disciplinas e Relatórios, 
+    ou para sair do programa. Solicita uma entrada do usuário e retorna a opção selecionada.
+
+    Return:
+        int: A opção selecionada pelo usuário (1 a 5).
     """
     while True:
         os.system("cls")
@@ -47,7 +38,11 @@ def menu():
 
 def main():
     """
-    DOCSTRING
+    Executa o programa principal.
+
+    Configura os caminhos para os arquivos de dados de professores, disciplinas, professores-disciplinas e relatórios. 
+    Exibe o menu principal em um loop até que o usuário selecione a opção de sair (opção 5), e navega pelos submenus 
+    carregando e executando as funções apropriadas para cada seção.
     """
 
     # Dados dos Professores
