@@ -7,7 +7,7 @@ def entrar_dados():
 
     Os dados incluem nome, data de nascimento, sexo, área de pesquisa, titulação, graduação, e-mails e telefones.
 
-    Return:
+    Retorna:
         list: Uma lista contendo os dados do professor [nome, data_nasc, sexo, area, titulacao, graduacao, emails, telefones].
     """
     nome = input("Digite o Nome completo: ").title()
@@ -25,7 +25,7 @@ def incluir_dados(db_professores, registro, dados):
     """
     Inclui os dados de um professor no banco de dados.
 
-    Parametros:
+    Parâmetros:
         db_professores (dict): O banco de dados de professores.
         registro (str): O registro funcional do professor.
         dados (list): A lista de dados do professor.
@@ -33,25 +33,25 @@ def incluir_dados(db_professores, registro, dados):
     nome, data_nasc, sexo, area, titulacao, graduacao, emails, telefones = dados
 
     db_professores[registro] = {
-                "nome": nome,
-                "data-nascimento": data_nasc,
-                "sexo": sexo,
-                "area-de-pesquisa": area,
-                "titulacao": titulacao,
-                "graduacao": graduacao,
-                "emails": emails,
-                "telefones": telefones
-            }
+        "nome": nome,
+        "data-nascimento": data_nasc,
+        "sexo": sexo,
+        "area-de-pesquisa": area,
+        "titulacao": titulacao,
+        "graduacao": graduacao,
+        "emails": emails,
+        "telefones": telefones
+    }
     
 def inserir_professor(db_professores, registro):
     """
     Insere um novo professor no banco de dados.
 
-    Parametros:
+    Parâmetros:
         db_professores (dict): O banco de dados de professores.
         registro (str): O registro funcional do professor.
     
-    Return:
+    Retorna:
         bool: True se o professor foi inserido com sucesso, False se o registro já existe.
     """
     if registro not in db_professores:
@@ -64,7 +64,7 @@ def listar_todos_professores(db_professores):
     """
     Lista todos os professores cadastrados no banco de dados.
 
-    Parametros:
+    Parâmetros:
         db_professores (dict): O banco de dados de professores.
     """
     for registro in db_professores:
@@ -76,11 +76,11 @@ def listar_atributos_professor(db_professores, registro):
     """
     Lista os atributos de um professor específico.
 
-    Parametros:
+    Parâmetros:
         db_professores (dict): O banco de dados de professores.
         registro (str): O registro funcional do professor.
     
-    Return:
+    Retorna:
         bool: True se o registro foi encontrado, False caso contrário.
     """
     if registro in db_professores:
@@ -100,11 +100,11 @@ def alterar_dados_professor(db_professores, registro):
     """
     Altera os dados de um professor existente no banco de dados.
 
-    Parametros:
+    Parâmetros:
         db_professores (dict): O banco de dados de professores.
         registro (str): O registro funcional do professor.
     
-    Return:
+    Retorna:
         int: 1 se os dados foram alterados com sucesso, -1 se a alteração foi cancelada, 0 se o registro não foi encontrado.
     """
     if registro in db_professores:
@@ -118,11 +118,11 @@ def remover_professor(db_professores, registro):
     """
     Remove um professor do banco de dados.
 
-    Parametros:
+    Parâmetros:
         db_professores (dict): O banco de dados de professores.
         registro (str): O registro funcional do professor.
     
-    Return:
+    Retorna:
         int: 1 se o professor foi removido com sucesso, -1 se a remoção foi cancelada, 0 se o registro não foi encontrado.
     """
     if registro in db_professores:
@@ -136,47 +136,43 @@ def gravar_dados(db_professores, path):
     """
     Grava os dados dos professores em um arquivo.
 
-    Parametros:
+    Parâmetros:
         db_professores (dict): O banco de dados de professores.
         path (str): O caminho do arquivo onde os dados serão salvos.
     """
-    arq = open(path, "w", encoding="utf-8")
-    for registro, atributos in db_professores.items():
-        linha = (f"{registro};"
-                 f"{atributos['nome']};"
-                 f"{atributos['data-nascimento']};"
-                 f"{atributos['sexo']};"
-                 f"{atributos['area-de-pesquisa']};"
-                 f"{atributos['titulacao']};"
-                 f"{atributos['graduacao']};"
-                 f"{','.join(atributos['emails'])};"
-                 f"{','.join(atributos['telefones'])}\n")
-        arq.write(linha)
-    arq.close()
+    with open(path, "w", encoding="utf-8") as arq:
+        for registro, atributos in db_professores.items():
+            linha = (f"{registro};"
+                     f"{atributos['nome']};"
+                     f"{atributos['data-nascimento']};"
+                     f"{atributos['sexo']};"
+                     f"{atributos['area-de-pesquisa']};"
+                     f"{atributos['titulacao']};"
+                     f"{atributos['graduacao']};"
+                     f"{','.join(atributos['emails'])};"
+                     f"{','.join(atributos['telefones'])}\n")
+            arq.write(linha)
 
 def carregar_dados(db_professores, path):
     """
     Carrega os dados dos professores a partir de um arquivo.
 
-    Parametros:
+    Parâmetros:
         db_professores (dict): O banco de dados de professores.
         path (str): O caminho do arquivo de onde os dados serão carregados.
     """
     if existe_arquivo(path):
-        arq = open(path, "r", encoding="utf-8")
-
-        for linha in arq:
-            registro, nome, data_nasc, sexo, area, titulacao, graduacao, emails, telefones = linha.strip().split(";")
-            
-            dados = [nome, data_nasc, sexo, area, titulacao, graduacao, emails.split(","), telefones.split(",")]
-            incluir_dados(db_professores, registro, dados)
-        arq.close()
+        with open(path, "r", encoding="utf-8") as arq:
+            for linha in arq:
+                registro, nome, data_nasc, sexo, area, titulacao, graduacao, emails, telefones = linha.strip().split(";")
+                dados = [nome, data_nasc, sexo, area, titulacao, graduacao, emails.split(","), telefones.split(",")]
+                incluir_dados(db_professores, registro, dados)
 
 def submenu_professores():
     """
     Exibe o submenu de gerenciamento de professores e solicita ao usuário que selecione uma opção.
 
-    Return:
+    Retorna:
         int: A opção selecionada pelo usuário.
     """
     while True:
@@ -203,9 +199,9 @@ def submenu_professores():
 
 def executa(db_professores, path):
     """
-    Executa o sistema de gerenciamento de professores, exibindo o submenu e processando as opções selecionadas.
+    Executa o submenu de professores e a função correspondente com base na opção selecionada pelo usuário.
 
-    Parametros:
+    Parâmetros:
         db_professores (dict): O banco de dados de professores.
         path (str): O caminho do arquivo onde os dados dos professores serão salvos.
     """ 

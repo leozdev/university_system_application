@@ -2,7 +2,13 @@ import os
 
 def existe_arquivo(nome):
     """
-    DOCSTRING
+    Verifica se um arquivo existe.
+
+    Parâmetros:
+    nome (str): O nome do arquivo a ser verificado.
+
+    Retorna:
+    bool: True se o arquivo existe, False caso contrário.
     """
     if os.path.exists(nome):
         return True
@@ -10,7 +16,13 @@ def existe_arquivo(nome):
     
 def confirmar(acao):
     """
-    DOCSTRING
+    Solicita confirmação para uma ação.
+
+    Parâmetros:
+    acao (str): A ação para a qual a confirmação está sendo solicitada.
+
+    Retorna:
+    bool: True se a ação for confirmada, False se não for.
     """
     while True:
         input_confirma = input(f"Tem certeza que deseja {acao} o cadastro? (S/N): ").upper()

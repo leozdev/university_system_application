@@ -1,7 +1,7 @@
 ======================== Relatório  ========================
 Disciplinas que serão ministradas às terças-feiras e às quintas-feiras
 ============================================================
-Disciplinas:
+Informações:
 
 	Registro Funcional: 1001
 	Nome do Professor: Eloize Seno
@@ -15,5 +15,5 @@ Disciplinas:
 	______________________________
 
 ============================================================
-Relatório gerado em: 30/05/2024 13:06:48
+Relatório gerado em: 03/06/2024 22:22:42
 ============================================================

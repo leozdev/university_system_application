@@ -3,83 +3,71 @@ from src.auxiliar import existe_arquivo, confirmar
 
 def entrar_dados():
     """
-    DOCSTRING
+    Solicita ao usuário que insira os dados de uma disciplina.
 
-    Entrada de dados
-    -----------------
-    Parameters:
-        nome (str): nome da disciplina inserida pelo usuario
-        ementa (str): ementa da disciplina inserida pelo usuario
-        bibliografia (str): bibliografia da disciplina inserida pelo usuario
-        n_creditos (str): numero de creditos da disciplina inserida pelo usuario
-        carga_horaria (str): carga horaria da disciplina inserida pelo usuario
-
-    Returns:
-        list: lista com as seguintes informações - nome, ementa, bibliografia, n_creditos, carga_horaria
-
+    Retorna:
+        list: Lista contendo as seguintes informações da disciplina:
+            - nome (str): Nome da disciplina.
+            - ementa (str): Ementa da disciplina.
+            - bibliografia (str): Bibliografia da disciplina.
+            - n_creditos (str): Número de créditos da disciplina.
+            - carga_horaria (str): Carga horária da disciplina.
     """ 
     nome = input("Digite o nome da disciplina: ").title()
     ementa = input("Digite a ementa da disciplina: ").capitalize()
     bibliografia = input("Digite a bibliografia da disciplina: ").capitalize()
-    n_creditos = input("Digite o número de creditos da disciplina: ")
+    n_creditos = input("Digite o número de créditos da disciplina: ")
     carga_horaria = input("Digite a carga horária da disciplina (00h): ")
 
     return [nome, ementa, bibliografia, n_creditos, carga_horaria]
 
 def incluir_dados(db_disciplinas, sigla, dados):
     """
-    DOCSTRING
+    Inclui os dados de uma disciplina no banco de dados.
 
-    Inclui os dados 
-    -----------------
-    Parameters:
-
-
-    Returns:
-
-
+    Parâmetros:
+        db_disciplinas (dict): Banco de dados das disciplinas.
+        sigla (str): Sigla da disciplina.
+        dados (list): Lista contendo os dados da disciplina:
+            - nome (str): Nome da disciplina.
+            - ementa (str): Ementa da disciplina.
+            - bibliografia (str): Bibliografia da disciplina.
+            - n_creditos (str): Número de créditos da disciplina.
+            - carga_horaria (str): Carga horária da disciplina.
     """ 
     nome, ementa, bibliografia, n_creditos, carga_horaria = dados
 
     db_disciplinas[sigla] = {
-    'nome': nome,
-    'ementa': ementa, 
-    'bibliografia': bibliografia,
-    'n_creditos': n_creditos,
-    'carga_horaria': carga_horaria
+        'nome': nome,
+        'ementa': ementa,
+        'bibliografia': bibliografia,
+        'n_creditos': n_creditos,
+        'carga_horaria': carga_horaria
     }
-    
+
 def inserir_disciplina(db_disciplinas, sigla):
     """
-    DOCSTRING
+    Insere uma nova disciplina no banco de dados.
 
-    Inserindo os dados
-    -----------------
-    Parameters:
+    Parâmetros:
+        db_disciplinas (dict): Banco de dados das disciplinas.
+        sigla (str): Sigla da disciplina.
 
-    
-    Returns:
-        True: retorna verdadeidro se os dados foram inseridos
-        False: retorna falso caso a disciplina já esteje cadastrado no sistema
+    Retorna:
+        bool: True se a disciplina foi inserida com sucesso, False se a disciplina já está cadastrada.
     """ 
     if sigla not in db_disciplinas:
         dados = entrar_dados()
         incluir_dados(db_disciplinas, sigla, dados)
-        return True # Dados inseridos com sucesso!
-    return False # Disciplina já cadastrada!
+        return True  # Dados inseridos com sucesso!
+    return False  # Disciplina já cadastrada!
 
 def listar_todas_disciplinas(db_disciplinas):
     """
-    DOCSTRING
+    Lista todas as disciplinas cadastradas no banco de dados.
 
-    Listando todos os dados
-    -----------------
-    Parameters:
-
-
-    Returns:
-        
-    
+    Parâmetros:
+        db_disciplinas (dict): Banco de dados das disciplinas.
     """ 
     for sigla in db_disciplinas: 
         print("-" * 30)
@@ -88,16 +76,14 @@ def listar_todas_disciplinas(db_disciplinas):
 
 def listar_atributos_disciplina(db_disciplinas, sigla):
     """
-    DOCSTRING
+    Lista os atributos de uma disciplina específica.
 
-    Listando os dados de uma determinada disciplina
-    -----------------
-    Parameters:
-    
+    Parâmetros:
+        db_disciplinas (dict): Banco de dados das disciplinas.
+        sigla (str): Sigla da disciplina.
 
-    Returns:
-       
-    
+    Retorna:
+        bool: True se a disciplina foi encontrada e listada, False caso contrário.
     """ 
     if sigla in db_disciplinas:
         atributos = db_disciplinas[sigla]
@@ -106,63 +92,52 @@ def listar_atributos_disciplina(db_disciplinas, sigla):
         print("Bibliografia:", atributos['bibliografia'])
         print("Número de Créditos:", atributos['n_creditos'])
         print("Carga Horária:", atributos['carga_horaria'])
-        return True # Tudo ocorreu bem!
-    return False # Sigla da Disciplina não encontrada!
+        return True  # Tudo ocorreu bem!
+    return False  # Sigla da Disciplina não encontrada!
 
 def alterar_dados_disciplina(db_disciplinas, sigla):
     """
-    DOCSTRING
+    Altera os dados de uma disciplina já cadastrada.
 
-    Alterando os dados de uma disciplina já cadastrada
-    -----------------
-    Parameters:
-      
-    
-    Returns:
-        
-    
+    Parâmetros:
+        db_disciplinas (dict): Banco de dados das disciplinas.
+        sigla (str): Sigla da disciplina.
+
+    Retorna:
+        int: 1 se os dados foram alterados com sucesso, -1 se a alteração foi cancelada, 0 se a sigla não foi encontrada.
     """ 
     if sigla in db_disciplinas:
         if confirmar('alterar'):
-            incluir_dados(db_disciplinas, sigla)
-            return 1 # Dados alterados com sucesso!
-        return -1 # Alteração cancelada com sucesso!
-    return 0 # Sigla não encontrada!
+            incluir_dados(db_disciplinas, sigla, entrar_dados())
+            return 1  # Dados alterados com sucesso!
+        return -1  # Alteração cancelada com sucesso!
+    return 0  # Sigla não encontrada!
 
 def remover_disciplina(db_disciplinas, sigla):
     """
-    DOCSTRING
+    Remove uma disciplina do banco de dados.
 
-    Removendo uma disciplina do sistema
-    -----------------
-    Parameters:
+    Parâmetros:
+        db_disciplinas (dict): Banco de dados das disciplinas.
+        sigla (str): Sigla da disciplina.
 
-
-    Returns:
-        1: caso a execução tenha ocorrido tudo bem e os dados tenham sidos apagados
-        -1: caso a execução tenha sido cancelada, ou seja, o usuario desistiu de remover a disciplina
-        0: caso a disciplina que o usuario deseja excluir não esteje cadastrado
-
+    Retorna:
+        int: 1 se a disciplina foi removida com sucesso, -1 se a remoção foi cancelada, 0 se a disciplina não foi encontrada.
     """ 
     if sigla in db_disciplinas:
         if confirmar('excluir'):
             del db_disciplinas[sigla]
-            return 1 # Dados apagados com sucesso!
-        return -1 # Exclusão cancelada!
-    return 0 # Disciplina não cadastrada!
+            return 1  # Dados apagados com sucesso!
+        return -1  # Exclusão cancelada!
+    return 0  # Disciplina não cadastrada!
 
 def gravar_dados(db_disciplinas, path):
     """
-    DOCSTRING
+    Grava os dados das disciplinas em um arquivo.
 
-    Gravando os dados no arquivo
-    -----------------
-    Parameters:
-    
-
-    Returns:
-        
-    
+    Parâmetros:
+        db_disciplinas (dict): Banco de dados das disciplinas.
+        path (str): Caminho do arquivo onde os dados serão salvos.
     """ 
     arq = open(path, "w", encoding="utf-8")
     
@@ -178,17 +153,25 @@ def gravar_dados(db_disciplinas, path):
 
 def carregar_dados(db_disciplinas, path):
     """
-    DOCSTRING
+    Carrega os dados das disciplinas de um arquivo.
+
+    Parâmetros:
+        db_disciplinas (dict): Banco de dados das disciplinas.
+        path (str): Caminho do arquivo de onde os dados serão carregados.
     """ 
     if existe_arquivo(path):
         arq = open(path, "r", encoding="utf-8")
         for linha in arq:
             dados = linha.strip().split(";")
             incluir_dados(db_disciplinas, dados[0], dados[1:])
+        arq.close()
 
 def submenu_disciplinas():
     """
-    DOCSTRING
+    Exibe o submenu de gerenciamento de disciplinas e solicita ao usuário que selecione uma opção.
+
+    Retorna:
+        int: A opção selecionada pelo usuário.
     """ 
     while True:
         input("\nPressione [enter] para continuar...")
@@ -214,7 +197,11 @@ def submenu_disciplinas():
 
 def executa(db_disciplinas, path):
     """
-    DOCSTRING
+    Executa o submenu de disciplinas e a função correspondente com base na opção selecionada pelo usuário.
+
+    Parâmetros:
+        db_disciplinas (dict): Banco de dados das disciplinas.
+        path (str): Caminho do arquivo onde os dados serão salvos/carregados.
     """ 
     opt_submenu = 1
     while opt_submenu != 6:
@@ -238,13 +225,12 @@ def executa(db_disciplinas, path):
             else:
                 print("Erro: Já existe um cadastrado dessa sigla da disciplina no banco de dados.")
 
-        # Pensar em alguma solução melhor que essa (Se tiver como...)
         elif opt_submenu == 4:
             sigla = input("Digite a sigla da disciplina que deseja alterar: ")
 
             retorno = alterar_dados_disciplina(db_disciplinas, sigla)
             if retorno == 1:
-                print("Dados da disciplina alterado com sucesso.")
+                print("Dados da disciplina alterados com sucesso.")
             elif retorno == -1:
                 print("Alteração cancelada!")
             else:
