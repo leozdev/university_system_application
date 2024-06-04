@@ -171,6 +171,115 @@ def submenu_relatorios():
         except ValueError:
             print("Entrada inválida. Por favor, insira um número.")
 
+def buscar_professores_titulacao(db_professores, path_relatorio_titulacoes):
+    det_titulacao = input("Informe a titulação a ser listada (Mestrado ou Doutorado): ").lower()
+    existe = False
+
+    arq = open(path_relatorio_titulacoes, "w", encoding="utf-8")
+    cabecalho = (f"================== Relatório Titulação Professores ==================\n"
+                 f"\tTitulação: {det_titulacao}\n"
+                 f"=====================================================================\n"
+                 f"Professores:\n")
+    arq.write(cabecalho)
+
+    for registro in db_professores:
+        if db_professores[registro]['titulacao'].lower() == det_titulacao:
+            existe = True
+            atributos = db_professores[registro]
+
+            dados = (f"{'-' * 30}\n"
+                        f"Registro Funcional: {registro}\n"
+                        f"Nome: {atributos['nome']}\n"
+                        f"Data de Nascimento: {atributos['data-nascimento']}\n"
+                        f"Sexo: {atributos['sexo']}\n"
+                        f"Área de Pesquisa: {atributos['area-de-pesquisa']}\n"
+                        f"Titulação: {atributos['titulacao']}\n"
+                        f"Graduação: {atributos['graduacao']}\n"
+                        f"E-mails: {', '.join(atributos['emails'])}\n"
+                        f"Telefones: {', '.join(atributos['telefones'])}\n")
+            arq.write(dados)
+
+    data_hora_formatada = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+    rodape = (f"\n============================================================\n"
+              f"Relatório gerado em: {data_hora_formatada}\n"
+              f"============================================================\n")
+    arq.write(rodape)
+
+    arq.close()
+    return existe
+
+def buscar_disciplina_creditos(db_disciplinas, path_relatorio_creditos):
+    min_creditos = float(input("Informe a quantidade de créditos da disciplina a ser listada: "))
+    existe = False
+    
+    arq = open(path_relatorio_creditos, "w", encoding="utf-8")
+    
+    cabecalho = (f"================== Relatório Disciplinas com mais de X créditos ==================\n"
+                 f"\tCréditos: {min_creditos}\n"
+                 f"==================================================================================\n"
+                 f"Disciplinas:\n")
+    arq.write(cabecalho)
+
+    for sigla in db_disciplinas:
+        if float(db_disciplinas[sigla]['n_creditos']) > min_creditos:
+            existe = True
+            atributos = db_disciplinas[sigla]
+
+            dados = (f"\nSigla da Disciplina: {sigla}\n"
+                     f"Nome da Disciplina: {atributos['nome']}\n"
+                     f"Ementa: {atributos['ementa']}\n"
+                     f"Bibliografia: {atributos['bibliografia']}\n"
+                     f"Número de Créditos: {atributos['n_creditos']}\n"
+                     f"Carga Horária: {atributos['carga_horaria']}\n"
+                     f"____________________________________\n")
+            arq.write(dados)
+
+    data_hora_formatada = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+    rodape = (f"\n============================================================\n"
+              f"Relatório gerado em: {data_hora_formatada}\n"
+              f"============================================================\n")
+    arq.write(rodape)
+
+    arq.close()
+    return existe
+
+def buscar_disciplina_dias(db_prof_disc, db_professores, db_disciplinas, path_relatorio_dias):
+    existe = False
+    
+    arq = open(path_relatorio_dias, "w", encoding="utf-8")
+    cabecalho = (f"================== Relatório Dias da Disciplina ==================\n"
+                 f"\tDisciplinas que serão ministradas às terças-feiras e às quintas-feiras\n"
+                 f"==================================================================\n"
+                 f"Informações:\n")
+    arq.write(cabecalho)
+
+    for registro in db_prof_disc:
+        for conjunto_chaves, atributos in db_prof_disc[registro].items():
+            sigla, ano, semestre = conjunto_chaves
+
+            if "Terça-Feira" in atributos["dias_da_semana"] and "Quinta-Feira" in atributos["dias_da_semana"]:
+                existe = True
+                dados = (f"{'-' * 30}\n"
+                            f"Registro Funcional: {registro}\n"
+                            f"Nome do Professor: {db_professores[registro]['nome']}\n"
+                            f"Nome da Disciplina: {db_disciplinas[sigla]['nome']}\n"
+                            f"Sigla da Disciplina: {sigla}\n"
+                            f"Ano: {ano}\n"
+                            f"Semestre: {semestre}\n"
+                            f"Dias da Semana: {', '.join(atributos['dias_da_semana'])}\n"
+                            f"Horários de Início: {', '.join(atributos['horarios_inicio'])}\n"
+                            f"Curso: {atributos['curso']}\n")
+                arq.write(dados)
+
+    data_hora_formatada = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+    rodape = (f"\n============================================================\n"
+              f"Relatório gerado em: {data_hora_formatada}\n"
+              f"============================================================\n")
+    arq.write(rodape)
+
+    arq.close()
+    return existe
+
 def executa(db_prof_disc, db_professores, db_disciplinas, path_relatorio_titulacoes, path_relatorio_creditos, path_relatorio_dias):
     """
     Executa o submenu de relatórios e gera o relatório correspondente com base na opção selecionada pelo usuário.

@@ -4,6 +4,19 @@ from src.auxiliar import existe_arquivo, confirmar
 def entrar_dados():
     """
     DOCSTRING
+
+    Entrada de dados
+    -----------------
+    Parameters:
+        nome (str): nome da disciplina inserida pelo usuario
+        ementa (str): ementa da disciplina inserida pelo usuario
+        bibliografia (str): bibliografia da disciplina inserida pelo usuario
+        n_creditos (str): numero de creditos da disciplina inserida pelo usuario
+        carga_horaria (str): carga horaria da disciplina inserida pelo usuario
+
+    Returns:
+        list: lista com as seguintes informações - nome, ementa, bibliografia, n_creditos, carga_horaria
+
     """ 
     nome = input("Digite o nome da disciplina: ").title()
     ementa = input("Digite a ementa da disciplina: ").capitalize()
@@ -16,6 +29,15 @@ def entrar_dados():
 def incluir_dados(db_disciplinas, sigla, dados):
     """
     DOCSTRING
+
+    Inclui os dados 
+    -----------------
+    Parameters:
+
+
+    Returns:
+
+
     """ 
     nome, ementa, bibliografia, n_creditos, carga_horaria = dados
 
@@ -30,6 +52,15 @@ def incluir_dados(db_disciplinas, sigla, dados):
 def inserir_disciplina(db_disciplinas, sigla):
     """
     DOCSTRING
+
+    Inserindo os dados
+    -----------------
+    Parameters:
+
+    
+    Returns:
+        True: retorna verdadeidro se os dados foram inseridos
+        False: retorna falso caso a disciplina já esteje cadastrado no sistema
     """ 
     if sigla not in db_disciplinas:
         dados = entrar_dados()
@@ -40,6 +71,15 @@ def inserir_disciplina(db_disciplinas, sigla):
 def listar_todas_disciplinas(db_disciplinas):
     """
     DOCSTRING
+
+    Listando todos os dados
+    -----------------
+    Parameters:
+
+
+    Returns:
+        
+    
     """ 
     for sigla in db_disciplinas: 
         print("-" * 30)
@@ -49,6 +89,15 @@ def listar_todas_disciplinas(db_disciplinas):
 def listar_atributos_disciplina(db_disciplinas, sigla):
     """
     DOCSTRING
+
+    Listando os dados de uma determinada disciplina
+    -----------------
+    Parameters:
+    
+
+    Returns:
+       
+    
     """ 
     if sigla in db_disciplinas:
         atributos = db_disciplinas[sigla]
@@ -63,6 +112,15 @@ def listar_atributos_disciplina(db_disciplinas, sigla):
 def alterar_dados_disciplina(db_disciplinas, sigla):
     """
     DOCSTRING
+
+    Alterando os dados de uma disciplina já cadastrada
+    -----------------
+    Parameters:
+      
+    
+    Returns:
+        
+    
     """ 
     if sigla in db_disciplinas:
         if confirmar('alterar'):
@@ -74,6 +132,17 @@ def alterar_dados_disciplina(db_disciplinas, sigla):
 def remover_disciplina(db_disciplinas, sigla):
     """
     DOCSTRING
+
+    Removendo uma disciplina do sistema
+    -----------------
+    Parameters:
+
+
+    Returns:
+        1: caso a execução tenha ocorrido tudo bem e os dados tenham sidos apagados
+        -1: caso a execução tenha sido cancelada, ou seja, o usuario desistiu de remover a disciplina
+        0: caso a disciplina que o usuario deseja excluir não esteje cadastrado
+
     """ 
     if sigla in db_disciplinas:
         if confirmar('excluir'):
@@ -85,6 +154,15 @@ def remover_disciplina(db_disciplinas, sigla):
 def gravar_dados(db_disciplinas, path):
     """
     DOCSTRING
+
+    Gravando os dados no arquivo
+    -----------------
+    Parameters:
+    
+
+    Returns:
+        
+    
     """ 
     arq = open(path, "w", encoding="utf-8")
     
@@ -185,4 +263,3 @@ def executa(db_disciplinas, path):
         
         # Salva os dados após cada operação e encerra o submenu 
         gravar_dados(db_disciplinas, path)
-            
