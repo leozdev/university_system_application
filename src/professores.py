@@ -174,6 +174,7 @@ def carregar_dados(db_professores, path):
             dados = [nome, data_nasc, sexo, area, titulacao, graduacao, emails.split(","), telefones.split(",")]
             incluir_dados(db_professores, registro, dados)
         arq.close()
+        
 def submenu_professores():
     """
     Exibe o submenu de gerenciamento de professores e solicita ao usuário que selecione uma opção.
