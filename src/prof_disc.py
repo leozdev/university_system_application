@@ -2,7 +2,7 @@ import os
 from src.auxiliar import existe_arquivo, confirmar
 # TERROR DE TODOS
 
-def entrada_registro(db_professores):
+def entrada_registro():
     """
     Solicita e retorna o registro funcional do professor.
 
@@ -13,9 +13,9 @@ def entrada_registro(db_professores):
     str or None: O registro funcional do professor, se encontrado no banco de dados, senão retorna None.
     """
     registro = input("Digite o Registro Funcional: ")
-    return registro if registro in db_professores else None #Retorna o registro se ele estiver no db_professores, caso contrário retorna um valor nulo
+    return registro
 
-def entrada_chaves(db_disciplinas):
+def entrada_chaves():
     """
     Solicita e retorna as chaves (sigla, ano, semestre) da disciplina.
 
@@ -26,12 +26,9 @@ def entrada_chaves(db_disciplinas):
     tuple: Uma tupla contendo a sigla, o ano e o semestre da disciplina, se encontrada no banco de dados, senão retorna uma tupla de valores nulos.
     """
     sigla = input("Digite a Sigla da Disciplina: ")
-    if sigla in db_disciplinas:
-        ano = input("Digite o Ano: ")
-        semestre = input("Digite o Semestre: ")
-        return sigla, ano, semestre # Retorna uma tupla de chaves se a sigla existir no db_disciplinas
-    print("A disciplina não foi encontrada no banco de dados.")
-    return None, None, None # Retorna uma tupla de valores nulos se a sigla não existir no db_disciplinas
+    ano = input("Digite o Ano: ")
+    semestre = input("Digite o Semestre: ")
+    return sigla, ano, semestre 
 
 def entrada_atributos():
     dias_da_semana = input("Digite os Dias da Semana (separados por vírgula): ").split(", ")
