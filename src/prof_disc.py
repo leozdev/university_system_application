@@ -33,7 +33,14 @@ def entrada_chaves(db_disciplinas):
     print("A disciplina não foi encontrada no banco de dados.")
     return None, None, None # Retorna uma tupla de valores nulos se a sigla não existir no db_disciplinas
 
-def incluir_dados(db_prof_disc, registro, sigla_disciplina, ano, semestre):
+def entrada_atributos():
+    dias_da_semana = input("Digite os Dias da Semana (separados por vírgula): ").split(", ")
+    horarios_inicio = input("Digite os Horários do curso (separados por vírgula): ").split(", ")
+    nome_do_curso = input("Digite o Nome do Curso: ")
+
+    return [dias_da_semana, horarios_inicio, nome_do_curso]
+
+def incluir_dados(db_prof_disc, registro, sigla_disciplina, ano, semestre, atributos):
     """
     Inclui os dados da disciplina no banco de dados de professores-disciplinas.
 
@@ -44,9 +51,7 @@ def incluir_dados(db_prof_disc, registro, sigla_disciplina, ano, semestre):
     ano (str): O ano da disciplina.
     semestre (str): O semestre da disciplina.
     """
-    dias_da_semana = input("Digite os Dias da Semana (separados por vírgula): ").split(", ")
-    horarios_inicio = input("Digite os Horários do curso (separados por vírgula): ").split(", ")
-    nome_do_curso = input("Digite o Nome do Curso: ")
+    dias_da_semana, horarios_inicio, nome_do_curso = atributos 
 
     db_prof_disc[registro][(sigla_disciplina, ano, semestre)] = {
     "dias_da_semana": dias_da_semana,
@@ -77,7 +82,7 @@ def inserir_prof_disc(db_prof_disc, db_professores, db_disciplinas):
         return -2 # Sigla não existente no db_disciplinas
     
     if (sigla, ano, semestre) not in db_prof_disc[registro]:
-        incluir_dados(db_prof_disc, registro, sigla, ano, semestre)
+        incluir_dados(db_prof_disc, registro, sigla, ano, semestre, entrada_atributos())
         return 1 # Cadastrado com sucesso no db_prof_disc
     return 0 # Cadastro já existe no prof_disc
    
@@ -198,6 +203,7 @@ def gravar_dados(db_prof_disc, path):
                      f"{','.join(atributos['horarios_inicio'])};"
                      f"{atributos['curso']}\n")
             arq.write(linha)
+
     arq.close()
 
 def carregar_dados(db_prof_disc, path):
