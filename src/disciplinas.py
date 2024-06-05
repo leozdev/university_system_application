@@ -57,8 +57,7 @@ def inserir_disciplina(db_disciplinas, sigla):
         bool: True se a disciplina foi inserida com sucesso, False se a disciplina já está cadastrada.
     """ 
     if sigla not in db_disciplinas:
-        dados = entrar_dados()
-        incluir_dados(db_disciplinas, sigla, dados)
+        incluir_dados(db_disciplinas, sigla, entrar_dados())
         return True  # Dados inseridos com sucesso!
     return False  # Disciplina já cadastrada!
 
@@ -140,7 +139,6 @@ def gravar_dados(db_disciplinas, path):
         path (str): Caminho do arquivo onde os dados serão salvos.
     """ 
     arq = open(path, "w", encoding="utf-8")
-    
     for sigla, atributos in db_disciplinas.items():
         linha = (f"{sigla};"
                  f"{atributos['nome']};"

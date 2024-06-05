@@ -94,22 +94,17 @@ def listar_todas_aulas(db_prof_disc):
         print(f"Registro Funcional do Professor: {registro}")
         listar_atributos_aula(db_prof_disc, registro)
 
-def listar_atributos_aula(db_prof_disc, registro=None):
+def listar_atributos_aula(db_prof_disc, registro):
     """
     Lista os atributos de uma aula específica.
 
     Parametros:
     db_prof_disc (dict): Dicionário contendo o banco de dados de professores-disciplinas.
-    registro (str or None): O registro funcional do professor. Se não fornecido, será solicitado ao usuário.
+    registro (str): O registro funcional do professor.
 
     Retorna:
     bool: True se o registro foi encontrado e os atributos listados, False caso contrário.
     """
-    if registro is None:
-        registro = entrada_registro()
-        if not registro:
-            return 0 # Registro não existe no db_professores consequentemente não existe no db_prof_disc
-        
     if registro in db_prof_disc:
         for (sigla_disciplina, ano, semestre), atributos in db_prof_disc[registro].items():
             print(f"\nSigla da disciplina: {sigla_disciplina}")
@@ -119,38 +114,19 @@ def listar_atributos_aula(db_prof_disc, registro=None):
             print(f"Horários de início: {', '.join(atributos['horarios_inicio'])}")
             print(f"Curso: {atributos['curso']}")
         return True # Tudo ocorreu bem
-    else:
-        return False # Registro não encontrado no db_prof_disc
-
-def existe_dados(db_prof_disc, db_professores, db_disciplinas, mostrar_mensagens=True):
-    """
-    Verifica se os dados existem nos bancos de dados fornecidos.
-
-    Parametros:
-    db_prof_disc (dict): Dicionário contendo o banco de dados de professores-disciplinas.
-    db_professores (dict): Dicionário contendo o banco de dados de professores.
-    db_disciplinas (dict): Dicionário contendo o banco de dados de disciplinas.
-    mostrar_mensagens (bool, optional): Se True, imprime mensagens de erro quando os dados não são encontrados. O padrão é True.
-
-    Retorna:
-    tuple or None: Uma tupla contendo o registro funcional do professor e as chaves (sigla, ano, semestre) da disciplina se os dados existirem, senão retorna None.
-    """
+    return False # Registro não encontrado no db_prof_disc
+    
+###############################################################################
+def existe_dados(db_prof_disc, db_professores, db_disciplinas):
     registro = entrada_registro(db_professores)
     if registro:
         sigla, ano, semestre = entrada_chaves(db_disciplinas)
         if sigla and ano and semestre:
             if (sigla, ano, semestre) in db_prof_disc[registro]:
                 return registro, (sigla, ano, semestre)
-            
-            elif mostrar_mensagens:
-                print("Dados não encontrados.")
-        elif mostrar_mensagens:
-            print("Erro: Essa sigla da disciplina não consta no banco de dados de disciplinas.")
-    elif mostrar_mensagens:
-        print("Erro: Esse registro funcional não consta no banco de dados de professores.")
-    
-    return None, None
+###############################################################################
 
+################
 def alterar_cadastro(db_prof_disc):
     """
     Permite ao usuário alterar os dados de uma aula existente.
@@ -171,11 +147,8 @@ def alterar_cadastro(db_prof_disc):
             if confirmar('alterar'):
                 incluir_dados(db_prof_disc, registro, *conjunto_chaves, novo_cadastro=False)
                 return 1 # Alterado com sucesso!
-            
             return 0 # Alteração cancelada!
-        
         return -2 # Conjuntos chaves não existe
-    
     return -1 # Registro não existe
 
 def remover_prof_disc(db_prof_disc):
@@ -200,11 +173,8 @@ def remover_prof_disc(db_prof_disc):
                 else:
                     del db_prof_disc[registro]
                 return 1 # Excluido com sucesso!
-            
             return 0 # Exclusão Cancelada
-        
         return -2 # Conjuntos chaves não existe
-    
     return -1 # Registro não existe
     
 def gravar_dados(db_prof_disc, path):
@@ -299,40 +269,47 @@ def executa(db_prof_disc, db_professores, db_disciplinas, path):
 
         if opt == 1:
             listar_todas_aulas(db_prof_disc)
-
+#######################
         elif opt == 2:
-            if not listar_atributos_aula(db_prof_disc):
-                print("Erro: Essa aula não está registrada no banco de dados!")
+            registro = input("Digite o Registro Funcional: ")
+            if not listar_atributos_aula(db_prof_disc, registro):
+                print("Erro: Essa aula ainda não foi cadastrada no banco de dados professores-disciplinas.")
 
-        # Pensar em alguma solução melhor que essa (Se tiver como...)
         elif opt == 3:
             retorno = inserir_prof_disc(db_prof_disc, db_professores, db_disciplinas)
-            if retorno == 1:
-                print("Aula cadastrada com sucesso.")
+
+            if retorno == 0:
+                print("Erro: Já existe um cadastrado dessa aula no banco de dados.")
             elif retorno == -1:
-                print("Erro: Esse registro funcional não consta no banco de dados de professores.")
+                print("Erro: Esse registro funcional ainda não foi cadastrado no banco de dados de professores.")
             elif retorno == -2:
                 print("Erro: Essa sigla da disciplina não consta no banco de dados de disciplinas.")
             else:
-                print("Erro: Já existe um cadastrado dessa aula no banco de dados.")
+                print("Aula cadastrada com sucesso.")
 
         elif opt == 4:
             retorno = alterar_cadastro(db_prof_disc)
-            if retorno == 1:
-                print("Dados da aula alterado com sucesso.")
-            elif retorno == -1:
+
+            if retorno == 0:
                 print("Alteração cancelada!")
+            elif retorno == -1:
+                print("Erro: Esse registro funcional ainda não foi cadastrado no banco de dados de professores.")
+            elif retorno == -2:
+                print("Erro: Essa aula ainda não foi cadastrada no banco de dados professores-disciplinas.")
             else:
-                print("Erro:")
+                print("Dados da aula alterado com sucesso.")
 
         elif opt == 5:
             retorno = remover_prof_disc(db_prof_disc)
-            if retorno == 1:
-                print("Aula removida com sucesso.")
-            elif retorno == -1:
+
+            if retorno == 0:
                 print("Remoção cancelada!")
+            elif retorno == -1:
+                print("Erro: Esse registro funcional ainda não foi cadastrado no banco de dados de professores.")
+            elif retorno == -2:
+                print("Erro: Essa aula ainda não foi cadastrada no banco de dados professores-disciplinas.")
             else:
-                print("Erro:")
+                print("Aula removida com sucesso!")
                 
         elif opt == 6:
             gravar_dados(db_prof_disc, path)

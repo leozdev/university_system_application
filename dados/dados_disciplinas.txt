@@ -1,3 +1,4 @@
 SCLPPSW;Processos De Produção De Software;A disciplina define e contextualiza historicamente a engenharia de software, oferecendo uma visão geral dos principais assuntos estudados e do perfil profissional esperado nessa área da computação.;Pfleeger, shari l. engenharia de software: teoria e prática. 2. ed. são paulo: prentice hall, 2004.;66.7;66.7h
 SCLAPR1;Algoritimos E Programação 1;A disciplina aborda os conceitos básicos sobre computadores, com foco no desenvolvimento de algoritmos.;Ascencio, ana fernanda gomes, campos, edilene aparecida veneruchi de. fundamentos da programação de computadores. 3. ed. são paulo: pearson prentice hall, 2012.;100;100h
 SCLWEB1;Desenvolvimento Front-End 1;Lorem ipsum dolor sit amet, consectetur adipiscing elit. sed vitae blandit risus, sit amet fermentum urna. vestibulum vel iaculis sapien.;Proin sed odio tincidunt, porta arcu vel, iaculis arcu.;100;100h
+a;B;C;D;e;f
