@@ -118,6 +118,7 @@ def listar_atributos_aula(db_prof_disc, registro):
     
 ###############################################################################
 def existe_dados(db_prof_disc, db_professores, db_disciplinas):
+
     registro = entrada_registro(db_professores)
     if registro:
         sigla, ano, semestre = entrada_chaves(db_disciplinas)

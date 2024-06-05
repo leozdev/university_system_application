@@ -187,6 +187,7 @@ def executa(db_prof_disc, db_professores, db_disciplinas, path_relatorio_titulac
         opt_submenu = submenu_relatorios()
         if opt_submenu == 1:
             det_titulacao = input("Digite a titulação desejada (Ex: Mestrado, Doutorado): ").capitalize()
+
             if buscar_professores_titulacao(db_professores, det_titulacao, path_relatorio_titulacoes):
                 print("Relatório gerado com sucesso!")
             else:
@@ -195,6 +196,7 @@ def executa(db_prof_disc, db_professores, db_disciplinas, path_relatorio_titulac
         elif opt_submenu == 2:
             try:
                 min_creditos = float(input("Digite o número mínimo de créditos: "))
+                
                 if buscar_disciplina_creditos(db_disciplinas, min_creditos, path_relatorio_creditos):
                     print("Relatório gerado com sucesso!")
                 else:
