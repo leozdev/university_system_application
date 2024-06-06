@@ -40,10 +40,10 @@ def listar_todas_aulas(db_prof_disc):
     Lista todas as aulas cadastradas por professor.
 
     Parametros:
-    db_prof_disc (dict): Dicionário contendo o banco de dados de professores-disciplinas.
+        db_prof_disc (dict): Dicionário contendo o banco de dados de professores-disciplinas.
 
     Retorna:
-    # bool: True se existe algum dado no banco de dados, False caso contrário.
+        bool: True se existe algum dado no banco de dados, False caso contrário.
     """
     if len(db_prof_disc) < 1:
         return False

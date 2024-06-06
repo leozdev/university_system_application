@@ -64,6 +64,9 @@ def listar_todas_disciplinas(db_disciplinas):
 
     Parâmetros:
         db_disciplinas (dict): Banco de dados das disciplinas.
+    
+    Retorna:
+        bool: True se existe algum dado no banco de dados, False caso contrário.
     """ 
     if len(db_disciplinas) < 1:
         return False
