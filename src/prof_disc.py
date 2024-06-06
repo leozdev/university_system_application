@@ -68,13 +68,13 @@ def inserir_prof_disc(db_prof_disc, db_professores, db_disciplinas):
     Retorna:
     int: 1 se o registro foi inserido com sucesso, -1 se o registro funcional não existe no banco de dados de professores, -2 se a sigla da disciplina não existe no banco de dados de disciplinas, 0 se o registro já existe no banco de dados de professores-disciplinas.
     """
-    registro = entrada_registro(db_professores)
+    registro = entrada_registro()
     if not registro:
         return -1 # Registro não existente no db_professores
     
     db_prof_disc[registro] = {}
 
-    sigla, ano, semestre = entrada_chaves(db_disciplinas)
+    sigla, ano, semestre = entrada_chaves()
     if not (sigla and ano and semestre):
         return -2 # Sigla não existente no db_disciplinas
     
