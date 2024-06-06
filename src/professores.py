@@ -25,7 +25,7 @@ def entrar_dados():
     emails = input("Digite os E-mails (separados por vírgula-espaço): ").split(", ")
     telefones = input("Digite os Telefones (separados por vírgula-espaço): ").split(", ")
     
-    return (nome, data_nasc, sexo, area, titulacao, graduacao, emails, telefones)
+    return nome, data_nasc, sexo, area, titulacao, graduacao, emails, telefones
 
 def incluir_dados(db_professores, registro, nome, data_nasc, sexo, area, titulacao, graduacao, emails, telefones):  
     """

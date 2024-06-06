@@ -19,7 +19,7 @@ def entrar_dados():
     n_creditos = input("Digite o número de créditos da disciplina: ")
     carga_horaria = input("Digite a carga horária da disciplina (00h): ")
 
-    return (nome, ementa, bibliografia, n_creditos, carga_horaria)
+    return nome, ementa, bibliografia, n_creditos, carga_horaria
 
 def incluir_dados(db_disciplinas, sigla, nome, ementa, bibliografia, n_creditos, carga_horaria):
     """
