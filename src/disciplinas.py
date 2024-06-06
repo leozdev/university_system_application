@@ -70,10 +70,11 @@ def listar_todas_disciplinas(db_disciplinas):
     
     print("Disciplinas:\n")
     for sigla in db_disciplinas: 
-        print("-" * 30)
-        print("Sigla da Disciplina:", sigla)
+        print(f"\t{'-' * 30}")
+        print("\tSigla da Disciplina:", sigla)
         listar_atributos_disciplina(db_disciplinas, sigla)
     return True
+
 def listar_atributos_disciplina(db_disciplinas, sigla):
     """
     Lista os atributos de uma disciplina específica.
@@ -87,11 +88,11 @@ def listar_atributos_disciplina(db_disciplinas, sigla):
     """ 
     if sigla in db_disciplinas:
         atributos = db_disciplinas[sigla]
-        print("\nNome:", atributos['nome'])
-        print("Ementa:", atributos['ementa'])
-        print("Bibliografia:", atributos['bibliografia'])
-        print("Número de Créditos:", atributos['n_creditos'])
-        print("Carga Horária:", atributos['carga_horaria'])
+        print("\n\tNome:", atributos['nome'])
+        print("\tEmenta:", atributos['ementa'])
+        print("\tBibliografia:", atributos['bibliografia'])
+        print("\tNúmero de Créditos:", atributos['n_creditos'])
+        print("\tCarga Horária:", atributos['carga_horaria'])
         return True  # Tudo ocorreu bem!
     return False  # Sigla da Disciplina não encontrada!
 

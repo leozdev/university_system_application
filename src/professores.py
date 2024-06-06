@@ -82,10 +82,11 @@ def listar_todos_professores(db_professores):
     
     print("Professores:\n")
     for registro in db_professores:
-        print("-" * 30)
-        print(f"Registro Funcional: {registro}")
+        print(f"\t{'-' * 30}")
+        print(f"\tRegistro Funcional: {registro}")
         listar_atributos_professor(db_professores, registro)
     return True
+
 def listar_atributos_professor(db_professores, registro):
     """
     Lista os atributos de um professor específico.
@@ -99,14 +100,14 @@ def listar_atributos_professor(db_professores, registro):
     """
     if registro in db_professores:
         atributos = db_professores[registro]
-        print(f"\nNome: {atributos['nome']}")
-        print(f"Data de Nascimento: {atributos['data-nascimento']}")
-        print(f"Sexo: {atributos['sexo']}")
-        print(f"Área de Pesquisa: {atributos['area-de-pesquisa']}")
-        print(f"Titulação: {atributos['titulacao']}")
-        print(f"Graduação: {atributos['graduacao']}")
-        print(f"E-mails: {', '.join(atributos['emails'])}")
-        print(f"Telefones: {', '.join(atributos['telefones'])}")
+        print(f"\n\tNome: {atributos['nome']}")
+        print(f"\tData de Nascimento: {atributos['data-nascimento']}")
+        print(f"\tSexo: {atributos['sexo']}")
+        print(f"\tÁrea de Pesquisa: {atributos['area-de-pesquisa']}")
+        print(f"\tTitulação: {atributos['titulacao']}")
+        print(f"\tGraduação: {atributos['graduacao']}")
+        print(f"\tE-mails: {', '.join(atributos['emails'])}")
+        print(f"\tTelefones: {', '.join(atributos['telefones'])}")
         return True # Tudo ocorreu bem
     return False # Registro não encontrado
 
@@ -158,14 +159,14 @@ def gravar_dados(db_professores, path):
     arq = open(path, "w", encoding="utf-8")
     for registro, atributos in db_professores.items():
         linha = (f"{registro};"
-                    f"{atributos['nome']};"
-                    f"{atributos['data-nascimento']};"
-                    f"{atributos['sexo']};"
-                    f"{atributos['area-de-pesquisa']};"
-                    f"{atributos['titulacao']};"
-                    f"{atributos['graduacao']};"
-                    f"{','.join(atributos['emails'])};"
-                    f"{','.join(atributos['telefones'])}\n")
+                 f"{atributos['nome']};"
+                 f"{atributos['data-nascimento']};"
+                 f"{atributos['sexo']};"
+                 f"{atributos['area-de-pesquisa']};"
+                 f"{atributos['titulacao']};"
+                 f"{atributos['graduacao']};"
+                 f"{','.join(atributos['emails'])};"
+                 f"{','.join(atributos['telefones'])}\n")
         arq.write(linha)
     arq.close()
 

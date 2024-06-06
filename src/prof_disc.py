@@ -50,7 +50,7 @@ def listar_todas_aulas(db_prof_disc):
     
     print("Aulas:\n")
     for (registro, sigla, ano, semestre) in db_prof_disc:
-        print(f"{'-' * 30}")
+        print(f"\t{'-' * 30}")
         listar_atributos_aula(db_prof_disc, registro, sigla, ano, semestre)
     return True
 
@@ -63,17 +63,17 @@ def listar_atributos_aula(db_prof_disc, registro, sigla, ano, semestre):
     registro (str): O registro funcional do professor.
 
     Retorna:
-    bool: True se o registro foi encontrado e os atributos listados, False caso contrário.
+    bool: True se o conjunto chaves foi encontrado e os atributos listados, False caso contrário.
     """
     if (registro, sigla, ano, semestre) in db_prof_disc:
-        dados = db_prof_disc[(registro, sigla, ano, semestre)]
-        print(f"\nRegistro Funcional do Professor: {registro}")
-        print(f"Sigla da disciplina: {sigla}")
-        print(f"Ano: {ano}")
-        print(f"Semestre: {semestre}")
-        print(f"Dias da Semana: {', '.join(dados['dias_da_semana'])}")
-        print(f"Horários de início: {', '.join(dados['horarios_inicio'])}")
-        print(f"Curso: {dados['curso']}")
+        atributos = db_prof_disc[(registro, sigla, ano, semestre)]
+        print(f"\tRegistro Funcional do Professor: {registro}")
+        print(f"\tSigla da disciplina: {sigla}")
+        print(f"\tAno: {ano}")
+        print(f"\tSemestre: {semestre}")
+        print(f"\tDias da Semana: {', '.join(atributos['dias_da_semana'])}")
+        print(f"\tHorários de início: {', '.join(atributos['horarios_inicio'])}")
+        print(f"\tCurso: {atributos['curso']}")
         return True 
     return False 
     
