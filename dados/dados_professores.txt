@@ -1,2 +1,6 @@
 1000;Jorge Curtigi;01/01/1900;M;Engenharia De Software;Doutorado;Usp;curtigi@ifsp.edu.br,jorge@ifsp.edu.br;(16) 99999-8888,(11) 97777-7777
 1001;Eloize Seno;01/01/1900;F;Processamento De Linguagem Natural;Doutorado;Usp;eloize.seno@ifsp.edu.br;(11) 99999-3333
+1002;Carlao;01/01/1900;M;Desenvolvimento Web;Doutorado;Universidade;carlao2005@ifsp.edu.br;(11) 97777-1234
+1003;Renata Silva;02/02/1980;F;Inteligência Artificial;Mestrado;Unicamp;renata.silva@ifsp.edu.br,renata.ai@unicamp.br;(19) 99999-0000,(19) 97777-4444
+1004;Paulo Almeida;05/05/1975;M;Banco De Dados;Mestrado;Usp;paulo.almeida@ifsp.edu.br;(11) 98888-2222
+1005;Mariana Couto;15/08/1985;F;Redes De Computadores;Doutorado;Unicamp;mariana.couto@ifsp.edu.br;(19) 97777-5555,(11) 93333-6666

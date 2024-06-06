@@ -25,6 +25,28 @@ Professores:
 	Telefones: (11) 99999-3333
 	______________________________
 
+	Registro Funcional: 1002
+	Nome: Carlao
+	Data de Nascimento: 01/01/1900
+	Sexo: M
+	Área de Pesquisa: Desenvolvimento Web
+	Titulação: Doutorado
+	Graduação: Universidade
+	E-mails: carlao2005@ifsp.edu.br
+	Telefones: (11) 97777-1234
+	______________________________
+
+	Registro Funcional: 1005
+	Nome: Mariana Couto
+	Data de Nascimento: 15/08/1985
+	Sexo: F
+	Área de Pesquisa: Redes De Computadores
+	Titulação: Doutorado
+	Graduação: Unicamp
+	E-mails: mariana.couto@ifsp.edu.br
+	Telefones: (19) 97777-5555, (11) 93333-6666
+	______________________________
+
 ============================================================
-Relatório gerado em: 05/06/2024 19:04:05
+Relatório gerado em: 06/06/2024 08:52:34
 ============================================================

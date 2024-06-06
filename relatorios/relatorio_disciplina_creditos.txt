@@ -27,6 +27,30 @@ Disciplinas:
 	Carga Horária: 100h
 	______________________________
 
+	Sigla da Disciplina: SCLIA01
+	Nome da Disciplina: Introdução À Inteligência Artificial
+	Ementa: A disciplina introduz os conceitos fundamentais de inteligência artificial, cobrindo técnicas básicas e aplicações.
+	Bibliografia: Russell, stuart norvig, peter. inteligência artificial. 3. ed. rio de janeiro: elsevier, 2013.
+	Número de Créditos: 80
+	Carga Horária: 80h
+	______________________________
+
+	Sigla da Disciplina: SCLBD02
+	Nome da Disciplina: Modelagem De Banco De Dados
+	Ementa: A disciplina aborda os princípios e técnicas de modelagem de dados, com foco em banco de dados relacionais.
+	Bibliografia: Date, c.j. introdução a sistemas de bancos de dados. 8. ed. são paulo: pearson, 2004.
+	Número de Créditos: 60
+	Carga Horária: 60h
+	______________________________
+
+	Sigla da Disciplina: SCLRED1
+	Nome da Disciplina: Redes De Computadores
+	Ementa: A disciplina cobre os conceitos básicos e avanços recentes em redes de computadores, incluindo protocolos e arquitetura de redes.
+	Bibliografia: Tanenbaum, andrew s. wetherall, david j. redes de computadores. 5. ed. são paulo: pearson, 2011.
+	Número de Créditos: 90
+	Carga Horária: 90h
+	______________________________
+
 ============================================================
-Relatório gerado em: 05/06/2024 19:04:07
+Relatório gerado em: 06/06/2024 08:51:26
 ============================================================
