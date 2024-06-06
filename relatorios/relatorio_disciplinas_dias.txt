@@ -3,17 +3,6 @@ Disciplinas que serão ministradas às terças-feiras e às quintas-feiras
 ============================================================
 Informações:
 
-	Registro Funcional: 1001
-	Nome do Professor: Eloize Seno
-	Nome da Disciplina: Algoritimos E Programação 1
-	Sigla da Disciplina: SCLAPR1
-	Ano: 2024
-	Semestre: 2
-	Dias da Semana: Terça-Feira, Quinta-Feira
-	Horários de Início: 8h-11h30, 8h-9h30
-	Curso: Bacharelado de Engenharia de Software
-	______________________________
-
 ============================================================
-Relatório gerado em: 03/06/2024 22:22:42
+Relatório gerado em: 05/06/2024 19:04:09
 ============================================================

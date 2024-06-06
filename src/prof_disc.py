@@ -1,59 +1,24 @@
 import os
 from src.auxiliar import existe_arquivo, confirmar
-# TERROR DE TODOS
 
-def entrada_registro():
-    """
-    Solicita e retorna o registro funcional do professor.
-
-    Parametros:
-    db_professores (dict): Dicionário contendo o banco de dados de professores.
-
-    Retorna:
-    str or None: O registro funcional do professor, se encontrado no banco de dados, senão retorna None.
-    """
+def entrar_chaves():
     registro = input("Digite o Registro Funcional: ")
-    return registro
-
-def entrada_chaves():
-    """
-    Solicita e retorna as chaves (sigla, ano, semestre) da disciplina.
-
-    Parametros:
-    db_disciplinas (dict): Dicionário contendo o banco de dados de disciplinas.
-
-    Retorna:
-    tuple: Uma tupla contendo a sigla, o ano e o semestre da disciplina, se encontrada no banco de dados, senão retorna uma tupla de valores nulos.
-    """
-    sigla = input("Digite a Sigla da Disciplina: ")
+    sigla = input("Digite a sigla da disciplina: ")
     ano = input("Digite o Ano: ")
     semestre = input("Digite o Semestre: ")
-    return sigla, ano, semestre 
+    return registro, sigla, ano, semestre
 
-def entrada_atributos():
+def entrar_atributos():
     dias_da_semana = input("Digite os Dias da Semana (separados por vírgula): ").split(", ")
     horarios_inicio = input("Digite os Horários do curso (separados por vírgula): ").split(", ")
     nome_do_curso = input("Digite o Nome do Curso: ")
+    return dias_da_semana, horarios_inicio, nome_do_curso
 
-    return [dias_da_semana, horarios_inicio, nome_do_curso]
-
-def incluir_dados(db_prof_disc, registro, sigla_disciplina, ano, semestre, atributos):
-    """
-    Inclui os dados da disciplina no banco de dados de professores-disciplinas.
-
-    Parametros:
-    db_prof_disc (dict): Dicionário contendo o banco de dados de professores-disciplinas.
-    registro (str): O registro funcional do professor.
-    sigla_disciplina (str): A sigla da disciplina.
-    ano (str): O ano da disciplina.
-    semestre (str): O semestre da disciplina.
-    """
-    dias_da_semana, horarios_inicio, nome_do_curso = atributos 
-
-    db_prof_disc[registro][(sigla_disciplina, ano, semestre)] = {
-    "dias_da_semana": dias_da_semana,
-    "horarios_inicio": horarios_inicio,
-    "curso": nome_do_curso
+def incluir_dados(db_prof_disc, registro, sigla_disciplina, ano, semestre, dias_da_semana, horarios_inicio, nome_do_curso):
+    db_prof_disc[(registro, sigla_disciplina, ano, semestre)] = {
+        "dias_da_semana": dias_da_semana,
+        "horarios_inicio": horarios_inicio,
+        "curso": nome_do_curso
     }
 
 def inserir_prof_disc(db_prof_disc, db_professores, db_disciplinas):
@@ -89,14 +54,20 @@ def listar_todas_aulas(db_prof_disc):
 
     Parametros:
     db_prof_disc (dict): Dicionário contendo o banco de dados de professores-disciplinas.
-    """
-    print("Todas as aulas cadastradas por professor:\n")
-    for registro in db_prof_disc:
-        print(f"{'-' * 30}")
-        print(f"Registro Funcional do Professor: {registro}")
-        listar_atributos_aula(db_prof_disc, registro)
 
-def listar_atributos_aula(db_prof_disc, registro):
+    Retorna:
+    # bool: True se existe algum dado no banco de dados, False caso contrário.
+    """
+    if len(db_prof_disc) < 1:
+        return False
+    
+    print("Aulas:\n")
+    for (registro, sigla, ano, semestre) in db_prof_disc:
+        print(f"\t{'-' * 30}")
+        listar_atributos_aula(db_prof_disc, registro, sigla, ano, semestre)
+    return True
+
+def listar_atributos_aula(db_prof_disc, registro, sigla, ano, semestre):
     """
     Lista os atributos de uma aula específica.
 
@@ -105,81 +76,39 @@ def listar_atributos_aula(db_prof_disc, registro):
     registro (str): O registro funcional do professor.
 
     Retorna:
-    bool: True se o registro foi encontrado e os atributos listados, False caso contrário.
+    bool: True se o conjunto chaves foi encontrado e os atributos listados, False caso contrário.
     """
-    if registro in db_prof_disc:
-        for (sigla_disciplina, ano, semestre), atributos in db_prof_disc[registro].items():
-            print(f"\nSigla da disciplina: {sigla_disciplina}")
-            print(f"Ano: {ano}")
-            print(f"Semestre: {semestre}")
-            print(f"Dias da Semana: {', '.join(atributos['dias_da_semana'])}")
-            print(f"Horários de início: {', '.join(atributos['horarios_inicio'])}")
-            print(f"Curso: {atributos['curso']}")
-        return True # Tudo ocorreu bem
-    return False # Registro não encontrado no db_prof_disc
+    if (registro, sigla, ano, semestre) in db_prof_disc:
+        atributos = db_prof_disc[(registro, sigla, ano, semestre)]
+        print(f"\tRegistro Funcional do Professor: {registro}")
+        print(f"\tSigla da disciplina: {sigla}")
+        print(f"\tAno: {ano}")
+        print(f"\tSemestre: {semestre}")
+        print(f"\tDias da Semana: {', '.join(atributos['dias_da_semana'])}")
+        print(f"\tHorários de início: {', '.join(atributos['horarios_inicio'])}")
+        print(f"\tCurso: {atributos['curso']}")
+        return True 
+    return False 
     
-###############################################################################
-def existe_dados(db_prof_disc, db_professores, db_disciplinas):
+def alterar_cadastro(db_prof_disc, registro, sigla, ano, semestre):
+    if (registro, sigla, ano, semestre) in db_prof_disc:
+        atributos = entrar_atributos()
+        if confirmar('alterar'):
+            incluir_dados(db_prof_disc, registro, sigla, ano, semestre, *atributos)
 
-    registro = entrada_registro(db_professores)
-    if registro:
-        sigla, ano, semestre = entrada_chaves(db_disciplinas)
-        if sigla and ano and semestre:
-            if (sigla, ano, semestre) in db_prof_disc[registro]:
-                return registro, (sigla, ano, semestre)
-###############################################################################
+            return 1  # Alterado com sucesso!
+        return -1  # Alteração cancelada!
+    return 0  # Dados não encontrados (Registro ou (sigla, ano, semestre)) no db_prof_disc
 
-################
-def alterar_cadastro(db_prof_disc):
-    """
-    Permite ao usuário alterar os dados de uma aula existente.
+def remover_prof_disc(db_prof_disc, registro, sigla, ano, semestre):
+    if (registro, sigla, ano, semestre) in db_prof_disc:
+        if confirmar('excluir'):
+            del db_prof_disc[(sigla, ano, semestre)]
 
-    Parametros:
-    db_prof_disc (dict): Dicionário contendo o banco de dados de professores-disciplinas.
+            return 1  # Removido com sucesso!
+        return -1  # Remoção cancelada
+    return 0  # Dados não encontrados (Registro ou (sigla, ano, semestre)) no db_prof_disc
 
-    Retorna:
-    int: 1 se os dados foram alterados com sucesso, 0 se a alteração foi cancelada, -1 se o registro funcional não existe, -2 se as chaves da disciplina não existem.
-    """
-    registro = entrada_registro()
-    if registro:
-        conjunto_chaves = entrada_chaves()
-        
-        if conjunto_chaves in db_prof_disc[registro]:
-            print("\nAtualize os dados:\n")
-
-            if confirmar('alterar'):
-                incluir_dados(db_prof_disc, registro, *conjunto_chaves, novo_cadastro=False)
-                return 1 # Alterado com sucesso!
-            return 0 # Alteração cancelada!
-        return -2 # Conjuntos chaves não existe
-    return -1 # Registro não existe
-
-def remover_prof_disc(db_prof_disc):
-    """
-    Permite ao usuário remover uma aula existente.
-
-    Parametros:
-    db_prof_disc (dict): Dicionário contendo o banco de dados de professores-disciplinas.
-
-    Retorna:
-    int: 1 se a aula foi removida com sucesso, 0 se a remoção foi cancelada, -1 se o registro funcional não existe, -2 se as chaves da disciplina não existem.
-    """
-    registro = entrada_registro()
-    if registro:
-        conjunto_chaves = entrada_chaves()
-        
-        if conjunto_chaves in db_prof_disc[registro]:
-
-            if confirmar('excluir'):
-                if len(db_prof_disc[registro]) > 1:
-                    del db_prof_disc[registro][conjunto_chaves]
-                else:
-                    del db_prof_disc[registro]
-                return 1 # Excluido com sucesso!
-            return 0 # Exclusão Cancelada
-        return -2 # Conjuntos chaves não existe
-    return -1 # Registro não existe
-    
 def gravar_dados(db_prof_disc, path):
     """
     Grava os dados do banco de dados de professores-disciplinas em um arquivo.
@@ -189,19 +118,17 @@ def gravar_dados(db_prof_disc, path):
     path (str): O caminho do arquivo onde os dados serão gravados.
     """
     arq =  open(path, "w", encoding="utf-8")
+    for conjunto_chaves in db_prof_disc:
+        registro, sigla_disciplina, ano, semestre = conjunto_chaves
+        atributos = db_prof_disc[conjunto_chaves]
 
-    for registro in db_prof_disc:
-        for conjunto_chaves, atributos in db_prof_disc[registro].items():
-            sigla_disciplina, ano, semestre = conjunto_chaves
-
-            linha = (f"{registro};"
-                     f"{sigla_disciplina};"
-                     f"{ano};{semestre};"
-                     f"{','.join(atributos['dias_da_semana'])};"
-                     f"{','.join(atributos['horarios_inicio'])};"
-                     f"{atributos['curso']}\n")
-            arq.write(linha)
-
+        linha = (f"{registro};"
+                 f"{sigla_disciplina};"
+                 f"{ano};{semestre};"
+                 f"{','.join(atributos['dias_da_semana'])};"
+                 f"{','.join(atributos['horarios_inicio'])};"
+                 f"{atributos['curso']}\n")
+        arq.write(linha)
     arq.close()
 
 def carregar_dados(db_prof_disc, path):
@@ -214,19 +141,9 @@ def carregar_dados(db_prof_disc, path):
     """
     if existe_arquivo(path):
         arq = open(path, "r", encoding="utf-8")
-
         for linha in arq:
             registro, sigla_disciplina, ano, semestre, dias_da_semana, horarios_inicio, nome_do_curso = linha.strip().split(";")
-
-            if registro not in db_prof_disc:
-                db_prof_disc[registro] = {}
-
-            db_prof_disc[registro][(sigla_disciplina, ano, semestre)] = {
-            "dias_da_semana": dias_da_semana.split(','),
-            "horarios_inicio": horarios_inicio.split(','),
-            "curso": nome_do_curso
-            }
-
+            incluir_dados(db_prof_disc, registro, sigla_disciplina, ano, semestre, dias_da_semana.split(','), horarios_inicio.split(','), nome_do_curso)
         arq.close()
 
 def submenu_prof_disc():
@@ -268,53 +185,56 @@ def executa(db_prof_disc, db_professores, db_disciplinas, path):
     db_disciplinas (dict): Dicionário contendo o banco de dados de disciplinas.
     path (str): O caminho do arquivo onde os dados serão gravados.
     """
-    while True:
-        opt = submenu_prof_disc()
+    opt_submenu = 1
+    while opt_submenu != 6:
+        opt_submenu = submenu_prof_disc()
 
-        if opt == 1:
-            listar_todas_aulas(db_prof_disc)
-#######################
-        elif opt == 2:
-            registro = input("Digite o Registro Funcional: ")
-            if not listar_atributos_aula(db_prof_disc, registro):
-                print("Erro: Essa aula ainda não foi cadastrada no banco de dados professores-disciplinas.")
+        if opt_submenu == 1:
+            print("Listando todas as aulas cadastradas...\n")
+            if not listar_todas_aulas(db_prof_disc):
+                print("Erro: Nenhuma aula cadastrada.")
+            
+        elif opt_submenu == 2:
+            print("Listando os dados de uma determinada aula cadastrada...\n")
+            if not listar_atributos_aula(db_prof_disc, *entrar_chaves()):
+                print("Erro: Não foi possível localizar os dados desta aula.")
 
-        elif opt == 3:
-            retorno = inserir_prof_disc(db_prof_disc, db_professores, db_disciplinas)
-
-            if retorno == 0:
-                print("Erro: Já existe um cadastrado dessa aula no banco de dados.")
-            elif retorno == -1:
-                print("Erro: Esse registro funcional ainda não foi cadastrado no banco de dados de professores.")
-            elif retorno == -2:
-                print("Erro: Essa sigla da disciplina não consta no banco de dados de disciplinas.")
-            else:
-                print("Aula cadastrada com sucesso.")
-
-        elif opt == 4:
-            retorno = alterar_cadastro(db_prof_disc)
+        elif opt_submenu == 3:
+            print("Inserindo uma nova aula...\n")
+            registro, sigla, ano, semestre = entrar_chaves()
+            retorno = inserir_prof_disc(db_prof_disc, db_professores, db_disciplinas, registro, sigla, ano, semestre)
 
             if retorno == 0:
-                print("Alteração cancelada!")
+                print("Erro: Registro funcional ou sigla da disciplina inexistente.")
             elif retorno == -1:
-                print("Erro: Esse registro funcional ainda não foi cadastrado no banco de dados de professores.")
-            elif retorno == -2:
-                print("Erro: Essa aula ainda não foi cadastrada no banco de dados professores-disciplinas.")
+                print("Erro: Já existe um cadastro para esta aula.")
             else:
-                print("Dados da aula alterado com sucesso.")
+                print("Sucesso: Aula cadastrada com sucesso.")
 
-        elif opt == 5:
-            retorno = remover_prof_disc(db_prof_disc)
+        elif opt_submenu == 4:
+            print("Alterando os dados de uma aula cadastrada...\n")
+            registro, sigla, ano, semestre = entrar_chaves()
+            retorno = alterar_cadastro(db_prof_disc, registro, sigla, ano, semestre)
 
             if retorno == 0:
-                print("Remoção cancelada!")
+                print("Erro: Não foi possível localizar os dados desta aula.")
             elif retorno == -1:
-                print("Erro: Esse registro funcional ainda não foi cadastrado no banco de dados de professores.")
-            elif retorno == -2:
-                print("Erro: Essa aula ainda não foi cadastrada no banco de dados professores-disciplinas.")
+                print("Aviso: Alteração cancelada pelo usuário.")
             else:
-                print("Aula removida com sucesso!")
-                
-        elif opt == 6:
-            gravar_dados(db_prof_disc, path)
-            return
+                print("Sucesso: Dados da aula alterados com sucesso.")
+
+        elif opt_submenu == 5:
+            print("Excluindo uma aula cadastrada...\n")
+            registro, sigla, ano, semestre = entrar_chaves()
+            retorno = remover_prof_disc(db_prof_disc, registro, sigla, ano, semestre)
+
+            if retorno == 0:
+                print("Erro: Não foi possível localizar os dados desta aula.")
+            elif retorno == -1:
+                print("Aviso: Remoção cancelada pelo usuário.")
+            else:
+                print("Sucesso: Aula removida com sucesso.")
+
+        # Salva os dados após cada operação e encerra o submenu 
+        gravar_dados(db_prof_disc, path)
+    print("Voltando ao menu principal...")

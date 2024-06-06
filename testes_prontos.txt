@@ -29,6 +29,37 @@ Doutorado
 Universidade
 carlao2005@ifsp.edu.br
 (11) 97777-1234
+
+1003
+Renata Silva
+02/02/1980
+F
+Inteligência Artificial
+Mestrado
+Unicamp
+renata.silva@ifsp.edu.br, renata.ai@unicamp.br
+(19) 99999-0000, (19) 97777-4444
+
+1004
+Paulo Almeida
+05/05/1975
+M
+Banco de Dados
+Mestrado
+USP
+paulo.almeida@ifsp.edu.br
+(11) 98888-2222
+
+1005
+Mariana Couto
+15/08/1985
+F
+Redes de Computadores
+Doutorado
+Unicamp
+mariana.couto@ifsp.edu.br
+(19) 97777-5555, (11) 93333-6666
+
 --------------------------------------------------
 
 ############ Disciplinas ############
@@ -53,6 +84,27 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae blandit risus
 Proin sed odio tincidunt, porta arcu vel, iaculis arcu.
 100
 100h
+
+SCLIA01
+Introdução à Inteligência Artificial
+A disciplina introduz os conceitos fundamentais de Inteligência Artificial, cobrindo técnicas básicas e aplicações.
+RUSSELL, Stuart; NORVIG, Peter. Inteligência artificial. 3. ed. Rio de Janeiro: Elsevier, 2013.
+80
+80h
+
+SCLBD02
+Modelagem de Banco de Dados
+A disciplina aborda os princípios e técnicas de modelagem de dados, com foco em banco de dados relacionais.
+DATE, C.J. Introdução a sistemas de bancos de dados. 8. ed. São Paulo: Pearson, 2004.
+60
+60h
+
+SCLRED1
+Redes de Computadores
+A disciplina cobre os conceitos básicos e avanços recentes em redes de computadores, incluindo protocolos e arquitetura de redes.
+TANENBAUM, Andrew S.; WETHERALL, David J. Redes de computadores. 5. ed. São Paulo: Pearson, 2011.
+90
+90h
 
 --------------------------------------------------
 
@@ -81,5 +133,29 @@ SCLAPR1
 Terça-Feira, Quinta-Feira
 8h-11h30, 8h-9h30
 Bacharelado de Engenharia de Software
+
+1003
+SCLIA01
+2024
+1
+Segunda-Feira
+14h-17h30
+Bacharelado de Engenharia de Computação
+
+1004
+SCLBD02
+2024
+1
+Terça-Feira
+8h-11h30
+Bacharelado de Sistemas de Informação
+
+1005
+SCLRED1
+2024
+2
+Sexta-Feira
+13h-16h30
+Bacharelado de Engenharia de Redes
 
 --------------------------------------------------
