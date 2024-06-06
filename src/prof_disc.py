@@ -21,32 +21,19 @@ def incluir_dados(db_prof_disc, registro, sigla_disciplina, ano, semestre, dias_
         "curso": nome_do_curso
     }
 
-def inserir_prof_disc(db_prof_disc, db_professores, db_disciplinas):
-    """
-    Insere um novo registro no banco de dados de professores-disciplinas.
+def verificar_dados(db_professores, db_disciplinas, registro, sigla):
+    if registro in db_professores and sigla in db_disciplinas:
+        return True
+    return False
 
-    Parametros:
-    db_prof_disc (dict): Dicionário contendo o banco de dados de professores-disciplinas.
-    db_professores (dict): Dicionário contendo o banco de dados de professores.
-    db_disciplinas (dict): Dicionário contendo o banco de dados de disciplinas.
+def inserir_prof_disc(db_prof_disc, db_professores, db_disciplinas, registro, sigla, ano, semestre):
 
-    Retorna:
-    int: 1 se o registro foi inserido com sucesso, -1 se o registro funcional não existe no banco de dados de professores, -2 se a sigla da disciplina não existe no banco de dados de disciplinas, 0 se o registro já existe no banco de dados de professores-disciplinas.
-    """
-    registro = entrada_registro()
-    if not registro:
-        return -1 # Registro não existente no db_professores
-    
-    db_prof_disc[registro] = {}
-
-    sigla, ano, semestre = entrada_chaves()
-    if not (sigla and ano and semestre):
-        return -2 # Sigla não existente no db_disciplinas
-    
-    if (sigla, ano, semestre) not in db_prof_disc[registro]:
-        incluir_dados(db_prof_disc, registro, sigla, ano, semestre, entrada_atributos())
-        return 1 # Cadastrado com sucesso no db_prof_disc
-    return 0 # Cadastro já existe no prof_disc
+    if verificar_dados(db_professores, db_disciplinas, registro, sigla):
+        if (registro, sigla, ano, semestre) not in db_prof_disc:
+            incluir_dados(db_prof_disc, registro, sigla, ano, semestre, *entrar_atributos())
+            return 1  # Cadastrado com sucesso no db_prof_disc
+        return -1  # Cadastro já existe no prof_disc
+    return 0  # Registro funcional e/ou sigla da disciplina inexistente no db_professores/db_disciplinas.
    
 def listar_todas_aulas(db_prof_disc):
     """
