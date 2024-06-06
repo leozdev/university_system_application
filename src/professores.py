@@ -6,7 +6,7 @@ def entrar_dados():
     Solicita ao usuário que insira os dados de um professor.
 
     Retorna:
-        list: Lista contendo as seguintes informações do professor:
+        tuple: Tupla contendo as seguintes informações do professor:
             - nome (str): Nome completo do professor.
             - data_nasc (str): Data de nascimento do professor (DD/MM/AAAA).
             - sexo (str): Sexo do professor (F/M).
@@ -25,19 +25,24 @@ def entrar_dados():
     emails = input("Digite os E-mails (separados por vírgula-espaço): ").split(", ")
     telefones = input("Digite os Telefones (separados por vírgula-espaço): ").split(", ")
     
-    return [nome, data_nasc, sexo, area, titulacao, graduacao, emails, telefones]
+    return (nome, data_nasc, sexo, area, titulacao, graduacao, emails, telefones)
 
-def incluir_dados(db_professores, registro, dados):  
+def incluir_dados(db_professores, registro, nome, data_nasc, sexo, area, titulacao, graduacao, emails, telefones):  
     """
     Inclui os dados de um professor no banco de dados.
 
     Parâmetros:
         db_professores (dict): O banco de dados de professores.
         registro (str): O registro funcional do professor.
-        dados (list): A lista de dados do professor.
+        nome (str): Nome completo do professor.
+        data_nasc (str): Data de nascimento do professor (DD/MM/AAAA).
+        sexo (str): Sexo do professor (F/M).
+        area (str): Área de pesquisa do professor.
+        titulacao (str): Titulação do professor.
+        graduacao (str): Graduação do professor.
+        emails (list): Lista de e-mails do professor.
+        telefones (list): Lista de telefones do professor.
     """  
-    nome, data_nasc, sexo, area, titulacao, graduacao, emails, telefones = dados
-
     db_professores[registro] = {
         "nome": nome,
         "data-nascimento": data_nasc,
@@ -61,7 +66,7 @@ def inserir_professor(db_professores, registro):
         bool: True se o professor foi inserido com sucesso, False se o registro já existe.
     """
     if registro not in db_professores:
-        incluir_dados(db_professores, registro, entrar_dados())
+        incluir_dados(db_professores, registro, *entrar_dados())
         return True # Registro foi cadastrado
     return False # Registro já está cadastrado
 
@@ -72,11 +77,15 @@ def listar_todos_professores(db_professores):
     Parâmetros:
         db_professores (dict): O banco de dados de professores.
     """
+    if len(db_professores) < 1:
+        return False
+    
+    print("Professores:\n")
     for registro in db_professores:
         print("-" * 30)
-        print("Registro Funcional:", registro)
+        print(f"Registro Funcional: {registro}")
         listar_atributos_professor(db_professores, registro)
-
+    return True
 def listar_atributos_professor(db_professores, registro):
     """
     Lista os atributos de um professor específico.
@@ -90,14 +99,14 @@ def listar_atributos_professor(db_professores, registro):
     """
     if registro in db_professores:
         atributos = db_professores[registro]
-        print("\nNome:", atributos['nome'])
-        print("Data de Nascimento:", atributos['data-nascimento'])
-        print("Sexo:", atributos['sexo'])
-        print("Área de Pesquisa:", atributos['area-de-pesquisa'])
-        print("Titulação:", atributos['titulacao'])
-        print("Graduação:", atributos['graduacao'])
-        print("E-mails:", ", ".join(atributos['emails']))
-        print("Telefones:", ", ".join(atributos['telefones']))
+        print(f"\nNome: {atributos['nome']}")
+        print(f"Data de Nascimento: {atributos['data-nascimento']}")
+        print(f"Sexo: {atributos['sexo']}")
+        print(f"Área de Pesquisa: {atributos['area-de-pesquisa']}")
+        print(f"Titulação: {atributos['titulacao']}")
+        print(f"Graduação: {atributos['graduacao']}")
+        print(f"E-mails: {', '.join(atributos['emails'])}")
+        print(f"Telefones: {', '.join(atributos['telefones'])}")
         return True # Tudo ocorreu bem
     return False # Registro não encontrado
 
@@ -113,8 +122,9 @@ def alterar_dados_professor(db_professores, registro):
         int: 1 se os dados foram alterados com sucesso, -1 se a alteração foi cancelada, 0 se o registro não foi encontrado.
     """
     if registro in db_professores:
+        dados = entrar_dados()
         if confirmar('alterar'):
-            incluir_dados(db_professores, registro)
+            incluir_dados(db_professores, registro, *dados)
             return 1 # Alterado
         return -1 # Alteração Cancelada
     return 0 # Registro não encontrado
@@ -171,8 +181,8 @@ def carregar_dados(db_professores, path):
         arq = open(path, "r", encoding="utf-8")
         for linha in arq:
             registro, nome, data_nasc, sexo, area, titulacao, graduacao, emails, telefones = linha.strip().split(";")
-            dados = [nome, data_nasc, sexo, area, titulacao, graduacao, emails.split(","), telefones.split(",")]
-            incluir_dados(db_professores, registro, dados)
+
+            incluir_dados(db_professores, registro, nome, data_nasc, sexo, area, titulacao, graduacao, emails.split(","), telefones.split(","))
         arq.close()
         
 def submenu_professores():
@@ -211,50 +221,56 @@ def executa(db_professores, path):
     Parâmetros:
         db_professores (dict): O banco de dados de professores.
         path (str): O caminho do arquivo onde os dados dos professores serão salvos.
-    """ 
+    """
     opt_submenu = 1
     while opt_submenu != 6:
         opt_submenu = submenu_professores()
 
         if opt_submenu == 1:
-            print("Todos os professores cadastrados:\n")
-            listar_todos_professores(db_professores)
+            print("Listando todos os professores cadastrados...\n")
+            if not listar_todos_professores(db_professores):
+                print("Erro: Nenhum professor cadastrado.")
 
         elif opt_submenu == 2:
+            print("Listando os dados de um determinado professor cadastrado...\n")
             registro = input("Digite o Registro Funcional que deseja listar os dados: ")
             
             if not listar_atributos_professor(db_professores, registro):
-                print("Erro: Esse registro funcional não consta no banco de dados de professores.")
+                print("Erro: Não foi possível localizar os dados do registro funcional.")
 
         elif opt_submenu == 3:
+            print("Inserindo um novo professor...\n")
             registro = input("Digite o Registro Funcional: ")
 
             if inserir_professor(db_professores, registro):
-                print("Professor cadastrado com sucesso.")
+                print("Sucesso: Professor cadastrado com sucesso.")
             else:
-                print("Erro: Já existe um cadastrado com esse registro funcional no banco de dados.")
-        
+                print("Erro: Já existe um cadastro com esse registro funcional.")
+
         elif opt_submenu == 4:
+            print("Alterando os dados de um professor cadastrado...\n")
             registro = input("Digite o Registro Funcional que deseja alterar os dados: ")
 
             retorno = alterar_dados_professor(db_professores, registro)
             if retorno == 1:
-                print("Dados do professor alterado com sucesso.")
+                print("Sucesso: Dados do professor alterados com sucesso.")
             elif retorno == -1:
-                print("Alteração cancelada!")
+                print("Aviso: Alteração cancelada pelo usuário.")
             else:
-                print("Erro: Esse registro funcional não consta no banco de dados de professores.")
+                print("Erro: Não foi possível localizar os dados do registro funcional.")
 
         elif opt_submenu == 5:
+            print("Removendo um professor cadastrado...\n")
             registro = input("Digite o Registro Funcional que deseja remover os dados: ")
 
             retorno = remover_professor(db_professores, registro)
             if retorno == 1:
-                print("Professor removido com sucesso.")
+                print("Sucesso: Professor removido com sucesso.")
             elif retorno == -1:
-                print("Remoção cancelada!")
+                print("Aviso: Remoção cancelada pelo usuário.")
             else:
-                print("Erro: Esse registro funcional não consta no banco de dados de professores.")
-        
+                print("Erro: Não foi possível localizar os dados do registro funcional.")
+
         # Salva os dados após cada operação e encerra o submenu 
         gravar_dados(db_professores, path)
+    print("Voltando ao menu principal...")
