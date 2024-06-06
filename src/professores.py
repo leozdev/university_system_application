@@ -76,6 +76,9 @@ def listar_todos_professores(db_professores):
 
     Parâmetros:
         db_professores (dict): O banco de dados de professores.
+
+    Retorna:
+        bool: True se existe algum dado no banco de dados, False caso contrário.
     """
     if len(db_professores) < 1:
         return False

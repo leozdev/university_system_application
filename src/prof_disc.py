@@ -40,10 +40,10 @@ def listar_todas_aulas(db_prof_disc):
     Lista todas as aulas cadastradas por professor.
 
     Parametros:
-    db_prof_disc (dict): Dicionário contendo o banco de dados de professores-disciplinas.
+        db_prof_disc (dict): Dicionário contendo o banco de dados de professores-disciplinas.
 
     Retorna:
-    # bool: True se existe algum dado no banco de dados, False caso contrário.
+        bool: True se existe algum dado no banco de dados, False caso contrário.
     """
     if len(db_prof_disc) < 1:
         return False
@@ -59,11 +59,11 @@ def listar_atributos_aula(db_prof_disc, registro, sigla, ano, semestre):
     Lista os atributos de uma aula específica.
 
     Parametros:
-    db_prof_disc (dict): Dicionário contendo o banco de dados de professores-disciplinas.
-    registro (str): O registro funcional do professor.
+        db_prof_disc (dict): Dicionário contendo o banco de dados de professores-disciplinas.
+        registro (str): O registro funcional do professor.
 
     Retorna:
-    bool: True se o conjunto chaves foi encontrado e os atributos listados, False caso contrário.
+        bool: True se o conjunto chaves foi encontrado e os atributos listados, False caso contrário.
     """
     if (registro, sigla, ano, semestre) in db_prof_disc:
         atributos = db_prof_disc[(registro, sigla, ano, semestre)]
@@ -101,8 +101,8 @@ def gravar_dados(db_prof_disc, path):
     Grava os dados do banco de dados de professores-disciplinas em um arquivo.
 
     Parametros:
-    db_prof_disc (dict): Dicionário contendo o banco de dados de professores-disciplinas.
-    path (str): O caminho do arquivo onde os dados serão gravados.
+        db_prof_disc (dict): Dicionário contendo o banco de dados de professores-disciplinas.
+        path (str): O caminho do arquivo onde os dados serão gravados.
     """
     arq =  open(path, "w", encoding="utf-8")
     for conjunto_chaves in db_prof_disc:
@@ -123,8 +123,8 @@ def carregar_dados(db_prof_disc, path):
     Carrega os dados do arquivo para o banco de dados de professores-disciplinas.
 
     Parametros:
-    db_prof_disc (dict): Dicionário contendo o banco de dados de professores-disciplinas.
-    path (str): O caminho do arquivo de onde os dados serão carregados.
+        db_prof_disc (dict): Dicionário contendo o banco de dados de professores-disciplinas.
+        path (str): O caminho do arquivo de onde os dados serão carregados.
     """
     if existe_arquivo(path):
         arq = open(path, "r", encoding="utf-8")
@@ -138,7 +138,7 @@ def submenu_prof_disc():
     Exibe o menu de gerenciamento de professores-disciplinas e solicita uma opção do usuário.
 
     Retorna:
-    int: A opção selecionada pelo usuário.
+        int: A opção selecionada pelo usuário.
     """
     while True:
         input("\nPressione [enter] para continuar...")
@@ -167,10 +167,10 @@ def executa(db_prof_disc, db_professores, db_disciplinas, path):
     Executa o menu de gerenciamento de professores-disciplinas.
 
     Parametros:
-    db_prof_disc (dict): Dicionário contendo o banco de dados de professores-disciplinas.
-    db_professores (dict): Dicionário contendo o banco de dados de professores.
-    db_disciplinas (dict): Dicionário contendo o banco de dados de disciplinas.
-    path (str): O caminho do arquivo onde os dados serão gravados.
+        db_prof_disc (dict): Dicionário contendo o banco de dados de professores-disciplinas.
+        db_professores (dict): Dicionário contendo o banco de dados de professores.
+        db_disciplinas (dict): Dicionário contendo o banco de dados de disciplinas.
+        path (str): O caminho do arquivo onde os dados serão gravados.
     """
     opt_submenu = 1
     while opt_submenu != 6:
