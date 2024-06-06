@@ -119,23 +119,23 @@ def buscar_disciplina_dias(db_prof_disc, db_professores, db_disciplinas, path_re
     escrever_cabecalho_relatorio(arq, titulo=f"Disciplinas que serão ministradas às terças-feiras e às quintas-feiras", subtitulo="Informações:")
     
     existe = False
-    for registro in db_prof_disc:
-        for conjunto_chaves, atributos in db_prof_disc[registro].items():
-            sigla, ano, semestre = conjunto_chaves
+    for conjunto_chaves in db_prof_disc:
+        registro, sigla, ano, semestre = conjunto_chaves
+        atributos = db_prof_disc[conjunto_chaves]
 
-            if "Terça-Feira" in atributos["dias_da_semana"] and "Quinta-Feira" in atributos["dias_da_semana"]:
-                existe = True
-                dados = (f"\n\tRegistro Funcional: {registro}\n"
-                         f"\tNome do Professor: {db_professores[registro]['nome']}\n"
-                         f"\tNome da Disciplina: {db_disciplinas[sigla]['nome']}\n"
-                         f"\tSigla da Disciplina: {sigla}\n"
-                         f"\tAno: {ano}\n"
-                         f"\tSemestre: {semestre}\n"
-                         f"\tDias da Semana: {', '.join(atributos['dias_da_semana'])}\n"
-                         f"\tHorários de Início: {', '.join(atributos['horarios_inicio'])}\n"
-                         f"\tCurso: {atributos['curso']}\n"
-                         f"\t{'_' * 30}\n")
-                arq.write(dados)
+        if "Terça-Feira" in atributos["dias_da_semana"] and "Quinta-Feira" in atributos["dias_da_semana"]:
+            existe = True
+            dados = (f"\n\tRegistro Funcional: {registro}\n"
+                        f"\tNome do Professor: {db_professores[registro]['nome']}\n"
+                        f"\tNome da Disciplina: {db_disciplinas[sigla]['nome']}\n"
+                        f"\tSigla da Disciplina: {sigla}\n"
+                        f"\tAno: {ano}\n"
+                        f"\tSemestre: {semestre}\n"
+                        f"\tDias da Semana: {', '.join(atributos['dias_da_semana'])}\n"
+                        f"\tHorários de Início: {', '.join(atributos['horarios_inicio'])}\n"
+                        f"\tCurso: {atributos['curso']}\n"
+                        f"\t{'_' * 30}\n")
+            arq.write(dados)
 
     escrever_rodape_relatorio(arq)
     arq.close()

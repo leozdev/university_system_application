@@ -1,0 +1,52 @@
+======================== Relatório  ========================
+Professores com a titulação 'Doutorado'
+============================================================
+Professores:
+
+	Registro Funcional: 1000
+	Nome: Jorge Curtigi
+	Data de Nascimento: 01/01/1900
+	Sexo: M
+	Área de Pesquisa: Engenharia De Software
+	Titulação: Doutorado
+	Graduação: Usp
+	E-mails: curtigi@ifsp.edu.br, jorge@ifsp.edu.br
+	Telefones: (16) 99999-8888, (11) 97777-7777
+	______________________________
+
+	Registro Funcional: 1001
+	Nome: Eloize Seno
+	Data de Nascimento: 01/01/1900
+	Sexo: F
+	Área de Pesquisa: Processamento De Linguagem Natural
+	Titulação: Doutorado
+	Graduação: Usp
+	E-mails: eloize.seno@ifsp.edu.br
+	Telefones: (11) 99999-3333
+	______________________________
+
+	Registro Funcional: 1002
+	Nome: Carlao
+	Data de Nascimento: 01/01/1900
+	Sexo: M
+	Área de Pesquisa: Desenvolvimento Web
+	Titulação: Doutorado
+	Graduação: Universidade
+	E-mails: carlao2005@ifsp.edu.br
+	Telefones: (11) 97777-1234
+	______________________________
+
+	Registro Funcional: 1005
+	Nome: Mariana Couto
+	Data de Nascimento: 15/08/1985
+	Sexo: F
+	Área de Pesquisa: Redes De Computadores
+	Titulação: Doutorado
+	Graduação: Unicamp
+	E-mails: mariana.couto@ifsp.edu.br
+	Telefones: (19) 97777-5555, (11) 93333-6666
+	______________________________
+
+============================================================
+Relatório gerado em: 06/06/2024 08:52:34
+============================================================

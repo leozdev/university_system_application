@@ -1,0 +1,6 @@
+1000;SCLPPSW;2024;1;Quarta-Feira;8h-11h30;Bacharelado de Engenharia de Software
+1001;SCLAPR1;2024;1;Segunda-Feira,Quinta-Feira;8h-11h30,8h-9h30;Bacharelado de Engenharia de Software
+1001;SCLAPR1;2024;2;Terça-Feira,Quinta-Feira;8h-11h30,8h-9h30;Bacharelado de Engenharia de Software
+1003;SCLIA01;2024;1;Segunda-Feira;14h-17h30;Bacharelado de Engenharia de Computação
+1004;SCLBD02;2024;1;Terça-Feira;8h-11h30;Bacharelado de Sistemas de Informação
+1005;SCLRED1;2024;2;Sexta-Feira;13h-16h30;Bacharelado de Engenharia de Redes
