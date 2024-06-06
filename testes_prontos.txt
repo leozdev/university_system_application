@@ -88,7 +88,7 @@ Proin sed odio tincidunt, porta arcu vel, iaculis arcu.
 SCLIA01
 Introdução à Inteligência Artificial
 A disciplina introduz os conceitos fundamentais de Inteligência Artificial, cobrindo técnicas básicas e aplicações.
-RUSSELL, Stuart; NORVIG, Peter. Inteligência artificial. 3. ed. Rio de Janeiro: Elsevier, 2013.
+RUSSELL, Stuart NORVIG, Peter. Inteligência artificial. 3. ed. Rio de Janeiro: Elsevier, 2013.
 80
 80h
 
@@ -102,7 +102,7 @@ DATE, C.J. Introdução a sistemas de bancos de dados. 8. ed. São Paulo: Pearso
 SCLRED1
 Redes de Computadores
 A disciplina cobre os conceitos básicos e avanços recentes em redes de computadores, incluindo protocolos e arquitetura de redes.
-TANENBAUM, Andrew S.; WETHERALL, David J. Redes de computadores. 5. ed. São Paulo: Pearson, 2011.
+TANENBAUM, Andrew S. WETHERALL, David J. Redes de computadores. 5. ed. São Paulo: Pearson, 2011.
 90
 90h
 
