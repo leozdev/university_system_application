@@ -34,8 +34,6 @@ Uma aplicação para uma Universidade precisa armazenar informações sobre os s
   - Horários de Início
   - Curso
 
-**Atenção:** os atributos grifados são chaves e você **NÃO** deve permitir a inclusão de mais de um cadastro com os mesmos valores para os atributos chaves.
-
 ## Funcionalidades da Aplicação
 
 Utilizando os conhecimentos aprendidos nas aulas, desenvolva um programa em Python que apresente o seguinte menu de opções para o usuário e implemente cada operação usando função. Escolha a estrutura de dados mais apropriada para armazenar os dados de cada entidade descrita anteriormente.
@@ -67,7 +65,9 @@ O Submenu Relatórios deverá ter uma opção para cada um dos relatórios solic
 #### Relatórios
 
 a) Mostrar todos os dados de todos os professores que têm determinada titulação fornecida pelo usuário (mestrado ou doutorado);
+
 b) Mostrar todos os dados de todas as disciplinas que possuem mais do que X créditos;
+
 c) Mostrar o Registro Funcional do Professor, o nome do professor, a Sigla da disciplina, o nome da disciplina e todos os demais atributos de Prof_Disc para aquelas disciplinas que serão ministradas às terças e às quintas feiras de cada semana.
 
 ## Implementação
