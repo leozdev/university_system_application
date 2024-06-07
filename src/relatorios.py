@@ -143,7 +143,7 @@ def buscar_disciplina_dias(db_prof_disc, db_professores, db_disciplinas, path_re
 
 def submenu_relatorios():
     """
-    Exibe o submenu de relatórios e solicita a seleção do usuário.
+    Exibe o submenu de relatórios e solicita ao usuário que selecione uma opção.
 
     O submenu permite ao usuário escolher entre diferentes opções de relatórios a serem gerados, ou voltar ao menu principal.
 
@@ -209,5 +209,6 @@ def executa(db_prof_disc, db_professores, db_disciplinas, path_relatorio_titulac
                 print("Relatório gerado com sucesso!")
             else:
                 print("Não existem disciplinas que serão ministradas às terças e quintas-feiras.")
-
+    
+    # Opção 4 -> Encerra o submenu
     print("Voltando ao menu principal...")

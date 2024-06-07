@@ -67,7 +67,7 @@ def listar_todas_disciplinas(db_disciplinas):
     
     Retorna:
         bool: True se existe algum dado no banco de dados, False caso contrário.
-    """ 
+    """
     if len(db_disciplinas) < 1:
         return False
     
@@ -87,8 +87,8 @@ def listar_atributos_disciplina(db_disciplinas, sigla):
         sigla (str): Sigla da disciplina.
 
     Retorna:
-        bool: True se a disciplina foi encontrada e listada, False caso contrário.
-    """ 
+        bool: True se a sigla da disciplina foi encontrada e os atributos listados, False caso contrário.
+    """
     if sigla in db_disciplinas:
         atributos = db_disciplinas[sigla]
         print("\n\tNome:", atributos['nome'])
@@ -138,7 +138,7 @@ def remover_disciplina(db_disciplinas, sigla):
 
 def gravar_dados(db_disciplinas, path):
     """
-    Grava os dados das disciplinas em um arquivo.
+    Grava os dados do dicinário db_disciplinas em um arquivo.
 
     Parâmetros:
         db_disciplinas (dict): Banco de dados das disciplinas.
@@ -157,7 +157,7 @@ def gravar_dados(db_disciplinas, path):
 
 def carregar_dados(db_disciplinas, path):
     """
-    Carrega os dados das disciplinas de um arquivo.
+    Carrega os dados das disciplinas de um arquivo para o dicionário db_disciplinas.
 
     Parâmetros:
         db_disciplinas (dict): Banco de dados das disciplinas.
@@ -256,6 +256,6 @@ def executa(db_disciplinas, path):
             else:
                 print("Erro: Não foi possível localizar os dados da sigla da disciplina.")
 
-        # Salva os dados após cada operação e encerra o submenu 
-        gravar_dados(db_disciplinas, path)
+    # Opção 6 -> Salva os dados  e encerra o submenu 
+    gravar_dados(db_disciplinas, path)
     print("Voltando ao menu principal...")

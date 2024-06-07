@@ -6,7 +6,7 @@ import os
 
 def menu():
     """
-    Exibe o menu principal e solicita a seleção do usuário.
+    Exibe o menu principal e solicita ao usuário que selecione uma opção.
 
     O menu apresenta opções para navegar por submenus de Professores, Disciplinas, Professores-Disciplinas e Relatórios, 
     ou para sair do programa. Solicita uma entrada do usuário e retorna a opção selecionada.
@@ -38,13 +38,10 @@ def menu():
 
 def main():
     """
-    Executa o programa principal.
+    Executa o menu principal e o submenu correspondente com base na opção selecionada pelo usuário, carregando os dados necessários do arquivo para persistência.
 
     Configura os caminhos para os arquivos de dados de professores, disciplinas, professores-disciplinas e relatórios. 
-    Exibe o menu principal em um loop até que o usuário selecione a opção de sair (opção 5), e navega pelos submenus 
-    carregando e executando as funções apropriadas para cada seção.
     """
-
     # Dados dos Professores
     path_professores = "dados\dados_professores.txt"
     dados_professores = {}
@@ -97,7 +94,8 @@ def main():
             prof_disc.carregar_dados(dados_prof_disc, path_prof_disc)
             # Executa
             relatorios.executa(dados_prof_disc, dados_professores, dados_disciplinas, path_relatorio_titulacoes, path_relatorio_creditos, path_relatorio_dias)
-            
+    
+    # Opção 5 -> Encerra o programa
     print("Encerrando programa...")
 
 if __name__ == "__main__":

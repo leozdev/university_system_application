@@ -99,7 +99,7 @@ def listar_atributos_professor(db_professores, registro):
         registro (str): O registro funcional do professor.
     
     Retorna:
-        bool: True se o registro foi encontrado, False caso contrário.
+        bool: True se o registro foi encontrado e os atributos listados, False caso contrário.
     """
     if registro in db_professores:
         atributos = db_professores[registro]
@@ -275,6 +275,7 @@ def executa(db_professores, path):
             else:
                 print("Erro: Não foi possível localizar os dados do registro funcional.")
 
-        # Salva os dados após cada operação e encerra o submenu 
-        gravar_dados(db_professores, path)
+    
+    # Opção 6 -> Salva os dados  e encerra o submenu 
+    gravar_dados(db_professores, path)
     print("Voltando ao menu principal...")
