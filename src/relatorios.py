@@ -1,7 +1,8 @@
 import os
 from datetime import datetime
 
-#===========================================================================================
+
+# ===========================================================================================
 def escrever_cabecalho_relatorio(arq, titulo, subtitulo):
     """
     Escreve o cabeçalho do relatório no arquivo especificado.
@@ -17,6 +18,7 @@ def escrever_cabecalho_relatorio(arq, titulo, subtitulo):
                  f"{subtitulo}\n")
     arq.write(cabecalho)
 
+
 def escrever_rodape_relatorio(arq):
     """
     Escreve o rodapé do relatório no arquivo especificado.
@@ -29,7 +31,9 @@ def escrever_rodape_relatorio(arq):
               f"Relatório gerado em: {data_hora_formatada}\n"
               f"============================================================\n")
     arq.write(rodape)
-#===========================================================================================
+
+
+# ===========================================================================================
 
 def buscar_professores_titulacao(db_professores, det_titulacao, path_relatorio_titulacoes):
     """
@@ -37,11 +41,11 @@ def buscar_professores_titulacao(db_professores, det_titulacao, path_relatorio_t
 
     Parametros:
         db_professores (dict): O banco de dados de professores.
-        det_titulacao (str): A titulação dos professores a serem listados (ex: Mestrado, Doutorado).
+        det_titulacao (str): A titulação dos professores a serem listados (ex: mestrado, doutorado).
         path_relatorio_titulacoes (str): O caminho do arquivo onde o relatório será salvo.
     
     Retorna:
-        bool: True se existir pelo menos um professor com a titulação especificada, False caso contrário.
+        bool: True se existir pelo menos um professor com a titulação especificada, false caso contrário.
     """
     arq = open(path_relatorio_titulacoes, "w", encoding="utf-8")
     escrever_cabecalho_relatorio(arq, titulo=f"Professores com a titulação '{det_titulacao}'", subtitulo="Professores:")
@@ -66,7 +70,8 @@ def buscar_professores_titulacao(db_professores, det_titulacao, path_relatorio_t
 
     escrever_rodape_relatorio(arq)
     arq.close()
-    return existe # True or False
+    return existe  # True or False
+
 
 def buscar_disciplina_creditos(db_disciplinas, min_creditos, path_relatorio_creditos):
     """
@@ -77,11 +82,12 @@ def buscar_disciplina_creditos(db_disciplinas, min_creditos, path_relatorio_cred
         min_creditos (float): A quantidade mínima de créditos das disciplinas a serem listadas.
         path_relatorio_creditos (str): O caminho do arquivo onde o relatório será salvo.
     
-    Retorna:
-        bool: True se existir pelo menos uma disciplina com a quantidade mínima de créditos especificada, False caso contrário.
+    Retorna: bool: True se existir pelo menos uma disciplina com a quantidade mínima de créditos especificada,
+    False caso contrário.
     """
     arq = open(path_relatorio_creditos, "w", encoding="utf-8")
-    escrever_cabecalho_relatorio(arq, titulo=f"Disciplinas com mais de {min_creditos} créditos", subtitulo="Disciplinas:")
+    escrever_cabecalho_relatorio(arq, titulo=f"Disciplinas com mais de {min_creditos} créditos",
+                                 subtitulo="Disciplinas:")
 
     existe = False
     for sigla in db_disciplinas:
@@ -100,7 +106,8 @@ def buscar_disciplina_creditos(db_disciplinas, min_creditos, path_relatorio_cred
 
     escrever_rodape_relatorio(arq)
     arq.close()
-    return existe # True or False
+    return existe  # True or False
+
 
 def buscar_disciplina_dias(db_prof_disc, db_professores, db_disciplinas, path_relatorio_dias):
     """
@@ -113,11 +120,12 @@ def buscar_disciplina_dias(db_prof_disc, db_professores, db_disciplinas, path_re
         path_relatorio_dias (str): O caminho do arquivo onde o relatório será salvo.
     
     Retorna:
-        bool: True se existir pelo menos uma disciplina ministrada às terças e quintas-feiras, False caso contrário.
+        bool: True se existir pelo menos uma disciplina ministrada às terças e quintas-feiras, false caso contrário.
     """
     arq = open(path_relatorio_dias, "w", encoding="utf-8")
-    escrever_cabecalho_relatorio(arq, titulo=f"Disciplinas que serão ministradas às terças-feiras e às quintas-feiras", subtitulo="Informações:")
-    
+    escrever_cabecalho_relatorio(arq, titulo=f"Disciplinas que serão ministradas às terças-feiras e às quintas-feiras",
+                                 subtitulo="Informações:")
+
     existe = False
     for conjunto_chaves in db_prof_disc:
         registro, sigla, ano, semestre = conjunto_chaves
@@ -126,26 +134,28 @@ def buscar_disciplina_dias(db_prof_disc, db_professores, db_disciplinas, path_re
         if "Terça-Feira" in atributos["dias_da_semana"] and "Quinta-Feira" in atributos["dias_da_semana"]:
             existe = True
             dados = (f"\n\tRegistro Funcional: {registro}\n"
-                        f"\tNome do Professor: {db_professores[registro]['nome']}\n"
-                        f"\tNome da Disciplina: {db_disciplinas[sigla]['nome']}\n"
-                        f"\tSigla da Disciplina: {sigla}\n"
-                        f"\tAno: {ano}\n"
-                        f"\tSemestre: {semestre}\n"
-                        f"\tDias da Semana: {', '.join(atributos['dias_da_semana'])}\n"
-                        f"\tHorários de Início: {', '.join(atributos['horarios_inicio'])}\n"
-                        f"\tCurso: {atributos['curso']}\n"
-                        f"\t{'_' * 30}\n")
+                     f"\tNome do Professor: {db_professores[registro]['nome']}\n"
+                     f"\tNome da Disciplina: {db_disciplinas[sigla]['nome']}\n"
+                     f"\tSigla da Disciplina: {sigla}\n"
+                     f"\tAno: {ano}\n"
+                     f"\tSemestre: {semestre}\n"
+                     f"\tDias da Semana: {', '.join(atributos['dias_da_semana'])}\n"
+                     f"\tHorários de Início: {', '.join(atributos['horarios_inicio'])}\n"
+                     f"\tCurso: {atributos['curso']}\n"
+                     f"\t{'_' * 30}\n")
             arq.write(dados)
 
     escrever_rodape_relatorio(arq)
     arq.close()
-    return existe # True or False
+    return existe  # True or False
+
 
 def submenu_relatorios():
     """
     Exibe o submenu de relatórios e solicita ao usuário que selecione uma opção.
 
-    O submenu permite ao usuário escolher entre diferentes opções de relatórios a serem gerados, ou voltar ao menu principal.
+    O submenu permite ao usuário escolher entre diferentes opções de relatórios a serem gerados, ou voltar ao menu
+    principal.
 
     Retorna:
         int: A opção selecionada pelo usuário (1 a 4).
@@ -170,7 +180,9 @@ def submenu_relatorios():
         except ValueError:
             print("Entrada inválida. Por favor, insira um número.")
 
-def executa(db_prof_disc, db_professores, db_disciplinas, path_relatorio_titulacoes, path_relatorio_creditos, path_relatorio_dias):
+
+def executa(db_prof_disc, db_professores, db_disciplinas, path_relatorio_titulacoes, path_relatorio_creditos,
+            path_relatorio_dias):
     """
     Executa o submenu de relatórios e gera o relatório correspondente com base na opção selecionada pelo usuário.
 
@@ -196,7 +208,7 @@ def executa(db_prof_disc, db_professores, db_disciplinas, path_relatorio_titulac
         elif opt_submenu == 2:
             try:
                 min_creditos = float(input("Digite o número mínimo de créditos: "))
-                
+
                 if buscar_disciplina_creditos(db_disciplinas, min_creditos, path_relatorio_creditos):
                     print("Relatório gerado com sucesso!")
                 else:
@@ -209,6 +221,6 @@ def executa(db_prof_disc, db_professores, db_disciplinas, path_relatorio_titulac
                 print("Relatório gerado com sucesso!")
             else:
                 print("Não existem disciplinas que serão ministradas às terças e quintas-feiras.")
-    
-    # Opção 4 -> Encerra o submenu
+
+    # Opção 4 → Encerra o submenu
     print("Voltando ao menu principal...")

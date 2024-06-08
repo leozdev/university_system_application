@@ -1,6 +1,7 @@
 import os
 from src.auxiliar import existe_arquivo, confirmar
 
+
 def entrar_chaves():
     """
     Solicita ao usuário que insira o registro funcional, a sigla da disciplina, o ano e o semestre.
@@ -14,6 +15,7 @@ def entrar_chaves():
     semestre = input("Digite o Semestre: ")
     return registro, sigla, ano, semestre
 
+
 def entrar_atributos():
     """
     Solicita ao usuário que insira os dias da semana, os horários de início e o nome do curso.
@@ -26,7 +28,9 @@ def entrar_atributos():
     nome_do_curso = input("Digite o Nome do Curso: ")
     return dias_da_semana, horarios_inicio, nome_do_curso
 
-def incluir_dados(db_prof_disc, registro, sigla_disciplina, ano, semestre, dias_da_semana, horarios_inicio, nome_do_curso):
+
+def incluir_dados(db_prof_disc, registro, sigla_disciplina, ano, semestre, dias_da_semana, horarios_inicio,
+                  nome_do_curso):
     """
     Inclui dados de um professor-disciplina no banco de dados.
 
@@ -46,6 +50,7 @@ def incluir_dados(db_prof_disc, registro, sigla_disciplina, ano, semestre, dias_
         "curso": nome_do_curso
     }
 
+
 def verificar_dados(db_professores, db_disciplinas, registro, sigla):
     """
     Verifica se o registro funcional e a sigla da disciplina existem nos bancos de dados de professores e disciplinas.
@@ -62,6 +67,7 @@ def verificar_dados(db_professores, db_disciplinas, registro, sigla):
     if registro in db_professores and sigla in db_disciplinas:
         return True
     return False
+
 
 def inserir_prof_disc(db_prof_disc, db_professores, db_disciplinas, registro, sigla, ano, semestre):
     """
@@ -85,7 +91,8 @@ def inserir_prof_disc(db_prof_disc, db_professores, db_disciplinas, registro, si
             return 1  # Cadastrado com sucesso no db_prof_disc
         return -1  # Cadastro já existe no prof_disc
     return 0  # Registro funcional e/ou sigla da disciplina inexistente no db_professores/db_disciplinas.
-   
+
+
 def listar_todos_prof_disc(db_prof_disc):
     """
     Lista todos os dados dos professores-disciplinas cadastrados.
@@ -98,12 +105,13 @@ def listar_todos_prof_disc(db_prof_disc):
     """
     if len(db_prof_disc) < 1:
         return False
-    
+
     print("Professores-disciplinas:\n")
     for (registro, sigla, ano, semestre) in db_prof_disc:
         print(f"\t{'-' * 30}")
         listar_atributos_prof_disc(db_prof_disc, registro, sigla, ano, semestre)
     return True
+
 
 def listar_atributos_prof_disc(db_prof_disc, registro, sigla, ano, semestre):
     """
@@ -128,9 +136,10 @@ def listar_atributos_prof_disc(db_prof_disc, registro, sigla, ano, semestre):
         print(f"\tDias da Semana: {', '.join(atributos['dias_da_semana'])}")
         print(f"\tHorários de início: {', '.join(atributos['horarios_inicio'])}")
         print(f"\tCurso: {atributos['curso']}")
-        return True 
-    return False 
-    
+        return True
+    return False
+
+
 def alterar_cadastro(db_prof_disc, registro, sigla, ano, semestre):
     """
     Altera os dados de um professor-disciplina cadastrado.
@@ -153,6 +162,7 @@ def alterar_cadastro(db_prof_disc, registro, sigla, ano, semestre):
         return -1  # Alteração cancelada!
     return 0  # Dados não encontrados (Registro ou (sigla, ano, semestre)) no db_prof_disc
 
+
 def remover_prof_disc(db_prof_disc, registro, sigla, ano, semestre):
     """
     Remove os dados de um professor-disciplina cadastrado.
@@ -173,6 +183,7 @@ def remover_prof_disc(db_prof_disc, registro, sigla, ano, semestre):
             return 1  # Removido com sucesso!
         return -1  # Remoção cancelada
     return 0  # Dados não encontrados (Registro ou (sigla, ano, semestre)) no db_prof_disc
+
 
 def gravar_dados(db_prof_disc, path):
     """
@@ -196,6 +207,7 @@ def gravar_dados(db_prof_disc, path):
         arq.write(linha)
     arq.close()
 
+
 def carregar_dados(db_prof_disc, path):
     """
     Carrega os dados do arquivo para o dicionario db_prf_disc.
@@ -207,9 +219,12 @@ def carregar_dados(db_prof_disc, path):
     if existe_arquivo(path):
         arq = open(path, "r", encoding="utf-8")
         for linha in arq:
-            registro, sigla_disciplina, ano, semestre, dias_da_semana, horarios_inicio, nome_do_curso = linha.strip().split(";")
-            incluir_dados(db_prof_disc, registro, sigla_disciplina, ano, semestre, dias_da_semana.split(','), horarios_inicio.split(','), nome_do_curso)
+            registro, sigla_disciplina, ano, semestre, dias_da_semana, horarios_inicio, nome_do_curso = (linha.strip().
+                                                                                                         split(";"))
+            incluir_dados(db_prof_disc, registro, sigla_disciplina, ano, semestre, dias_da_semana.split(','),
+                          horarios_inicio.split(','), nome_do_curso)
         arq.close()
+
 
 def submenu_prof_disc():
     """
@@ -240,6 +255,7 @@ def submenu_prof_disc():
         except ValueError:
             print("Entrada inválida. Por favor, insira um número.")
 
+
 def executa(db_prof_disc, db_professores, db_disciplinas, path):
     """
     Executa o submenu de professores-disciplinas e a função correspondente com base na opção selecionada pelo usuário.
@@ -259,7 +275,7 @@ def executa(db_prof_disc, db_professores, db_disciplinas, path):
             print("Listando todas os professores-disciplinas cadastradas...\n")
             if not listar_todos_prof_disc(db_prof_disc):
                 print("Erro: Nenhum professor-disciplina cadastrado.")
-            
+
         elif opt_submenu == 2:
             print("Listando os dados de um determinado professor-disciplina cadastrada...\n")
             if not listar_atributos_prof_disc(db_prof_disc, *entrar_chaves()):
@@ -300,7 +316,7 @@ def executa(db_prof_disc, db_professores, db_disciplinas, path):
                 print("Aviso: Remoção cancelada pelo usuário.")
             else:
                 print("Sucesso: Professor-disciplina removido com sucesso.")
-    
+
     # Opção 6 -> Salva os dados  e encerra o submenu
     gravar_dados(db_prof_disc, path)
     print("Voltando ao menu principal...")

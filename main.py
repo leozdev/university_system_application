@@ -4,6 +4,7 @@ import src.prof_disc as prof_disc
 import src.relatorios as relatorios
 import os
 
+
 def menu():
     """
     Exibe o menu principal e solicita ao usuário que selecione uma opção.
@@ -36,9 +37,11 @@ def menu():
             print("Entrada inválida. Por favor, insira um número.")
             input("\nPressione [enter] para continuar...")
 
+
 def main():
     """
-    Executa o menu principal e o submenu correspondente com base na opção selecionada pelo usuário, carregando os dados necessários do arquivo para persistência.
+    Executa o menu principal e o submenu correspondente com base na opção selecionada pelo usuário, carregando os
+    dados necessários do arquivo para persistência.
 
     Configura os caminhos para os arquivos de dados de professores, disciplinas, professores-disciplinas e relatórios. 
     """
@@ -49,7 +52,7 @@ def main():
     # Dados das Disciplinas
     path_disciplinas = "dados\dados_disciplinas.txt"
     dados_disciplinas = {}
-    
+
     # Dados das Aulas
     path_prof_disc = "dados\dados_prof_disc.txt"
     dados_prof_disc = {}
@@ -93,10 +96,12 @@ def main():
             disciplinas.carregar_dados(dados_disciplinas, path_disciplinas)
             prof_disc.carregar_dados(dados_prof_disc, path_prof_disc)
             # Executa
-            relatorios.executa(dados_prof_disc, dados_professores, dados_disciplinas, path_relatorio_titulacoes, path_relatorio_creditos, path_relatorio_dias)
-    
-    # Opção 5 -> Encerra o programa
+            relatorios.executa(dados_prof_disc, dados_professores, dados_disciplinas, path_relatorio_titulacoes,
+                               path_relatorio_creditos, path_relatorio_dias)
+
+    # Opção 5 → Encerra o programa
     print("Encerrando programa...")
+
 
 if __name__ == "__main__":
     main()

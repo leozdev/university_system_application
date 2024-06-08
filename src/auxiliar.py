@@ -1,5 +1,6 @@
 import os
 
+
 def existe_arquivo(nome):
     """
     Verifica se um arquivo existe.
@@ -13,7 +14,8 @@ def existe_arquivo(nome):
     if os.path.exists(nome):
         return True
     return False
-    
+
+
 def confirmar(acao):
     """
     Solicita confirmação para uma ação.
